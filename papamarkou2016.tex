@@ -695,15 +695,15 @@ experimentation when choosing a schedule.
 
 For instance, a geometric distribution $\mbox{Geometric}(p)$ could be used for regulating the occurrence of metric updates 
 in AMSMMALA, where $p$ is a tuning parameter giving the probability of making a SMMALA proposal. Setting $p=1/(1+a)$ yields 
-an expected number of $(1-p)/p=a$ AM steps before a first SMMALA proposal is made. This way, the $\mbox{Geometric}(1/(1+a))$ 
+an expected number of $(1-p)/p=a$ AM steps before a new SMMALA proposal is made. This way, the $\mbox{Geometric}(1/(1+a))$ 
 schedule is a stochastic analogue to the deterministic $\mod{a}$ schedule of Algorithm \ref{amsmmala}.
 
-Other samplers with dual proposal mechanism, such as ALSMMALA, do not necessitate regular geometric steps, so it makes sense 
-to exploit local geometric information mostly in the early transient phases of the simulated chain in order to save as much 
-computational time as possible in late stationary phases. A $\mbox{Bernoulli(p(i))}$ distribution comes in handy, leaving
-space for experimentation with the choice of schedule for $p(i)$. The probability $p(i)$ plays a role analogous to the
-temperature in the cooling schedule of simulated annealing. This analogy brings up a prolific body of literature to open up 
-possibilities for scheduling the cooling of probability $p(i)$ of geometric updates.
+Other samplers with dual proposal mechanism, such as ALSMMALA, do not need regular geometric steps, thence it makes sense to 
+exploit local geometric information mostly in the early transient phases of the simulated chain and to reduce computational 
+load via a cheaper proposal in late stationary phases. A $\mbox{Bernoulli(p(i))}$ distribution comes in handy, leaving space 
+for experimentation with the choice of schedule for $p(i)$. The probability $p(i)$ plays a role analogous to temperature in 
+the cooling schedule of simulated annealing. This analogy brings up a prolific body of literature to open up possibilities 
+for scheduling the cooling of probability $p(i)$ of geometric updates.
 
 Table \ref{tab:cooling_schedules} suggests four cooling schedules for $p(i)$, which have been acquired empirically and are 
 variants of temperature schedules previously discussed by \cite{haj__coo} and \cite{nou_and__aco}.
