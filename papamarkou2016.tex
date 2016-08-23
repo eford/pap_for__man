@@ -794,11 +794,23 @@ whence the conclusion follows directly.
 If an exponentially decaying schedule $p(i)$, as described by \eqref{exp_schedule_a}, is used for regulating the choice of 
 proposal kernel at each step of algorithm $A$, then the mean complexity of $A$ becomes
 \begin{equation}
+\label{eq:c_exp}
 C=
 \dfrac{1-\exp{(-a)}}{n_m(1-\exp{(-a/n_m)})}c_1+
 \left(1-\dfrac{1-\exp{(-a)}}{n_m(1-\exp{(-a/n_m)})}\right)c_2.
 \end{equation}
 \end{proposition}
+
+\begin{proof}
+Schedule \eqref{exp_schedule_a} yields the geometric series sum
+\begin{equation}
+\label{eq:c_exp_geom}
+\sum_{i=1}^{n_m}p(i)=
+\sum_{i=1}^{n_m}\exp{(-a(i-1)/n_m)}=
+\dfrac{1-\exp{(-a)}}{1-\exp{(-a/n_m)}}.
+\end{equation}
+Plugging \eqref{eq:c_exp_geom} into \eqref{eq:c} gives \eqref{eq:c_exp}.
+\end{proof}
 
 %% Lemma
 %
