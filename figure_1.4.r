@@ -1,7 +1,7 @@
 OUTDIR <- "./"
 
 alsmmala_complexity <- function(x, a) {
-  (1-exp(-a))*x^3/a+(1-(1-exp(-a)))*x^2
+  (1-exp(-a))*x^3/a+(1-(1-exp(-a))/a)*x^2
 }
 
 x <- seq(0.01, 100, by=0.01)
