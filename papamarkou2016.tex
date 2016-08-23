@@ -745,25 +745,27 @@ $b=0$.
 
 \subsection{Average Complexity}
 
-Computational efficiency involves two aspects of complexity. One is time required to explore state space effectively. The
-other one is complexity in terms of computational cost of a single MCMC iteration. For instance, MALA takes
-$\mathcal{O} (n_{\theta}^{1/3})$ time to explore a state space of size $n_{\theta}$, whereas the cost of a
-single iteration costs $\mathcal{O} (n_{\theta})$.
+The concept of complexity carries three distinct meanings in the context of MCMC. Firstly, MCMC methods need to be tuned so
+as to achieve a balance between proposing large enough jumps and ensuring that a reasonable proportion of jumps are accepted.
+By way of illustration, MALA attains its optimal acceptance rate of $0.574$ as $n_{\theta}\rightarrow\infty$ by setting its
+drift step $\epsilon$ to be in the vicinity of $n_{\theta}^{-1/3}$. Because of this, it is said that the algorithmic
+efficiency of MALA scales $\mathcal{O}(n_{\theta}^{-1/3})$ as the number $n_{\theta}$ of parameters increases.
 
-Of course these complexities are not always known, esp for more complex algorithms. For instance, the average time SMMALA
-takes to explore state space is not known theoretically, but its computational cost per iteration is
-$\mathcal{O} (n_{\theta}^3)$. For this reason, there are alternative metrics that can be evaluated numerically. More
-specifically, the effectiveness of a Monte Carlo algorithm in terms of time required to explore parameter space is quantified
-using the effective sample size (ESS), whereas the computational complexity can be simply quantified in terms of CPU time.
-
-To have an overall measure of computational efficiency, ESS and CPU time are combined by taking their ratio ESS/runtime.
-
-Before proceeding any further, a couple of clarifications are made. Firstly, as elaborated in previous section, complexity 
-of SMMALA is taken to be $\mathcal{O} (n_{\theta}^3)$.
-Furthermore, it is emphasized that the implicit assumption is that the evaluation of log-target is also naively assumed to
-be of same order. Otherwise, for expensive targets (ex requiring numerical solution of differential equations), the 
-complexity is determined by the cost of log-target evaluation and can be of different order. Another way to put it, it is
-assumed that the complexity of log-target is $\mathcal{O} (1)$.
+%Computational efficiency involves two aspects of complexity. One is time required to explore state space effectively. The
+%other one is complexity in terms of computational cost of a single MCMC iteration. For instance, MALA takes
+%$\mathcal{O} (n_{\theta}^{1/3})$ time to explore a state space of size $n_{\theta}$, whereas the cost of a
+%single iteration costs $\mathcal{O} (n_{\theta})$.
+%
+%Of course these complexities are not always known, esp for more complex algorithms. For instance, the average time SMMALA
+%takes to explore state space is not known theoretically, but its computational cost per iteration is
+%$\mathcal{O} (n_{\theta}^3)$. For this reason, there are alternative metrics that can be evaluated numerically. More
+%specifically, the effectiveness of a Monte Carlo algorithm in terms of time required to explore parameter space is quantified
+%using the effective sample size (ESS), whereas the computational complexity can be simply quantified in terms of CPU time.
+%
+%To have an overall measure of computational efficiency, ESS and CPU time are combined by taking their ratio ESS/runtime.
+%
+%Before proceeding any further, a couple of clarifications are made. Firstly, as elaborated in previous section, complexity 
+%of SMMALA is taken to be $\mathcal{O} (n_{\theta}^3)$.
 
 \subsection{Analytically Intractable Geometric Updates}
 
