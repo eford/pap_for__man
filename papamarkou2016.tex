@@ -201,7 +201,7 @@ which case MALA is defined in its conventional form
 \end{equation}
 
 According to the theoretical analysis of \cite{rob_ros__opt}, the optimal scaling $\epsilon$ has been found to be the value 
-of $\epsilon$ which yields a limiting acceptance rate of $0.574$ in high-dimensional parametric spaces 
+of $\epsilon$ which yields a limiting acceptance rate of $57.4\%$ in high-dimensional parametric spaces 
 (as $n_{\theta}\rightarrow\infty$).
 
 \subsection{Manifold Langevin Monte Carlo Algorithms}
@@ -245,6 +245,7 @@ to the choice of scaling for MALA by \cite{rob_ros__opt}.
 \section{Partial Manifold Langevin Metric Updates}
 
 \subsection{Motivation}
+\label{Motivation}
 
 To dissect the incurring computational cost of geometric MCMC methods, it suffices to consider their three common steps
 that dominate computation. In brief, these three steps include sampling from the proposal, evaluating the proposal density,
@@ -750,6 +751,18 @@ as to achieve a balance between proposing large enough jumps and ensuring that a
 By way of illustration, MALA attains its optimal acceptance rate of $0.574$ as $n_{\theta}\rightarrow\infty$ by setting its
 drift step $\epsilon$ to be in the vicinity of $n_{\theta}^{-1/3}$. Because of this, it is said that the algorithmic
 efficiency of MALA scales $\mathcal{O}(n_{\theta}^{-1/3})$ as the number $n_{\theta}$ of parameters increases.
+
+Secondly, the quality of MCMC algorithms is assessed by estimating the effective sample size (ESS) of their simulated chains.
+The ESS of a chain is interpreted as the number of samples in the chain bearing the same amount of variance as the one found 
+in $n_m$ independent samples.
+
+A third criterion for assessing MCMC methods is their computational cost.
+This criterion corresponds to the ordinary concept of algorithmic complexity as it entails a count of numerical operations
+performed by an MCMC algorithm. To give an example, the computational complexity of MALA is $\mathcal{O}(n_{\theta})$ due to 
+gradient flow calculations, as explained in Section \ref{Motivation}.
+
+%givesestimator of the population mean is the number n effn_{eff} with the property that our estimator has the same 
+%precision (or variance) as the estimator got by sampling n effn_{eff} independent individuals.
 
 %Computational efficiency involves two aspects of complexity. One is time required to explore state space effectively. The
 %other one is complexity in terms of computational cost of a single MCMC iteration. For instance, MALA takes
