@@ -309,8 +309,25 @@ inversion in $\mathcal{O}(n_\theta^{2.373})$ time. Consequently, optimized imple
 $\mathcal{O}(2n_\theta^3+2n_\theta^{2.373})$ and $\mathcal{O}(n_\theta^3+2n_\theta^{2.373})$ time, respectively.
 
 Since the preconditioning matrix $G$, its inverse $G^{-1}$ and the Cholesky decomposition $\sqrt{G^{-1}}$ are cached upon 
-initialization for MALA, the gradient $\nabla_{\theta}\log{p(\boldsymbol{\theta})}$  of the log-target dictates the upper
-bound of complexity for MALA. Thus, the complexity of MALA is $\mathcal{O}(n_{\theta})$.
+initialization for MALA, the quadratic form
+$
+(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star})'
+G^{-1}
+(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star})
+$
+in the normal proposal density dictates a time complexity of $\mathcal{O}(n_{\theta}^2)$ for MALA. If $G$ is set to be the 
+identity matrix, then
+$
+(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star})'
+G^{-1}
+(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star})
+$
+reduces to the inner product
+$
+\langle\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star},
+\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star}\rangle
+$. This inner product and the gradient $\nabla_{\theta}\log{p(\boldsymbol{\theta})}$  of the log-target have a complexity of 
+$\mathcal{O}(n_{\theta})$ each. So, if $G=I$, the complexity of MALA is of order $\mathcal{O}(n_{\theta})$.
 
 An implicit assumption made for all the complexity bounds of this section is that the log-target evaluations do not
 exceed the complexity of the associated samplers. Of course there are models for which such assumption is not plausible.
@@ -760,8 +777,9 @@ in $n_m$ independent samples.
 
 A third criterion for assessing MCMC methods is their computational time.
 This criterion corresponds to the ordinary concept of algorithmic complexity as it entails a count of numerical operations
-performed by an MCMC algorithm. To give an example, the computational complexity of MALA is $\mathcal{O}(n_{\theta})$ due to 
-gradient flow calculations, as explained in Section \ref{Motivation}.
+performed by an MCMC algorithm. To give an example, the computational complexity of MALA is of order
+$\mathcal{O}(n_{\theta}^2)$ or $\mathcal{O}(n_{\theta})$ depending on the choice of preconditioning matrix, as explained in 
+Section \ref{Motivation}.
 
 Of these three indicators of algorithmic complexity, ESS and computational runtime are the ones typically used for
 understanding the range of applicability of MCMC methods. To get a single-number summary, the ratio of ESS over runtime is
@@ -783,7 +801,7 @@ complexity of $A$ is given by
 \end{theorem}
 
 \begin{proof}
-The expected number of times that the proposal kernel of algorithm $A_1$ is invoked is given by 
+The expected number of invocations of the proposal kernel associated with algorithm $A_1$ equals 
 \begin{equation*}
 E\left(\sum_{i=1}^{n_m}B(i)\right)=\sum_{i=1}^{n_m}E(B(i))=\sum_{i=1}^{n_m}p(i),
 \end{equation*}
@@ -855,14 +873,14 @@ the exponentially decaying schedule defined by \eqref{exp_schedule_a} is
 \label{eq:c_alsmmala_exp}
 \mathcal{O}\left(
 \dfrac{1-\exp{(-a)}}{a}n_{\theta}^3+
-\left(1-\dfrac{1-\exp{(-a)}}{a}\right)n_{\theta}
+\left(1-\dfrac{1-\exp{(-a)}}{a}\right)n_{\theta}^2
 \right).
 \end{equation}
 \end{lemma}
 
 \begin{proof}
 \eqref{eq:c_alsmmala_exp} follows from \eqref{eq:c_exp_limit} by recalling that the respective complexities of SMMALA and 
-MALA are $\mathcal{O}(n_{\theta}^3)$ and $\mathcal{O}(n_{\theta})$.
+MALA are $\mathcal{O}(n_{\theta}^3)$ and $\mathcal{O}(n_{\theta}^2)$.
 \end{proof}
 
 \begin{lemma}
