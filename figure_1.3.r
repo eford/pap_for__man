@@ -64,14 +64,14 @@ lines(
   x,
   quad_cool(x, ntot, 30, 0),
   col=cols[3],
-  lwd=3
+  lwd=2
 )
 
 lines(
   x,
   log_cool(x, ntot, 30, 0),
   col=cols[4],
-  lwd=4
+  lwd=2
 )
 
 legend(

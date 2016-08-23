@@ -308,6 +308,10 @@ optimized versions of the Coppersmith-Winograd algorithm allow to perform matrix
 inversion in $\mathcal{O}(n_\theta^{2.373})$ time. Consequently, optimized implementations of MMALA and SMMALA can run in
 $\mathcal{O}(2n_\theta^3+2n_\theta^{2.373})$ and $\mathcal{O}(n_\theta^3+2n_\theta^{2.373})$ time, respectively.
 
+A detailed account of the time complexity of SMMALA has been given to highlight the main sources of computational load
+involved in geometric updates. In what follows, scaling factors and constants will be suppressed in big-$\mathcal{O}$ 
+notation following common practice.
+
 Since the preconditioning matrix $G$, its inverse $G^{-1}$ and the Cholesky decomposition $\sqrt{G^{-1}}$ are cached upon 
 initialization for MALA, the quadratic form
 $
@@ -898,6 +902,20 @@ The expected complexity of AMSMMALA, as defined in Algorithm \ref{amsmmala}, is
 Setting $c1=n_{\theta}^3$ and $c_2=n_{\theta}^2$ in \eqref{eq:c_mod}, which correspond to the complexity orders of SMMALA 
 and AM, gives \eqref{eq:c_amsmmala_mod}.
 \end{proof}
+
+\begin{figure}[t]
+	\centering
+	\subfloat[ALSMMALA]{
+		\label{fig:alsmmala_exp_schedule}
+		\includegraphics[width=2.3in]{alsmmala_complexity.pdf}
+	}
+	\subfloat[AMSMMALA]{
+		\label{fig:amsmmala_mod_schedule}
+		\includegraphics[width=2.3in]{amsmmala_complexity.pdf}
+	} \\
+	\caption{Caption to be added}
+	\label{fig:alsmmala_amsmmala_schedule}
+\end{figure}
 
 %The schedule plays a decisive role in the overall complexity. The decaying rate a gives a way of tuning the complexity.
 %Obviously a determines the runtime vs frequency of geometric updates trade-off.
