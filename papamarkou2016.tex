@@ -867,8 +867,8 @@ made via $c_1$ is $1/a$, which completes the proof.
 \end{proof}
 
 \begin{lemma}
-For a large number $n_m$ of iterations ($n_m\rightarrow\infty$), the mean complexity of an ALSMMALA sampler equipped with 
-the exponentially decaying schedule defined by \eqref{exp_schedule_a} is
+For a large number $n_m$ of iterations ($n_m\rightarrow\infty$), the expected complexity of ALSMMALA, as presented in 
+Algorithm \ref{alsmmala} and equipped with the exponentially decaying schedule defined by \eqref{exp_schedule_a}, is given by
 \begin{equation}
 \label{eq:c_alsmmala_exp}
 \mathcal{O}\left(
@@ -884,7 +884,7 @@ MALA are $\mathcal{O}(n_{\theta}^3)$ and $\mathcal{O}(n_{\theta}^2)$.
 \end{proof}
 
 \begin{lemma}
-The expected complexity of AMSMMALA, as presented in Algorithm \ref{amsmmala}, is
+The expected complexity of AMSMMALA, as defined in Algorithm \ref{amsmmala}, is
 \begin{equation}
 \label{eq:c_amsmmala_mod}
 \mathcal{O}\left(
