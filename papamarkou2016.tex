@@ -812,6 +812,24 @@ Schedule \eqref{exp_schedule_a} yields the geometric series sum
 Plugging \eqref{eq:c_exp_geom} into \eqref{eq:c} gives \eqref{eq:c_exp}.
 \end{proof}
 
+\begin{lemma}
+For sufficiently large number $n_m$ of MCMC iterations ($n_m\rightarrow\infty$), the mean complexity of an algorithm $A$ 
+with exponentially decaying schedule \eqref{exp_schedule_a} is
+\begin{equation}
+\label{eq:c_exp_limit}
+C=
+\dfrac{1-\exp{(-a)}}{a}c_1+
+\left(1-\dfrac{1-\exp{(-a)}}{a}\right)c_2.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+It suffices to notice that
+\begin{equation}
+\lim_{n_m\to\infty}\dfrac{1-\exp{(-a)}}{n_m(1-\exp{(-a/n_m)})}=\dfrac{1-\exp{(-a)}}{a}.
+\end{equation}
+\end{proof}
+
 %% Lemma
 %
 %For sufficiently large number $n_m$ of MCMC iterations, the mean complexity of an algorithm $A$ with exponentially decaying
