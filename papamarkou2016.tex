@@ -746,7 +746,7 @@ $b=0$.
 \label{fig:cooling_schedules}
 \end{figure}
 
-\subsection{Average Complexity}
+\subsection{Expected Complexity}
 
 The concept of complexity carries three distinct meanings in the context of MCMC. Firstly, MCMC methods need to be tuned so
 as to achieve a balance between proposing large enough jumps and ensuring that a reasonable proportion of jumps are accepted.
@@ -773,10 +773,12 @@ Let $A_1$ and $A_2$ be two MCMC algorithms whose proposal mechanisms have comput
 respectively. A composite MCMC algorithm $A$ conducts a Bernoulli trial
 $B(i)\sim\mbox{Bernoulli}(p(i))~,i\in\left\{1,2,\dots,n_m\right\}$, to take its $i$-th step using the proposal kernel of 
 algorithm $A_1$ with probability $p(i)$, or using the proposal mechanism of $A_2$ with probability $1-p(i)$. The mean 
-complexity $C$ of $A$ is given by
+complexity of $A$ is given by
 \begin{equation}
 \label{eq:c}
-C=\dfrac{\sum_{i=1}^{n_m}p(i)}{n_m}c_1+\dfrac{n_m-\sum_{i=1}^{n_m}p(i)}{n_m}c_2.
+\mathcal{O}\left(
+\dfrac{\sum_{i=1}^{n_m}p(i)}{n_m}c_1+\dfrac{n_m-\sum_{i=1}^{n_m}p(i)}{n_m}c_2
+\right).
 \end{equation}
 \end{theorem}
 
@@ -786,18 +788,17 @@ The expected number of times that the proposal kernel of algorithm $A_1$ is invo
 E\left(\sum_{i=1}^{n_m}B(i)\right)=\sum_{i=1}^{n_m}E(B(i))=\sum_{i=1}^{n_m}p(i),
 \end{equation*}
 whence the conclusion follows directly.
-\end{proof}	
-
-% Proposition
+\end{proof}
 
 \begin{proposition}
 If an exponentially decaying schedule $p(i)$, as described by \eqref{exp_schedule_a}, is used for regulating the choice of 
-proposal kernel at each step of algorithm $A$, then the mean complexity of $A$ becomes
+proposal kernel at each step of algorithm $A$, then the expected complexity of $A$ becomes
 \begin{equation}
 \label{eq:c_exp}
-C=
+\mathcal{O}\left(
 \dfrac{1-\exp{(-a)}}{n_m(1-\exp{(-a/n_m)})}c_1+
-\left(1-\dfrac{1-\exp{(-a)}}{n_m(1-\exp{(-a/n_m)})}\right)c_2.
+\left(1-\dfrac{1-\exp{(-a)}}{n_m(1-\exp{(-a/n_m)})}\right)c_2
+\right).
 \end{equation}
 \end{proposition}
 
@@ -814,12 +815,13 @@ Plugging \eqref{eq:c_exp_geom} into \eqref{eq:c} gives \eqref{eq:c_exp}.
 
 \begin{lemma}
 For sufficiently large number $n_m$ of MCMC iterations ($n_m\rightarrow\infty$), the mean complexity of an algorithm $A$ 
-with exponentially decaying schedule \eqref{exp_schedule_a} is
+with exponentially decaying schedule \eqref{exp_schedule_a} is.
 \begin{equation}
 \label{eq:c_exp_limit}
-C=
+\mathcal{O}\left(
 \dfrac{1-\exp{(-a)}}{a}c_1+
-\left(1-\dfrac{1-\exp{(-a)}}{a}\right)c_2.
+\left(1-\dfrac{1-\exp{(-a)}}{a}\right)c_2
+\right).
 \end{equation}
 \end{lemma}
 
@@ -830,24 +832,55 @@ It suffices to notice that
 \end{equation}
 \end{proof}
 
-%% Lemma
-%
-%For sufficiently large number $n_m$ of MCMC iterations, the mean complexity of an algorithm $A$ with exponentially decaying
-%schedule given by X is
-%
-%% Proposition
-%
-%Either of a $\mod{(a)}$ schedule $p(i)$ or a Geometric schedule with $p=a$ yield a mean complexity
-%for $A$
-%
-%% Lemma
-%
-%ALSMMALA with exponentially decaying $p(i)$ has a mean complexity of
-%
-%% Lemma
-%
-%AMSMMALA has an average complexity of 
-%
+\begin{proposition}
+The mean complexity of an algorithm $A$ with a $\mod{(a)}$ schedule $p(i)$ is
+\begin{equation}
+\label{eq:c_mod}
+\mathcal{O}\left(
+\dfrac{1}{a}c_1+
+\dfrac{a-1}{a} c_2
+\right).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The proposal mechanism of algorithm $c_1$ is called $n_m/a$ times out of $n_m$ iterations. Hence, the proportion of proposals
+made via $c_1$ is $1/a$, which completes the proof.
+\end{proof}
+
+\begin{lemma}
+For a large number $n_m$ of iterations ($n_m\rightarrow\infty$), the mean complexity of an ALSMMALA sampler equipped with 
+the exponentially decaying schedule defined by \eqref{exp_schedule_a} is
+\begin{equation}
+\label{eq:c_alsmmala_exp}
+\mathcal{O}\left(
+\dfrac{1-\exp{(-a)}}{a}n_{\theta}^3+
+\left(1-\dfrac{1-\exp{(-a)}}{a}\right)n_{\theta}
+\right).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+\eqref{eq:c_alsmmala_exp} follows from \eqref{eq:c_exp_limit} by recalling that the respective complexities of SMMALA and 
+MALA are $\mathcal{O}(n_{\theta}^3)$ and $\mathcal{O}(n_{\theta})$.
+\end{proof}
+
+\begin{lemma}
+The expected complexity of AMSMMALA, as presented in Algorithm \ref{amsmmala}, is
+\begin{equation}
+\label{eq:c_amsmmala_mod}
+\mathcal{O}\left(
+\dfrac{1}{a}n_{\theta}^3+
+\dfrac{a-1}{a}n_{\theta}^2
+\right).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Setting $c1=n_{\theta}^3$ and $c_2=n_{\theta}^2$ in \eqref{eq:c_mod}, which correspond to the complexity orders of SMMALA 
+and AM, gives \eqref{eq:c_amsmmala_mod}.
+\end{proof}
+
 %The schedule plays a decisive role in the overall complexity. The decaying rate a gives a way of tuning the complexity.
 %Obviously a determines the runtime vs frequency of geometric updates trade-off.
 %
@@ -855,25 +888,6 @@ It suffices to notice that
 %reducing the value of a increases frequency of geometric updates thus approximating the complexity of the expensive
 %geometric proposal. Increasing the value of a reduces the amount of geometric computation, therefore reducing runtime
 %towards the n and n cost of the respective MALA and AM proposals.
-
-%givesestimator of the population mean is the number n effn_{eff} with the property that our estimator has the same 
-%precision (or variance) as the estimator got by sampling n effn_{eff} independent individuals.
-
-%Computational efficiency involves two aspects of complexity. One is time required to explore state space effectively. The
-%other one is complexity in terms of computational cost of a single MCMC iteration. For instance, MALA takes
-%$\mathcal{O} (n_{\theta}^{1/3})$ time to explore a state space of size $n_{\theta}$, whereas the cost of a
-%single iteration costs $\mathcal{O} (n_{\theta})$.
-%
-%Of course these complexities are not always known, esp for more complex algorithms. For instance, the average time SMMALA
-%takes to explore state space is not known theoretically, but its computational cost per iteration is
-%$\mathcal{O} (n_{\theta}^3)$. For this reason, there are alternative metrics that can be evaluated numerically. More
-%specifically, the effectiveness of a Monte Carlo algorithm in terms of time required to explore parameter space is quantified
-%using the effective sample size (ESS), whereas the computational complexity can be simply quantified in terms of CPU time.
-%
-%To have an overall measure of computational efficiency, ESS and CPU time are combined by taking their ratio ESS/runtime.
-%
-%Before proceeding any further, a couple of clarifications are made. Firstly, as elaborated in previous section, complexity 
-%of SMMALA is taken to be $\mathcal{O} (n_{\theta}^3)$.
 
 \subsection{Analytically Intractable Geometric Updates}
 
@@ -893,14 +907,7 @@ Reference ForwardDiff conference paper, \cite{rev_lub_pap__for}.
 \section{Examples}
 \label{Examples}
 
-To do, what to include in examples (tentative suggestions):
-
-\begin{enumerate}
-	\item Table: acc rate, runtime, ESS (min, median, max), ESS/runtime, speedup
-	\item traceplot
-	\item mean as a function of number of iterations
-	\item correlation plot
-\end{enumerate}
+Mention software
 
 \subsection{Bayesian Logistic Regression}
 
