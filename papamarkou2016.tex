@@ -24,6 +24,8 @@
 \newcommand{\dataset}{{\cal D}}
 \newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
 
+% \newtheorem{proposition}{Proposition}
+
 % Heading arguments are {volume}{year}{pages}{submitted}{published}{author-full-names}
 
 \jmlrheading{1}{2016}{1-48}{4/00}{10/00}{Theodore Papamarkou and Eric Ford}
@@ -765,6 +767,26 @@ Of these three indicators of algorithmic complexity, ESS and computational runti
 understanding the range of applicability of MCMC methods. To get a single-number summary, the ratio of ESS over runtime is
 usually employed. In the present paper, the computational time of ALSMMALA and AMSMMALA are derived theoretically, while both
 samplers are empirically assessed in Section \ref{Examples} via their ESS and CPU runtime.
+
+\begin{proposition}
+Let $A_1$ and $A_2$ be two MCMC algorithms whose proposal mechanisms have computational complexities $c_1$ and $c_2$, 
+respectively. A composite MCMC algorithm $A$ conducts a Bernoulli trial
+$B(i)\sim\mbox{Bernoulli}(p(i))~,i\in\left\{1,2,\dots,n_m\right\}$, to take its $i$-th step using the proposal kernel of 
+algorithm $A_1$ with probability $p(i)$, or using the proposal mechanism of $A_2$ with probability $1-p(i)$. The mean 
+complexity $C$ of $A$ is given by
+\begin{equation}
+\label{eq:c}
+C=\dfrac{\sum_{i=1}^{n_m}p(i)}{n_m}c_1+\dfrac{n_m-\sum_{i=1}^{n_m}p(i)}{n_m}c_2.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The expected number of times that the proposal kernel of algorithm $A_1$ is invoked is given by 
+\begin{equation*}
+E\left(\sum_{i=1}^{n_m}B(i)\right)=\sum_{i=1}^{n_m}E(B(i))=\sum_{i=1}^{n_m}p(i),
+\end{equation*}
+whence the conclusion follows directly.
+\end{proof}	
 
 %givesestimator of the population mean is the number n effn_{eff} with the property that our estimator has the same 
 %precision (or variance) as the estimator got by sampling n effn_{eff} independent individuals.
