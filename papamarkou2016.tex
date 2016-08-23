@@ -355,7 +355,7 @@ the probabilities $p(i)$ of choosing between MALA and SMMALA updates. One possib
 decaying schedule
 \begin{equation}
 \label{exp_schedule_a}
-p(i)=\exp(-a(i-1)/n_m),
+p(i)=\exp{(-a(i-1)/n_m)},
 \end{equation}
 where $a$ denotes a constant tuning factor that determines the decay rate of $p(i)$.
 Schedule \eqref{exp_schedule_a} makes SMMALA updates more probable in early transient iterations of the chain, while it 
@@ -384,7 +384,7 @@ Subject to the model under consideration, it might be desirable to maintain a ce
 proposals in late MCMC iterations instead of eliminating this probability. Schedule \eqref{exp_schedule_a} can be modified as
 \begin{equation}
 \label{exp_schedule_a_b}
-p(i)=(1-b)\exp(-a(i-1)/n_m)+b,
+p(i)=(1-b)\exp{(-a(i-1)/n_m)}+b,
 \end{equation}
 where the additional tuning factor $b$ sets the asymptotic probability of using the SMMALA proposal mechanism in late MCMC
 iterations. Obviously \eqref{exp_schedule_a} arises as a special case of \eqref{exp_schedule_a_b} by setting $b=0$ in the 
@@ -589,9 +589,9 @@ $\mathcal{N}(\boldsymbol{\theta}_{k}, \epsilon^2\widehat{G^{-1}}(\boldsymbol{\th
 at the $k$-th step of AMSMMALA, where $\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$ is given by 
 \eqref{am_cov}.
 
-To ensure that the adaptive Metropolis covariance estimator receives exact geometric updates regularly, a $\mod{a}$ scheduler
-can be employed. If the $k$-th MCMC iteration is a multiple of a tuning constant $a$, then a SMMALA update is attempted, else
-an AM proposal is made. Algorithm \ref{amsmmala} summarizes AMSMMALA with the help of pseudocode.
+To ensure that the adaptive Metropolis covariance estimator receives exact geometric updates regularly, a $\mod{(a)}$ 
+scheduler can be employed. If the $k$-th MCMC iteration is a multiple of a tuning constant $a$, then a SMMALA update is 
+attempted, else an AM proposal is made. Algorithm \ref{amsmmala} summarizes AMSMMALA with the help of pseudocode.
 
 \begin{algorithm}[t]
 	\caption{AMSMMALA}
@@ -599,7 +599,7 @@ an AM proposal is made. Algorithm \ref{amsmmala} summarizes AMSMMALA with the he
 	\begin{algorithmic}
 		\For{$k = 1$ to $n_m$} % \Comment{$n$: number of iterations}
 		% \State Sample $b \sim \mbox{Bernoulli}(p(i))$
-		\If {$k \equiv 0~(\mod{a})$}
+		\If {$k \equiv 0~(\mod{(a)})$}
 		  \State $b = 1$
 		\Else
 		  \State $b = 0$
@@ -699,7 +699,7 @@ experimentation when choosing a schedule.
 For instance, a geometric distribution $\mbox{Geometric}(p)$ could be used for regulating the occurrence of metric updates 
 in AMSMMALA, where $p$ is a tuning parameter giving the probability of making a SMMALA proposal. Setting $p=1/(1+a)$ yields 
 an expected number of $(1-p)/p=a$ AM steps before a new SMMALA proposal is made. This way, the $\mbox{Geometric}(1/(1+a))$ 
-schedule is a stochastic analogue to the deterministic $\mod{a}$ schedule of Algorithm \ref{amsmmala}.
+schedule is a stochastic analogue to the deterministic $\mod{(a)}$ schedule of Algorithm \ref{amsmmala}.
 
 Other samplers with dual proposal mechanism, such as ALSMMALA, do not need regular geometric steps, thence it makes sense to 
 exploit local geometric information mostly in the early transient phases of the simulated chain and to reduce computational 
@@ -768,7 +768,7 @@ understanding the range of applicability of MCMC methods. To get a single-number
 usually employed. In the present paper, the computational time of ALSMMALA and AMSMMALA are derived theoretically, while both
 samplers are empirically assessed in Section \ref{Examples} via their ESS and CPU runtime.
 
-\begin{proposition}
+\begin{theorem}
 Let $A_1$ and $A_2$ be two MCMC algorithms whose proposal mechanisms have computational complexities $c_1$ and $c_2$, 
 respectively. A composite MCMC algorithm $A$ conducts a Bernoulli trial
 $B(i)\sim\mbox{Bernoulli}(p(i))~,i\in\left\{1,2,\dots,n_m\right\}$, to take its $i$-th step using the proposal kernel of 
@@ -778,7 +778,7 @@ complexity $C$ of $A$ is given by
 \label{eq:c}
 C=\dfrac{\sum_{i=1}^{n_m}p(i)}{n_m}c_1+\dfrac{n_m-\sum_{i=1}^{n_m}p(i)}{n_m}c_2.
 \end{equation}
-\end{proposition}
+\end{theorem}
 
 \begin{proof}
 The expected number of times that the proposal kernel of algorithm $A_1$ is invoked is given by 
@@ -787,6 +787,44 @@ E\left(\sum_{i=1}^{n_m}B(i)\right)=\sum_{i=1}^{n_m}E(B(i))=\sum_{i=1}^{n_m}p(i),
 \end{equation*}
 whence the conclusion follows directly.
 \end{proof}	
+
+% Proposition
+
+\begin{proposition}
+If an exponentially decaying schedule $p(i)$, as described by \eqref{exp_schedule_a}, is used for regulating the choice of 
+proposal kernel at each step of algorithm $A$, then the mean complexity of $A$ becomes
+\begin{equation}
+C=
+\dfrac{1-\exp{(-a)}}{n_m(1-\exp{(-a/n_m)})}c_1+
+\left(1-\dfrac{1-\exp{(-a)}}{n_m(1-\exp{(-a/n_m)})}\right)c_2.
+\end{equation}
+\end{proposition}
+
+%% Lemma
+%
+%For sufficiently large number $n_m$ of MCMC iterations, the mean complexity of an algorithm $A$ with exponentially decaying
+%schedule given by X is
+%
+%% Proposition
+%
+%Either of a $\mod{(a)}$ schedule $p(i)$ or a Geometric schedule with $p=a$ yield a mean complexity
+%for $A$
+%
+%% Lemma
+%
+%ALSMMALA with exponentially decaying $p(i)$ has a mean complexity of
+%
+%% Lemma
+%
+%AMSMMALA has an average complexity of 
+%
+%The schedule plays a decisive role in the overall complexity. The decaying rate a gives a way of tuning the complexity.
+%Obviously a determines the runtime vs frequency of geometric updates trade-off.
+%
+%Figure X shows the complexity of ALSMMALA and AMSMMALA as a function of decaying rate a and modulo factor a. In both cases,
+%reducing the value of a increases frequency of geometric updates thus approximating the complexity of the expensive
+%geometric proposal. Increasing the value of a reduces the amount of geometric computation, therefore reducing runtime
+%towards the n and n cost of the respective MALA and AM proposals.
 
 %givesestimator of the population mean is the number n effn_{eff} with the property that our estimator has the same 
 %precision (or variance) as the estimator got by sampling n effn_{eff} independent individuals.
