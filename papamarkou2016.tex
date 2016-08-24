@@ -992,8 +992,8 @@ with the three examples of this paper.
 
 \subsection{Bayesian Logistic Regression}
 
-Initially, consider a Bayesian logistic regression model consisting of $n_d$ samples and $n_{\theta}$ covariates. The 
-log-likelihood of the model expresses as
+As a first example, consider a Bayesian logistic regression model consisting of $n_d$ samples and $n_{\theta}$ covariates. 
+The log-likelihood of the model expresses as
 \begin{equation}
 \label{eq:logit_logl}
 L(\mathbf{y}, X | \boldsymbol{\theta})=
@@ -1009,6 +1009,23 @@ positive hyperparameter $v$. The unnormalized log-target density for Bayesian lo
 \log{(p(\boldsymbol{\theta}|\mathbf{y}, X))}=L(\mathbf{y}, X | \boldsymbol{\theta})+\log{(\pi(\boldsymbol{\theta}))},
 \end{equation}
 where the log-likelihood is given by \eqref{eq:logit_logl}.
+
+Differentiating \eqref{eq:logit_logl} gives the gradient of the log-likelihood
+\begin{equation}
+\label{eq:logit_gradlogl}
+\nabla_{\boldsymbol{\theta}}(L(\mathbf{y},X|\boldsymbol{\theta}))=
+X^T\left[\mathbf{y}-
+\frac{1}{1+\exp\left(-X\boldsymbol{\theta}\right)}\right].
+\end{equation}
+The gradient of the log-prior evaluates as
+\begin{equation}
+\label{eq:logit_gradlogprior}
+\nabla_{\boldsymbol{\theta}}(\log{(\pi({\boldsymbol{\theta}}))})=
+-\frac{1}{a}\boldsymbol{\theta}.
+\end{equation}
+So, the gradient
+$\nabla_{\boldsymbol{\theta}}(\log{(p(\boldsymbol{\theta}|\mathbf{y}, X))})$ of the log-target equals the sum of
+\eqref{eq:logit_gradlogl} and \eqref{eq:logit_gradlogprior}.
 
 \begin{table}[t]
 	\caption{Logistic regression - comparison of Langevin sampling methods}
