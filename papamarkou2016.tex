@@ -903,6 +903,18 @@ Setting $c1=n_{\theta}^3$ and $c_2=n_{\theta}^2$ in \eqref{eq:c_mod}, which corr
 and AM, gives \eqref{eq:c_amsmmala_mod}.
 \end{proof}
 
+The schedule $p(i)$ for choosing between proposal mechanisms plays a decisive role in the complexity of the resulting sampler
+as seen from \eqref{eq:c}. Besides, the decaying rate $a$ of an exponentially decaying schedule \eqref{exp_schedule_a} and 
+the modulus $a$ of a $\mod{(a)}$ schedule can be used for adjusting the computational cost according to 
+\eqref{eq:c_exp_limit} and \eqref{eq:c_mod}.
+
+Figure \ref{fig:alsmmala_amsmmala_schedule} displays the complexity of ALSMMALA with an exponential schedule specified by
+\eqref{exp_schedule_a} and AMSMMALA with a $\mod{(a)}$ schedule as a function of the parameter space dimension $n_{\theta}$.
+The curves of Figures \ref{fig:alsmmala_exp_schedule} and \ref{fig:amsmmala_mod_schedule} correspond to varying levels of 
+decaying rate $a$ for ALSMMALA and of modulus $a$ for AMSMMALA. In both cases, the tuning factor $a$ determines the 
+trade-off between runtime and amount of geometric computation. Larger values of $a$ reduce the runtime due to fewer 
+geometric updates, whereas smaller values of $a$ increase the complexity as they induce more geometric updates.
+
 \begin{figure}[t]
 	\centering
 	\subfloat[ALSMMALA]{
@@ -916,19 +928,6 @@ and AM, gives \eqref{eq:c_amsmmala_mod}.
 	\caption{Caption to be added}
 	\label{fig:alsmmala_amsmmala_schedule}
 \end{figure}
-
-The schedule $p(i)$ for choosing between proposal mechanisms plays a decisive role in the complexity of the resulting sampler
-as seen from \eqref{eq:c}. Besides, the decaying rate $a$ of an exponentially decaying schedule \eqref{exp_schedule_a} and 
-the modulus $a$ of a $\mod{(a)}$ schedule can be used for adjusting the computational cost according to 
-\eqref{eq:c_exp_limit} and \eqref{eq:c_mod}.
-
-%The schedule plays a decisive role in the overall complexity. The decaying rate a gives a way of tuning the complexity.
-%Obviously a determines the runtime vs frequency of geometric updates trade-off.
-%
-%Figure X shows the complexity of ALSMMALA and AMSMMALA as a function of decaying rate a and modulo factor a. In both cases,
-%reducing the value of a increases frequency of geometric updates thus approximating the complexity of the expensive
-%geometric proposal. Increasing the value of a reduces the amount of geometric computation, therefore reducing runtime
-%towards the n and n cost of the respective MALA and AM proposals.
 
 \subsection{Analytically Intractable Geometric Updates}
 
