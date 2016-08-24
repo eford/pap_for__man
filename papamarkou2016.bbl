@@ -1,4 +1,4 @@
-\begin{thebibliography}{27}
+\begin{thebibliography}{29}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -79,6 +79,12 @@ Mark Girolami and Ben Calderhead.
 \newblock \emph{Journal of the Royal Statistical Society: Series B (Statistical
   Methodology)}, 73\penalty0 (2):\penalty0 123--214, 2011.
 \newblock ISSN 1467-9868.
+
+\bibitem[Griewank(2014)]{gri__ona}
+Andreas Griewank.
+\newblock On automatic differentiation and alalgorithm linearization.
+\newblock \emph{Pesquisa Operacional}, 34:\penalty0 621--645, 12 2014.
+\newblock ISSN 0101-7438.
 
 \bibitem[Haario et~al.(2001)Haario, Saksman, and Tamminen]{haa_sak_tam__ana}
 Heikki Haario, Eero Saksman, and Johanna Tamminen.
@@ -173,6 +179,11 @@ Raphaela Schwentner, Theodore Papamarkou, Maximilian~O. Kauer, Vassilios
 Matthias Seeger.
 \newblock Low rank updates for the cholesky decomposition.
 \newblock Technical report, 2004.
+
+\bibitem[Wilkinson(1971)]{wil__mod}
+James~H. Wilkinson.
+\newblock Modern error analysis.
+\newblock \emph{SIAM Review}, 13\penalty0 (4):\penalty0 548--568, 1971.
 
 \bibitem[Williams(2011)]{wil__brea}
 Virginia~Vassilevska Williams.

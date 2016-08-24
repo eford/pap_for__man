@@ -947,18 +947,11 @@ $\epsilon^2 G^{-1}(\boldsymbol{\theta})$. \cite{bet__age} introduced the so-call
 positive-definite approximation of the indefinite proposal covariance. The working SoftAbs solution to the Cholesky 
 factorization problem involves an eigen-decomposition, so it comes with an $\mathcal{O}(n_{\theta}^3)$ cost.
 
-% Section \ref{Expected Complexity}
-
-%Two major points: i) possibly not-positive definite metric, ii) computation of (higher-order) derivatives of metric
-%
-%In practice, floating point arithmetic can lead to problems with this choice, so additional manipulations can be useful to 
-%ensure that the metric is positive definite even in floating point arithmetic (e.g., the SoftAbs metric \cite{bet__age}).  
-%For simple models with large $n_\theta^3$, the computational complexity of manifold MCMC algorithms is dominated by linear 
-%algebra operations on the metric, so it becomes at best of order $\mathcal{O}(n_\theta^3)$.  
-%For computationally expensive models, the run time may be dominated by computation of theHessian itself, despite the scaling 
-%as only $\mathcal{O}(n_\theta^2)$.
-
-Reference ForwardDiff conference paper, \cite{rev_lub_pap__for}.
+Non-trivial models can render the analytic derivation of log-target derivatives impossible or impractical. Automatic
+differentiation (AD), a computationally driven research activity that has evolved since the mid 1950's, helps compute 
+derivatives in a numerically exact way. Indeed, \cite{gri__ona} has shown that AD is backward stable in the sense of 
+\cite{wil__mod}. Thus, small perturbations of the original function due to machine precision should still yield accurate 
+derivatives calculated via AD.
 
 \section{Examples}
 \label{Examples}
@@ -1038,7 +1031,7 @@ Mention software
 \subsection{Multivariate t-Distribution}
 
 Mention that the base algorithm drives the simulation and sets the properties of the sampler. For this reason AMSMMALA works
-better than ALSMMALA for the t-dist example.
+better than ALSMMALA for the t-dist example. Reference ForwardDiff conference paper, \cite{rev_lub_pap__for}.
 
 \begin{table}
 	\caption{t-density target - comparison of Langevin sampling methods. SMMALA (r) is SMMALA with reverse mode AD, and 
