@@ -1064,6 +1064,7 @@ exhibits a slowdown factor of $0.73$ with respect to the MALA baseline. This is 
 sampling effectiveness of manifold MCMC algorithms is outweighed by their computational cost.
 
 \begin{table}[t]
+	\centering
 	\begin{tabular}{l|r|rrrr|r|r|r}
 		\hline\noalign{\smallskip}
 		\multirow{2}{*}{Method} &
@@ -1080,19 +1081,27 @@ sampling effectiveness of manifold MCMC algorithms is outweighed by their comput
 	  ALSMMALA & .63 & 31562 & 31046 & 30656 & 26535 & 4.82 & 5503.74 & 2.09 \\
 		\noalign{\smallskip}\hline
 	\end{tabular}
-	\caption{Logistic regression - comparison of Langevin sampling methods}
+	\caption{
+		Comparison of sampling efficacy between MALA, SMMALA, AMSMMALA and ALSMMALA by applying Bayesian logistic regression on
+		the Swiss banknotes data. AR: acceptance rate; ESS: effective sample size; Time: CPU runtime in seconds; Efficiency:
+		smaller ESS across four covariates divided by runtime; Speedup: ratio of computational efficiencies with a MALA baseline.
+	}
 	\label{tab:logit}
 \end{table}
 
 \begin{figure}[t]
 	\centering
 	\subfloat[Running mean]{\includegraphics[width=2.3in]{logit_meanplot.pdf}} 
-	\subfloat[Linear ACF]{\includegraphics[width=2.3in]{logit_acfplot.pdf}} \\
+	\subfloat[Linear autocorrelation]{\includegraphics[width=2.3in]{logit_acfplot.pdf}} \\
 	\subfloat[MALA traceplot]{\includegraphics[width=2.3in]{logit_mala_traceplot.pdf}} 
 	\subfloat[SMMALA traceplot]{\includegraphics[width=2.3in]{logit_smmala_traceplot.pdf}} \\
 	\subfloat[AMSMMALA traceplot]{\includegraphics[width=2.3in]{logit_amsmmala_traceplot.pdf}}
 	\subfloat[ALSMMALA traceplot]{\includegraphics[width=2.3in]{logit_alsmmala_traceplot.pdf}} \\
-	\caption{Logistic regression - plots}
+	\caption{
+		Plots of single chains simulated from each of MALA, SMMALA, AMSMMALA and ALSMMALA samplers by applying Bayesian 
+		logistic regression on the Swiss banknotes data. (a) Overlaid running means, (b) overlaid linear autocorrelations for the
+		four chains, (c)-(f) individual traceplots per chain (the red horizontal line represent the Monte Carlo mean).
+		}
 	\label{fig:logit}
 \end{figure}
 
@@ -1105,7 +1114,7 @@ SMMALA but worse than MALA.
 
 % ARs, driver samplers
 
-% Figures
+% Figure comments
 
 \newpage
 \subsection{Bayesian Poisson Regression}
