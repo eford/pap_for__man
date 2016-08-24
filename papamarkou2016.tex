@@ -950,20 +950,27 @@ factorization problem involves an eigen-decomposition, so it comes with an $\mat
 Non-trivial models can render the analytic derivation of log-target derivatives impossible or impractical. Automatic
 differentiation (AD), a computationally driven research activity that has evolved since the mid 1950's, helps compute 
 derivatives in a numerically exact way. Indeed, \cite{gri__ona} has shown that AD is backward stable in the sense of 
-\cite{wil__mod}. Thus, small perturbations of the original function due to machine precision should still yield accurate 
+\cite{wil__mod}. Thus, small perturbations of the original function due to machine precision still yield accurate 
 derivatives calculated via AD.
 
 There are different methods of automatic differentiation; reverse mode AD is better suited for functions
 $f:\mathbb{R}^n\rightarrow\mathbb{R}$, in contrast to forward mode AD that is more suitable for functions 
 $f:\mathbb{R}\rightarrow\mathbb{R}^n$ (\cite{gri_wal__eva}). Consequently, reverse mode AD is utilized for computing 
 derivatives of probability distributions, and finds use in statistical inference. The complexity of reverse mode AD is not
-worse than that of the respective analytical derivatives of a target density.
+worse than that of the respective analytical derivatives of a target density, assuming of course a carefully crafted
+implementation.
 
 \section{Examples}
 \label{Examples}
 
-Mention software
+ALSMMALA and AMSMMALA are put to test via three examples to empirically validate these two MCMC algorithms and to assess 
+their computational efficacy. Ten chains are simulated from each sampler of each example. $110,000$ iterations are run for 
+the realization of each chain, of which the first $10,000$ burn-in are discarded, so $n_m=100,000$ MCMC samples are retained.
 
+The effective sample size (ESS) of each dimension $\boldsymbol{\theta}_{(i)},~i\in\left\{1,2,\dots,n_{\theta}\right\}$,
+of the parameter vector $\boldsymbol{\theta}$ is computed as
+
+\newpage
 \subsection{Bayesian Logistic Regression}
 
 \begin{table}
@@ -999,6 +1006,7 @@ Mention software
 	\label{fig:logit}
 \end{figure}
 
+\newpage
 \subsection{Bayesian Poisson Regression}
 
 \begin{table}
@@ -1034,6 +1042,7 @@ Mention software
 	\label{fig:poisson}
 \end{figure}
 
+\newpage
 \subsection{Multivariate t-Distribution}
 
 Mention that the base algorithm drives the simulation and sets the properties of the sampler. For this reason AMSMMALA works
@@ -1074,6 +1083,7 @@ better than ALSMMALA for the t-dist example. Reference ForwardDiff conference pa
 	\label{fig:t}
 \end{figure}
 
+\newpage
 \section{Discussion}
 
 % Potential for applicability in intensive applications
