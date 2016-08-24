@@ -1,4 +1,4 @@
-\begin{thebibliography}{34}
+\begin{thebibliography}{35}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -198,6 +198,13 @@ Gareth~O. Roberts and Richard~L. Tweedie.
 \newblock Exponential convergence of langevin distributions and their discrete
   approximations.
 \newblock \emph{Bernoulli}, 2\penalty0 (4):\penalty0 341--363, 12 1996.
+
+\bibitem[Roberts et~al.(1997)Roberts, Gelman, and Gilks]{rob_gel_gil__wea}
+Gareth~O. Roberts, Andrew Gelman, and Walter~R. Gilks.
+\newblock Weak convergence and optimal scaling of random walk metropolis
+  algorithms.
+\newblock \emph{Annals of Applied Probability}, 7\penalty0 (1):\penalty0
+  110--120, 02 1997.
 
 \bibitem[Schwentner et~al.(2015)Schwentner, Papamarkou, Kauer, Stathopoulos,
   Yang, Bilke, Meltzer, Girolami, and Kovar]{sch_pap__ews}

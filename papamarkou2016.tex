@@ -1085,6 +1085,8 @@ sampling effectiveness of manifold MCMC algorithms is outweighed by their comput
 		Comparison of sampling efficacy between MALA, SMMALA, AMSMMALA and ALSMMALA by applying Bayesian logistic regression on
 		the Swiss banknotes data. AR: acceptance rate; ESS: effective sample size; Time: CPU runtime in seconds; Efficiency:
 		smaller ESS across four covariates divided by runtime; Speedup: ratio of computational efficiencies with a MALA baseline.
+	  All the tabulated numbers have been rounded to the second decimal place, apart from the effective sample sizes, which 
+	  have been rounded to the nearest integer.
 	}
 	\label{tab:logit}
 \end{table}
@@ -1110,9 +1112,18 @@ AMSMMALA appears to be somewhat slower than MALA, which is manifested in the $0.
 lower ESS than SMMALA, but is much faster than SMMALA. On the basis of their relative speedups, AMSMMALA does better than
 SMMALA but worse than MALA.
 
-% ALSMMALA
+ALSMMALA has higher ESS than MALA and SMMALA. The simulations show that ALSMMALA has more than three times higher ESS than
+SMMALA, so it appears that the switching between MALA and SMMALA proposal mechanisms results in a hybrid sampler with 
+increased sampling effectiveness. Moreover, ALSMMALA is slower than MALA and faster than SMMALA in terms of absolute CPU
+runtimes. The relative speedups show that ALSMMALA is superior than its MALA and SMMALA counterparts roughly by a factor of
+$2$ and $3$, respectively.
 
-% ARs, driver samplers
+The AMSMMALA and ALSMMALA acceptance rates reported in Table \ref{tab:logit} have been acquired by tuning the drift step 
+empirically so as to maximize ESS. The mean acceptance rate of AMSMMALA across the ten simulated chains is $0.25$, so it is 
+close to the asymptotically optimal acceptance rate of $0.234$ for random walk Metropolis algorithms 
+(\cite{rob_gel_gil__wea}). This is intuitively plausible, as the bulk of AMSMMALA proposals are drawn from the AM proposal 
+kernel. In analogous fashion, the mean acceptance rate of ALSMMALA is $0.63$, not far from the optimal rate of $0.574$ for
+MALA, from which the bulk of proposals are made.
 
 % Figure comments
 
