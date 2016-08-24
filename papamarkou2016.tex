@@ -944,8 +944,12 @@ and to the calculation of up to third order derivatives of $G(\boldsymbol{\theta
 Various contributing factors, including finite-precision floating point arithmetic, can lead to an indefinite proposal
 covariance matrix $\epsilon^2 G^{-1}(\boldsymbol{\theta})$. This in turn breaks the Cholesky factorization of 
 $\epsilon^2 G^{-1}(\boldsymbol{\theta})$. \cite{bet__age} introduced the so-called SoftAbs metric, which offers a 
-positive-definite approximation of the indefinite proposal covariance. The working SoftAbs solution to the Cholesky 
+positive definite approximation of the indefinite proposal covariance. The working SoftAbs solution to the Cholesky 
 factorization problem involves an eigen-decomposition, so it comes with an $\mathcal{O}(n_{\theta}^3)$ cost.
+Other research avenues pursuit alternative positive definite approximations of indefinite matrices. The works of 
+\cite{hig__com01} and \cite{hig__com02} for example approximate the nearest symmetric positive semi-definite matrix in the 
+Frobenius norm to an arbitrary real matrix. If future research succeeds in adapting the approach of \cite{hig__com01} in the 
+context of geometric MCMC methods, then a computationally cheaper alternative to the SoftAbs metric could become available.
 
 Non-trivial models can render the analytic derivation of log-target derivatives impossible or impractical. Automatic
 differentiation (AD), a computationally driven research activity that has evolved since the mid 1950's, helps compute 

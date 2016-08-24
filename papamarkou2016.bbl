@@ -1,4 +1,4 @@
-\begin{thebibliography}{31}
+\begin{thebibliography}{33}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -109,6 +109,19 @@ Heikki Haario, Eero Saksman, and Johanna Tamminen.
 Bruce Hajek.
 \newblock \emph{Cooling Schedules for Optimal Annealing}, pages 147--150.
 \newblock Springer New York, New York, NY, 1987.
+
+\bibitem[Higham(1988)]{hig__com01}
+Nicholas~J. Higham.
+\newblock Computing a nearest symmetric positive semidefinite matrix.
+\newblock \emph{Linear Algebra and its Applications}, 103:\penalty0 103--118,
+  1988.
+\newblock ISSN 0024-3795.
+
+\bibitem[Higham(2002)]{hig__com02}
+Nicholas~J. Higham.
+\newblock Computing the nearest correlation matrix - a problem from finance.
+\newblock \emph{IMA Journal of Numerical Analysis}, 22\penalty0 (3):\penalty0
+  329--343, 2002.
 
 \bibitem[Lan et~al.(2014)Lan, Streets, and Shahbaba]{lan_str_sha__wor}
 Shiwei Lan, Jeffrey Streets, and Babak Shahbaba.
