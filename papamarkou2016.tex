@@ -1050,10 +1050,11 @@ $\nabla_{\boldsymbol{\theta}}(\log{(p(\boldsymbol{\theta}|\mathbf{y}, X))})$ and
 $G(\boldsymbol{\theta}|\mathbf{y}, X))$ are needed for SMMALA proposals made by either of ALSMMALA and AMSMMALA.
 
 MALA, SMMALA, ALSMMALA and AMSMMALA are run on the bank dataset taken from \cite{flu_rie__mul} with the Bayesian logistic 
-regression log-target outlined in the current section. The bank dataset contains the measurements of $n_{\theta}=4$ 
-covariates on $n_d=200$ Swiss banknotes, $100$ of which are genuine and $100$ counterfeit. The four covariates include the 
-length of the bill, the width of the left and right edge, and the bottom margin width. The binary response variable is the 
-type of banknote, $0$ being genuine and $1$ counterfeit.
+regression log-target outlined in the current section and with the prior hyperparameter set to $v=100$, which implies a  
+flat non-informative prior. The bank dataset contains the measurements of $n_{\theta}=4$ covariates on $n_d=200$ Swiss 
+banknotes, $100$ of which are genuine and $100$ counterfeit. The four covariates include the length of the bill, the width 
+of the left and right edge, and the bottom margin width. The binary response variable is the type of banknote, $0$ being 
+genuine and $1$ counterfeit.
 
 Table \ref{tab:logit} summarizes the sampling efficacy metrics for the Bayesian logistic example. MALA is taken as the 
 baseline sampler in the speedup calculations. As expected, the effective sample size of SMMALA is higher across most of 
@@ -1091,22 +1092,6 @@ sampling effectiveness of manifold MCMC algorithms is outweighed by their comput
 	\label{tab:logit}
 \end{table}
 
-\begin{figure}[t]
-	\centering
-	\subfloat[Running mean]{\includegraphics[width=2.3in]{logit_meanplot.pdf}} 
-	\subfloat[Linear autocorrelation]{\includegraphics[width=2.3in]{logit_acfplot.pdf}} \\
-	\subfloat[MALA traceplot]{\includegraphics[width=2.3in]{logit_mala_traceplot.pdf}} 
-	\subfloat[SMMALA traceplot]{\includegraphics[width=2.3in]{logit_smmala_traceplot.pdf}} \\
-	\subfloat[AMSMMALA traceplot]{\includegraphics[width=2.3in]{logit_amsmmala_traceplot.pdf}}
-	\subfloat[ALSMMALA traceplot]{\includegraphics[width=2.3in]{logit_alsmmala_traceplot.pdf}} \\
-	\caption{
-		Plots of single chains simulated from each of MALA, SMMALA, AMSMMALA and ALSMMALA samplers by applying Bayesian 
-		logistic regression on the Swiss banknotes data. (a) Overlaid running means, (b) overlaid linear autocorrelations for the
-		four chains, (c)-(f) individual traceplots per chain (the red horizontal line represent the Monte Carlo mean).
-		}
-	\label{fig:logit}
-\end{figure}
-
 AMSMMALA has higher ESS, with the exception of one covariate, and is thus slightly more effective than MALA. However, 
 AMSMMALA appears to be somewhat slower than MALA, which is manifested in the $0.87$ slowdown factor. Moreover, AMSMMALA has
 lower ESS than SMMALA, but is much faster than SMMALA. On the basis of their relative speedups, AMSMMALA does better than
@@ -1125,7 +1110,31 @@ close to the asymptotically optimal acceptance rate of $0.234$ for random walk M
 kernel. In analogous fashion, the mean acceptance rate of ALSMMALA is $0.63$, not far from the optimal rate of $0.574$ for
 MALA, from which the bulk of proposals are made.
 
-% Figure comments
+\begin{figure}[t]
+	\centering
+	\subfloat[Running mean]{\includegraphics[width=2.3in]{logit_meanplot.pdf}} 
+	\subfloat[Linear autocorrelation]{\includegraphics[width=2.3in]{logit_acfplot.pdf}} \\
+	\subfloat[MALA traceplot]{\includegraphics[width=2.3in]{logit_mala_traceplot.pdf}} 
+	\subfloat[SMMALA traceplot]{\includegraphics[width=2.3in]{logit_smmala_traceplot.pdf}} \\
+	\subfloat[AMSMMALA traceplot]{\includegraphics[width=2.3in]{logit_amsmmala_traceplot.pdf}}
+	\subfloat[ALSMMALA traceplot]{\includegraphics[width=2.3in]{logit_alsmmala_traceplot.pdf}} \\
+	\caption{
+		Plots of single chains corresponding to covariate $\boldsymbol{\theta}_{(2)}$ simulated from each of MALA, SMMALA, 
+		AMSMMALA and ALSMMALA samplers by applying Bayesian logistic regression on the Swiss banknotes data. (a) Overlaid 
+		running means, (b) overlaid linear autocorrelations for the four chains, (c)-(f) individual traceplots per chain (the 
+		red horizontal line represent the Monte Carlo mean).
+	}
+	\label{fig:logit}
+\end{figure}
+
+Figure \ref{fig:logit} visualizes four chains corresponding to covariate $\boldsymbol{\theta}_{(2)}$, with a single chain 
+simulated from each of MALA, SMMALA, AMSMMALA and ALSMMALA samplers using the Bayesian logistic regression log-target on the 
+Swiss banknotes data. All four overlaid running means, plotted as a function of the number of iterations, demonstrate that 
+the respective samplers converge towards the same value. The overlaid linear autocorrelations exhibit magnitudes that agree 
+with the effective sample sizes of Table \ref{tab:logit}. More specifically, ALSMMALA has the smallest linear 
+autocorrelation and highest ESS by far, followed by SMMALA, while AMSMMALA and MALA have roughly the same linear 
+autocorrelation and ESS. All four traceplots of MALA, SMMALA and of the two algorithms of this paper exhibit strong mixing 
+properties.
 
 \newpage
 \subsection{Bayesian Poisson Regression}
