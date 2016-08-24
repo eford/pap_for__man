@@ -946,7 +946,7 @@ covariance matrix $\epsilon^2 G^{-1}(\boldsymbol{\theta})$. This in turn breaks 
 $\epsilon^2 G^{-1}(\boldsymbol{\theta})$. \cite{bet__age} introduced the so-called SoftAbs metric, which offers a 
 positive definite approximation of the indefinite proposal covariance. The working SoftAbs solution to the Cholesky 
 factorization problem involves an eigen-decomposition, so it comes with an $\mathcal{O}(n_{\theta}^3)$ cost.
-Other research avenues pursuit alternative positive definite approximations of indefinite matrices. The works of 
+Other research avenues pursuit different positive definite approximations of indefinite matrices. The works of 
 \cite{hig__com01} and \cite{hig__com02} for example approximate the nearest symmetric positive semi-definite matrix in the 
 Frobenius norm to an arbitrary real matrix. If future research succeeds in adapting the approach of \cite{hig__com01} in the 
 context of geometric MCMC methods, then a computationally cheaper alternative to the SoftAbs metric could become available.
@@ -990,10 +990,27 @@ PGUManifoldMC is based on Lora, a package for MCMC inference written in Julia by
 publicly available at \url{https://github.com/scidom/PGUManifoldMC.jl} under an MIT license. The PGUManifoldMC package ships
 with the three examples of this paper.
 
-\newpage
 \subsection{Bayesian Logistic Regression}
 
-\begin{table}
+Initially, consider a Bayesian logistic regression model consisting of $n_d$ samples and $n_{\theta}$ covariates. The 
+log-likelihood of the model expresses as
+\begin{equation}
+\label{eq:logit_logl}
+L(\mathbf{y}, X | \boldsymbol{\theta})=
+(X\boldsymbol{\theta})^T\mathbf{y}-
+\sum_{i=1}^{n_d}\ln\left[1+\exp(\boldsymbol{\theta}^T
+\mathbf{x_{i,}})\right],
+\end{equation}
+where $y\in\{0,1\}^{n_d}$ is the binary response variable, $X$ the $n_d\cdot n_{\theta}$ design matrix, $\mathbf{x_{i,}}$ 
+the $i$-th row of $X$ and $\boldsymbol{\theta}\in\mathbb{R}^{n_{\theta}}$ the regression coefficients. A normal prior is 
+assumed for the model parameters $\boldsymbol{\theta}\sim\pi({\boldsymbol{\theta}})=\mathcal{N}(\boldsymbol{0},vI)$ for some
+positive hyperparameter $v$. The unnormalized log-target density for Bayesian logistic regression thus takes the form
+\begin{equation}
+\log{(p(\boldsymbol{\theta}|\mathbf{y}, X))}=L(\mathbf{y}, X | \boldsymbol{\theta})+\log{(\pi(\boldsymbol{\theta}))},
+\end{equation}
+where the log-likelihood is given by \eqref{eq:logit_logl}.
+
+\begin{table}[t]
 	\caption{Logistic regression - comparison of Langevin sampling methods}
 	\label{tab:logit}
 	\begin{tabular}{l|r|rrrr|r|r|r}
@@ -1014,7 +1031,7 @@ with the three examples of this paper.
 	\end{tabular}
 \end{table}
 
-\begin{figure}
+\begin{figure}[t]
 	\centering
 	\subfloat[Running mean]{\includegraphics[width=2.3in]{logit_meanplot.pdf}} 
 	\subfloat[Linear ACF]{\includegraphics[width=2.3in]{logit_acfplot.pdf}} \\
