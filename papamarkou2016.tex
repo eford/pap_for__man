@@ -969,6 +969,17 @@ the realization of each chain, of which the first $10,000$ burn-in are discarded
 
 The effective sample size (ESS) of each dimension $\boldsymbol{\theta}_{(i)},~i\in\left\{1,2,\dots,n_{\theta}\right\}$,
 of the parameter vector $\boldsymbol{\theta}$ is computed as
+\begin{equation}
+\mbox{ESS} =
+\dfrac{n_m\hat{\sigma}^2_{IID}}{\hat{\sigma}^2_{MCMC}},
+\end{equation}
+where $\hat{\sigma}^2_{IID}$ and $\hat{\sigma}^2_{MCMC}$ denote the ordinary and Monte Carlo variance of the associated 
+chain. The Monte Carlo variance $\hat{\sigma}^2_{MCMC}$ is calculated by means of the initial monotone sequence estimator of
+\cite{gey__pra}. To get more reliable estimates, the ESS of each dimension and the CPU runtime are averaged by taking their
+respective means across every set of ten chains simulated from a sampler. The computational efficiency of each sampler is
+defined as the ratio $\min\left\{\mbox{ESS}_i:i=1,2,\dots,n_{\theta}\right\}/\mbox{time}$ of the smallest ESS
+$\min\left\{\mbox{ESS}_i:i=1,2,\dots,n_{\theta}\right\}$ among all $n_{\theta}$ dimensions over the simulation time. Finally,
+the relative speed-up of one MCMC method over another is set to be the ratio of their computational efficiencies.
 
 \newpage
 \subsection{Bayesian Logistic Regression}
