@@ -953,6 +953,12 @@ derivatives in a numerically exact way. Indeed, \cite{gri__ona} has shown that A
 \cite{wil__mod}. Thus, small perturbations of the original function due to machine precision should still yield accurate 
 derivatives calculated via AD.
 
+There are different methods of automatic differentiation; reverse mode AD is better suited for functions
+$f:\mathbb{R}^n\rightarrow\mathbb{R}$, in contrast to forward mode AD that is more suitable for functions 
+$f:\mathbb{R}\rightarrow\mathbb{R}^n$ (\cite{gri_wal__eva}). Consequently, reverse mode AD is utilized for computing 
+derivatives of probability distributions, and finds use in statistical inference. The complexity of reverse mode AD is not
+worse than that of the respective analytical derivatives of a target density.
+
 \section{Examples}
 \label{Examples}
 
