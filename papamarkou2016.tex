@@ -1060,12 +1060,8 @@ baseline sampler in the speedup calculations. As expected, the effective sample 
 covariates in comparison to MALA. The relative advantage of SMMALA over MALA in terms of ESS is attributed to the fact that 
 the former sampler exploits local geometric information via successive evaluations of metric $G(\boldsymbol{\theta})$. On 
 the other hand, SMMALA is more than twice slower in comparison to MALA as the respective runtimes show. Overall, SMMALA
-exhibits a slowdown factor of $0.73$.
-
-AMSMMALA has higher ESS, with the exception of one covariate, and is thus slightly more effective than MALA. However, 
-AMSMMALA appears to be somewhat slower than MALA, which is manifasted by the $0.87$ slowdown factor. Moreover, AMSMMALA has
-lower ESS than SMMALA, but is much faster than SMMALA. On the basis of their relative speedups, AMSMMALA does better than
-SMMALA but worse than MALA.
+exhibits a slowdown factor of $0.73$ with respect to the MALA baseline. This is a demonstration of how the increased
+sampling effectiveness of manifold MCMC algorithms is outweighed by their computational cost.
 
 \begin{table}[t]
 	\begin{tabular}{l|r|rrrr|r|r|r}
@@ -1099,6 +1095,17 @@ SMMALA but worse than MALA.
 	\caption{Logistic regression - plots}
 	\label{fig:logit}
 \end{figure}
+
+AMSMMALA has higher ESS, with the exception of one covariate, and is thus slightly more effective than MALA. However, 
+AMSMMALA appears to be somewhat slower than MALA, which is manifested in the $0.87$ slowdown factor. Moreover, AMSMMALA has
+lower ESS than SMMALA, but is much faster than SMMALA. On the basis of their relative speedups, AMSMMALA does better than
+SMMALA but worse than MALA.
+
+% ALSMMALA
+
+% ARs, driver samplers
+
+% Figures
 
 \newpage
 \subsection{Bayesian Poisson Regression}
