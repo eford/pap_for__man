@@ -790,7 +790,7 @@ understanding the range of applicability of MCMC methods. To get a single-number
 usually employed. In the present paper, the computational time of ALSMMALA and AMSMMALA are derived theoretically, while both
 samplers are empirically assessed in Section \ref{Examples} via their ESS and CPU runtime.
 
-\begin{theorem}
+\begin{proposition}
 Let $A_1$ and $A_2$ be two MCMC algorithms whose proposal mechanisms have computational complexities $c_1$ and $c_2$, 
 respectively. A composite MCMC algorithm $A$ conducts a Bernoulli trial
 $B(i)\sim\mbox{Bernoulli}(p(i))~,i\in\left\{1,2,\dots,n_m\right\}$, to take its $i$-th step using the proposal kernel of 
@@ -802,7 +802,7 @@ complexity of $A$ is given by
 \dfrac{\sum_{i=1}^{n_m}p(i)}{n_m}c_1+\dfrac{n_m-\sum_{i=1}^{n_m}p(i)}{n_m}c_2
 \right).
 \end{equation}
-\end{theorem}
+\end{proposition}
 
 \begin{proof}
 The expected number of invocations of the proposal kernel associated with algorithm $A_1$ equals 
@@ -916,6 +916,11 @@ and AM, gives \eqref{eq:c_amsmmala_mod}.
 	\caption{Caption to be added}
 	\label{fig:alsmmala_amsmmala_schedule}
 \end{figure}
+
+The schedule $p(i)$ for choosing between proposal mechanisms plays a decisive role in the complexity of the resulting sampler
+as seen from \eqref{eq:c}. Besides, the decaying rate $a$ of an exponentially decaying schedule \eqref{exp_schedule_a} and 
+the modulus $a$ of a $\mod{(a)}$ schedule can be used for adjusting the computational cost according to 
+\eqref{eq:c_exp_limit} and \eqref{eq:c_mod}.
 
 %The schedule plays a decisive role in the overall complexity. The decaying rate a gives a way of tuning the complexity.
 %Obviously a determines the runtime vs frequency of geometric updates trade-off.
