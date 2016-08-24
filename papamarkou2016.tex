@@ -938,8 +938,14 @@ geometric updates, whereas smaller values of $a$ increase the complexity as they
 \subsection{Analytically Intractable Geometric Updates}
 
 In practice, challenges in the implementation of manifold MCMC algorithms might raise additional computational implications.
-In particular, two notoriously incurring issues relate to the Cholesky decomposition of metric $G(\boldsymbol{\theta})$ and
-to the calculation of up to third order derivatives of $G(\boldsymbol{\theta})$.
+In particular, two notoriously incurring issues relate to the Cholesky decomposition of metric $G^{-1}(\boldsymbol{\theta})$ 
+and to the calculation of up to third order derivatives of $G(\boldsymbol{\theta})$.
+
+Various contributing factors, including finite-precision floating point arithmetic, can lead to an indefinite proposal
+covariance matrix $\epsilon^2 G^{-1}(\boldsymbol{\theta})$. This in turn breaks the Cholesky factorization of 
+$\epsilon^2 G^{-1}(\boldsymbol{\theta})$. \cite{bet__age} introduced the so-called SoftAbs metric, which offers a 
+positive-definite approximation of the indefinite proposal covariance. The working SoftAbs solution to the Cholesky 
+factorization problem involves an eigen-decomposition, so it comes with an $\mathcal{O}(n_{\theta}^3)$ cost.
 
 % Section \ref{Expected Complexity}
 
@@ -950,9 +956,7 @@ to the calculation of up to third order derivatives of $G(\boldsymbol{\theta})$.
 %For simple models with large $n_\theta^3$, the computational complexity of manifold MCMC algorithms is dominated by linear 
 %algebra operations on the metric, so it becomes at best of order $\mathcal{O}(n_\theta^3)$.  
 %For computationally expensive models, the run time may be dominated by computation of theHessian itself, despite the scaling 
-%as only $\mathcal{O}(n_\theta^2)$.  
-
-TODO: Does using the SoftAbs metric \cite{bet__age} change the computational complexity?
+%as only $\mathcal{O}(n_\theta^2)$.
 
 Reference ForwardDiff conference paper, \cite{rev_lub_pap__for}.
 
