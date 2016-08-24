@@ -1043,7 +1043,13 @@ p_i=P(y_i=1)=\exp(\boldsymbol{\theta}^T\mathbf{x_{i,}})/
 (1+\exp(\boldsymbol{\theta}^T\mathbf{x_{i,}})),~i\in\left\{1,2,\dots,n_{d}\right\}.
 \end{equation}
 
-% Grad is needed by MALA proposal while G is needed by SMMALA proposal
+The gradient
+$\nabla_{\boldsymbol{\theta}}(\log{(p(\boldsymbol{\theta}|\mathbf{y}, X))})$
+of the Bayesian logistic log-target is needed for MALA proposals made by ALSMMALA. Both the log-target gradient
+$\nabla_{\boldsymbol{\theta}}(\log{(p(\boldsymbol{\theta}|\mathbf{y}, X))})$ and metric
+$G(\boldsymbol{\theta}|\mathbf{y}, X))$ are needed for SMMALA proposals made by either of ALSMMALA and AMSMMALA.
+
+
 
 \begin{table}[t]
 	\caption{Logistic regression - comparison of Langevin sampling methods}
