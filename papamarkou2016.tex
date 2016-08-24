@@ -1027,6 +1027,24 @@ So, the gradient
 $\nabla_{\boldsymbol{\theta}}(\log{(p(\boldsymbol{\theta}|\mathbf{y}, X))})$ of the log-target equals the sum of
 \eqref{eq:logit_gradlogl} and \eqref{eq:logit_gradlogprior}.
 
+The metric of a log-target $p$ is conventionally taken to be the expected Fisher information of $p$, which is equal to the 
+negative Hessian of log-likelihood $L$ minus the Hessian of log-prior $\pi$ in a Bayesian setting. By differentiating 
+\eqref{eq:logit_gradlogl} and \eqref{eq:logit_gradlogprior}, it is deduced that the metric 
+$G(\boldsymbol{\theta}|\mathbf{y}, X)$ for the Bayesian logistic regression model with a normal prior
+$\mathcal{N}(\boldsymbol{0},vI)$ is
+\begin{equation}
+\label{eq:blr:G:normalprior}
+G(\boldsymbol{\theta}|\mathbf{y}, X))=X^T\Lambda(\boldsymbol{\theta})X+
+\frac{1}{v}I,
+\end{equation}
+where the $n_d\cdot n_d$ diagonal matrix $\Lambda(\boldsymbol{\theta})=diag[p_i(1-p_i)]$ has diagonal elements
+\begin{equation}
+p_i=P(y_i=1)=\exp(\boldsymbol{\theta}^T\mathbf{x_{i,}})/
+(1+\exp(\boldsymbol{\theta}^T\mathbf{x_{i,}})),~i\in\left\{1,2,\dots,n_{d}\right\}.
+\end{equation}
+
+% Grad is needed by MALA proposal while G is needed by SMMALA proposal
+
 \begin{table}[t]
 	\caption{Logistic regression - comparison of Langevin sampling methods}
 	\label{tab:logit}
