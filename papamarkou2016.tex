@@ -768,6 +768,7 @@ $b=0$.
 \end{figure}
 
 \subsection{Expected Complexity}
+\label{Expected Complexity}
 
 The concept of complexity carries three distinct meanings in the context of MCMC. Firstly, MCMC methods need to be tuned so
 as to achieve a balance between proposing large enough jumps and ensuring that a reasonable proportion of jumps are accepted.
@@ -936,14 +937,20 @@ geometric updates, whereas smaller values of $a$ increase the complexity as they
 
 \subsection{Analytically Intractable Geometric Updates}
 
-Two major points: i) possibly not-positive definite metric, ii) computation of (higher-order) derivatives of metric
+In practice, challenges in the implementation of manifold MCMC algorithms might raise additional computational implications.
+In particular, two notoriously incurring issues relate to the Cholesky decomposition of metric $G(\boldsymbol{\theta})$ and
+to the calculation of up to third order derivatives of $G(\boldsymbol{\theta})$.
 
-In practice, floating point arithmetic can lead to problems with this choice, so additional manipulations can be useful to 
-ensure that the metric is positive definite even in floating point arithmetic (e.g., the SoftAbs metric \cite{bet__age}).  
-For simple models with large $n_\theta^3$, the computational complexity of manifold MCMC algorithms is dominated by linear 
-algebra operations on the metric, so it becomes at best of order $\mathcal{O}(n_\theta^3)$.  
-For computationally expensive models, the run time may be dominated by computation of theHessian itself, despite the scaling 
-as only $\mathcal{O}(n_\theta^2)$.  
+% Section \ref{Expected Complexity}
+
+%Two major points: i) possibly not-positive definite metric, ii) computation of (higher-order) derivatives of metric
+%
+%In practice, floating point arithmetic can lead to problems with this choice, so additional manipulations can be useful to 
+%ensure that the metric is positive definite even in floating point arithmetic (e.g., the SoftAbs metric \cite{bet__age}).  
+%For simple models with large $n_\theta^3$, the computational complexity of manifold MCMC algorithms is dominated by linear 
+%algebra operations on the metric, so it becomes at best of order $\mathcal{O}(n_\theta^3)$.  
+%For computationally expensive models, the run time may be dominated by computation of theHessian itself, despite the scaling 
+%as only $\mathcal{O}(n_\theta^2)$.  
 
 TODO: Does using the SoftAbs metric \cite{bet__age} change the computational complexity?
 
