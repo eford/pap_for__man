@@ -1049,7 +1049,11 @@ of the Bayesian logistic log-target is needed for MALA proposals made by ALSMMAL
 $\nabla_{\boldsymbol{\theta}}(\log{(p(\boldsymbol{\theta}|\mathbf{y}, X))})$ and metric
 $G(\boldsymbol{\theta}|\mathbf{y}, X))$ are needed for SMMALA proposals made by either of ALSMMALA and AMSMMALA.
 
-
+MALA, SMMALA, ALSMMALA and AMSMMALA are run on the bank dataset taken from \cite{flu_rie__mul} with the Bayesian logistic 
+regression log-target outlined in the current section. The bank dataset contains the measurements of four covariates on 
+$n_d=200$ Swiss banknotes, $100$ of which are genuine and $100$ counterfeit. The $n_{\theta}=4$ covariates include the 
+length of the bill, the width of the left and right edge, and the bottom margin width. The binary response variable is the 
+type of banknote, $0$ being genuine and $1$ counterfeit.
 
 \begin{table}[t]
 	\caption{Logistic regression - comparison of Langevin sampling methods}
