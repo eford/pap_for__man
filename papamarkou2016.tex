@@ -1050,14 +1050,24 @@ $\nabla_{\boldsymbol{\theta}}(\log{(p(\boldsymbol{\theta}|\mathbf{y}, X))})$ and
 $G(\boldsymbol{\theta}|\mathbf{y}, X))$ are needed for SMMALA proposals made by either of ALSMMALA and AMSMMALA.
 
 MALA, SMMALA, ALSMMALA and AMSMMALA are run on the bank dataset taken from \cite{flu_rie__mul} with the Bayesian logistic 
-regression log-target outlined in the current section. The bank dataset contains the measurements of four covariates on 
-$n_d=200$ Swiss banknotes, $100$ of which are genuine and $100$ counterfeit. The $n_{\theta}=4$ covariates include the 
+regression log-target outlined in the current section. The bank dataset contains the measurements of $n_{\theta}=4$ 
+covariates on $n_d=200$ Swiss banknotes, $100$ of which are genuine and $100$ counterfeit. The four covariates include the 
 length of the bill, the width of the left and right edge, and the bottom margin width. The binary response variable is the 
 type of banknote, $0$ being genuine and $1$ counterfeit.
 
+Table \ref{tab:logit} summarizes the sampling efficacy metrics for the Bayesian logistic example. MALA is taken as the 
+baseline sampler in the speedup calculations. As expected, the effective sample size of SMMALA is higher across most of 
+covariates in comparison to MALA. The relative advantage of SMMALA over MALA in terms of ESS is attributed to the fact that 
+the former sampler exploits local geometric information via successive evaluations of metric $G(\boldsymbol{\theta})$. On 
+the other hand, SMMALA is more than twice slower in comparison to MALA as the respective runtimes show. Overall, SMMALA
+exhibits a slowdown factor of $0.73$.
+
+AMSMMALA has higher ESS, with the exception of one covariate, and is thus slightly more effective than MALA. However, 
+AMSMMALA appears to be somewhat slower than MALA, which is manifasted by the $0.87$ slowdown factor. Moreover, AMSMMALA has
+lower ESS than SMMALA, but is much faster than SMMALA. On the basis of their relative speedups, AMSMMALA does better than
+SMMALA but worse than MALA.
+
 \begin{table}[t]
-	\caption{Logistic regression - comparison of Langevin sampling methods}
-	\label{tab:logit}
 	\begin{tabular}{l|r|rrrr|r|r|r}
 		\hline\noalign{\smallskip}
 		\multirow{2}{*}{Method} &
@@ -1074,6 +1084,8 @@ type of banknote, $0$ being genuine and $1$ counterfeit.
 	  ALSMMALA & .63 & 31562 & 31046 & 30656 & 26535 & 4.82 & 5503.74 & 2.09 \\
 		\noalign{\smallskip}\hline
 	\end{tabular}
+	\caption{Logistic regression - comparison of Langevin sampling methods}
+	\label{tab:logit}
 \end{table}
 
 \begin{figure}[t]
