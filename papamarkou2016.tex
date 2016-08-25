@@ -627,30 +627,44 @@ scaled by the same factor in AM and SMMALA updates respectively. Setting $\lambd
 \eqref{am_c} defines the empirical covariance estimator
 $\hat{C}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})=
 \epsilon^2\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$
-for the AM proposal density
-$\mathcal{N}(\boldsymbol{\theta}_{k}, \epsilon^2\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1}))$
-at the $k$-th step of AMSMMALA, where $\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$ is given by 
-\eqref{am_cov}.
+for the AM proposal density at the $k$-th step of AMSMMALA, where
+$\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$ is given by \eqref{am_cov}.
 
 To ensure that the adaptive Metropolis covariance estimator receives exact geometric updates regularly, a $\mod{(a)}$ 
 scheduler can be employed. If the $k$-th MCMC iteration is a multiple of a tuning constant $a$, then a SMMALA update is 
 attempted, else an AM proposal is made.
 
-It follows from \eqref{am_cov} that the empirical inverse metric of AMSMMALA used at the AM updates calculates recursively as
+It follows from \eqref{am_cov} that the empirical inverse metric
+$\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$, shortly denoted as
+$\widehat{G^{-1}}(\boldsymbol{\theta}_{k})$, at the $k$-th AMSMMALA iteration calculates recursively as
 \begin{equation}
 \label{amsmmala_gm1}
 (k-1)\widehat{G^{-1}}(\boldsymbol{\theta}_{k})=
-(k-2)\widehat{G^{-1}}(\boldsymbol{\theta}_{k-1})+
+(k-2)M(\boldsymbol{\theta}_{k-1})+
 \boldsymbol{\theta}_{k-1} \boldsymbol{\theta}_{k-1}^{'}-
 k\bar{\boldsymbol{\theta}}_{k-1} \bar{\boldsymbol{\theta}}_{k-1}^{'}+
-(k-1)\bar{\boldsymbol{\theta}}_{k-2} \bar{\boldsymbol{\theta}}_{k-2}^{'},
+(k-1)\bar{\boldsymbol{\theta}}_{k-2} \bar{\boldsymbol{\theta}}_{k-2}^{'}.
 \end{equation}
-where $\widehat{G^{-1}}(\boldsymbol{\theta}_{k})$ is a shorthand for 
-$\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$.
-
 The sample means in \eqref{amsmmala_gm1} are also calculable recursively according to
-$k\bar{\boldsymbol{\theta}}_k=(k-1)\bar{\boldsymbol{\theta}}_{k-1}+\boldsymbol{\theta}_k$. Apparently, \eqref{amsmmala_gm1}
-computes the empirical covariance of AMSMMALA faster than \eqref{am_cov}.
+\begin{equation}
+\label{amsmmala_mean_rec}
+k\bar{\boldsymbol{\theta}}_k=(k-1)\bar{\boldsymbol{\theta}}_{k-1}+\boldsymbol{\theta}_k.
+\end{equation}
+Apparently, \eqref{amsmmala_gm1} and \eqref{amsmmala_mean_rec} help compute the empirical covariance of AMSMMALA faster than 
+relying on \eqref{am_cov}.
+
+The AM proposal kernel $\mathcal{N}(\boldsymbol{\theta}_{k}, \epsilon^2M(\boldsymbol{\theta}_{k}))$ at the 
+$k$-th iteration of AMSMMALA has covariance that is either known exactly from the previous 
+SMMALA step or it is estimated from the previous AM step according to
+\begin{equation}
+M(\boldsymbol{\theta}_{k})=
+\left\{
+\begin{array}{ll}
+G^{-1}(\boldsymbol{\theta}_k), & \mbox{if $k-1$ step taken by SMMALA}\\
+\widehat{G^{-1}}(\boldsymbol{\theta}_{k}), & \mbox{if $k-1$ step taken by AM}
+\end{array}.
+\right.
+\end{equation}
 
 Algorithm \ref{amsmmala} summarizes AMSMMALA with the help of pseudocode.
 If $b_k=0$, that is if an AM step is taken at the $k$-th MCMC iteration, the AM proposal covariance is determined by
