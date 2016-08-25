@@ -677,8 +677,14 @@ proposal of Algorithm \ref{amsmmala} is calculated using the recursive formula \
 		\Else
 		\State $b_k = 0$
 		\EndIf\\
+
+		\If {$b_{k-1}=1$}
+		\State $M(\boldsymbol{\theta}_k)=G^{-1}(\boldsymbol{\theta}_k)$
+		\ElsIf {$b_{k-1}=0$}
+		\State $M(\boldsymbol{\theta}_k)=\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$
+		\EndIf\\
 		
-		\State Sample $u_k\sim\mathcal{U}(0, 1)$\\
+		\State Sample $u\sim\mathcal{U}(0, 1)$\\
 		
 		\If {$b_k = 0$} \Comment{Use adaptive Metropolis proposal}
 		\State Sample 
@@ -687,7 +693,7 @@ proposal of Algorithm \ref{amsmmala} is calculated using the recursive formula \
 		\epsilon^2 M(\boldsymbol{\theta}_k)) %\widehat{G^{-1}}(\boldsymbol{\theta}|\boldsymbol{\theta}_{0:k-1}))
 		$\\
 		
-		\State $r_k = \dfrac{p(\boldsymbol{\theta}^{*})}{p(\boldsymbol{\theta}_k)}$
+		\State $r = \dfrac{p(\boldsymbol{\theta}^{*})}{p(\boldsymbol{\theta}_k)}$
 		\ElsIf {$b_k=1$} \Comment{Use SMMALA proposal}
 		\State Sample 
 		$\boldsymbol{\theta^{*}}
@@ -695,7 +701,7 @@ proposal of Algorithm \ref{amsmmala} is calculated using the recursive formula \
 		\epsilon^2 G^{-1}(\boldsymbol{\theta}_k))
 		$\\
 
-		\State $r_k = \dfrac{
+		\State $r = \dfrac{
 				p(\boldsymbol{\theta}^{*})
 				\mathcal{N}(\boldsymbol{\theta}_k|
 				\boldsymbol{\mu}(\boldsymbol{\theta}^{*},
@@ -715,7 +721,7 @@ proposal of Algorithm \ref{amsmmala} is calculated using the recursive formula \
 
 		\If
 		{
-			$u_k<r_k$
+			$u<r$
 		}
 		  \State $\boldsymbol{\theta}_{k+1}=\boldsymbol{\theta}^{*}$
 		\Else
