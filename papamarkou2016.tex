@@ -426,8 +426,10 @@ single metric, even if an appropriate metric is not known a priori.
 	\label{fig:exp_schedule}
 \end{figure}
 
-For other models, the curvature of the target density may change significantly over the region of parameter space with significant probability density.  In such cases, rare updates to the metric after many iterations would lead to inefficient proposals.  For such problems, it would be desirable to maintain a certain probability $b$ of making SMMALA 
-proposals in late MCMC iterations instead of eliminating this probability. Schedule \eqref{exp_schedule_a} can be modified as
+For other models, the curvature of the target density may change significantly over the region of parameter space with 
+significant probability density. In such cases, rare updates to the metric after many iterations would lead to inefficient 
+proposals. For such problems, it would be desirable to maintain a certain probability $b$ of making SMMALA proposals in late 
+Monte Carlo iterations instead of eliminating this probability. Schedule \eqref{exp_schedule_a} can be modified as
 \begin{equation}
 \label{exp_schedule_a_b}
 p(i)=(1-b)\exp{(-a(i-1)/n_m)}+b,
@@ -439,13 +441,14 @@ and for $b=0.1$, which corresponds to a $10\%$ probability of picking SMMALA pro
 its end.
 
 A third and last question to be addressed in order to fully construct the hybrid sampler is how to set the preconditioning 
-matrix for MALA proposals. Perhaps the simplest option would be to utlilize an identity 
-preconditioning matrix $G=I$ corresponding to MALA proposal densities of the form
+matrix for MALA proposals. Perhaps the simplest option would be to utlilize an identity preconditioning matrix $G=I$ 
+corresponding to MALA proposal densities of the form
 $\mathcal{N}(\boldsymbol{\theta}+\frac{\epsilon^2}{2}\nabla_{\theta}\log{p(\boldsymbol{\theta})}, \epsilon^2 I)$,
-thus adhering to the most commonly used version of MALA.
-We propose a more sophisticated algorithm that reuses the most recent metric $G(\boldsymbol{\theta}^0)$ computed at the 
-latest state $\boldsymbol{\theta}^0$ obtained via a SMMALA update. This offers the benefits of making use of geometric information at no additional cost.  The improvement in computational efficiency comes from caching and reusing $G(\boldsymbol{\theta}^0)$, $G^{-1}(\boldsymbol{\theta}^0)$ and $\sqrt{G^{-1}(\boldsymbol{\theta}^0)}$ 
-for the intervening MALA steps between successive SMMALA updates. 
+thus adhering to the most commonly used version of MALA. A more sophisticated algorithm is proposed in this paper that 
+reuses the most recent metric $G(\boldsymbol{\theta}^0)$ computed at the latest state $\boldsymbol{\theta}^0$ obtained via a 
+SMMALA update. This offers the benefits of making use of geometric information at no additional cost. The improvement in 
+computational efficiency comes from caching and reusing $G(\boldsymbol{\theta}^0)$, $G^{-1}(\boldsymbol{\theta}^0)$ and 
+$\sqrt{G^{-1}(\boldsymbol{\theta}^0)}$ for the intervening MALA steps between successive SMMALA updates. 
 
 The resulting algorithm is abbreviated as ALSMMALA. The AL prefix implies that the bulk of states are drawn from a MALA 
 proposal mechanism and the SMMALA suffix indicates that the local geometry is exploited via more expensive SMMALA updates.
@@ -598,17 +601,20 @@ $
 is symmetric, it does not appear in the acceptance ratio \eqref{am_acceptance}.
 
 To enable switching betweeen AM and SMMALA transitions, the covariance matrices of the two involved proposals must be brought
-together under a common framework. If a SMMALA update is attempted at the $k$-th MCMC iteration, the local covariance at
-$\boldsymbol{\theta}_k$ is evaluated exactly as
-$\mbox{Cov}(\boldsymbol{\theta}_{k})=\epsilon^2 G^{-1}(\boldsymbol{\theta}_{k})$. If an adjusted Metropolis update is 
-tried at the $k$-th iteration, the metric $G(\boldsymbol{\theta}_{k})$ is not computed, therefore an estimator
+together under a common framework. If a SMMALA proposal $\boldsymbol{\theta}^{\star}$ is made at the $k$-th MCMC iteration, 
+the local covariance at the current state $\boldsymbol{\theta}_k$ is evaluated exactly as
+$\mbox{Cov}(\boldsymbol{\theta}_{k})=\epsilon^2 G^{-1}(\boldsymbol{\theta}_{k})$. If on the other hand a state 
+$\boldsymbol{\theta}^{\star}$ is proposed via adjusted Metropolis at the $k$-th iteration, the metric 
+$G(\boldsymbol{\theta}_{k})$ at the current state $\boldsymbol{\theta}_k$ may or may not be known depending on whether a
+SMMALA or AM step was taken at the previous iteration; if a SMMALA step was taken at the previous iteration, then 
+$G^{-1}(\boldsymbol{\theta}_{k})$ has been computed and is used, otherwise an empirical estimator
 $\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$ of $G^{-1}(\boldsymbol{\theta}_{k})$ must be 
-obtained from the empirical covariance of AM. Setting the diffusion drift step $\epsilon$ temporarily aside, it becomes 
-clear that $G^{-1}(\boldsymbol{\theta}_{k})$ will either be evaluated exactly by SMMALA or it will be estimated by the 
-empirical covariance
+obtained. Setting the diffusion drift step $\epsilon$ temporarily aside, it becomes clear that 
+$G^{-1}(\boldsymbol{\theta}_{k})$ will either be evaluated exactly by SMMALA or it will be estimated by the empirical 
+covariance
 $
 \widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})=
-\widehat{\mbox{Cov}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1}),
+\widehat{\mbox{Cov}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})
 $
 % \begin{equation}
 % \label{am_gm1}
@@ -618,13 +624,11 @@ $
 % k\bar{\boldsymbol{\theta}}_{k-1}\bar{\boldsymbol{\theta}}_{k-1}^{'}
 % \right)
 % \end{equation}
-of the AM proposal as given by \eqref{am_cov}.
+as given by \eqref{am_cov}.
 
 As long as SMMALA steps are embedded throughout the AMSMMALA simulation, the AM estimator
 $\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$ is corrected by the exact inverse metric evaluation 
-at the most recently accepted SMMALA update. 
-{\bf <- [See note below.  This text makes it seem like your AM steps are recursively updating the covariance computed during the SMMALA steps.  But your algorithm block makes it seem like AM estimators don't benefit from the hessians computed during the SMMALA steps.] }  
-Put another way, recurring geometric updates prevent the empirical covariance of
+at the most recently accepted SMMALA update. Put another way, recurring geometric updates prevent the empirical covariance of
 AM from becoming degenerate. Hence, the $s_{n_{\theta}}\lambda I$ term in \eqref{am_c} is omitted by setting $\lambda=0$.
 Moreover, the tuning parameter $s_{n_{\theta}}$ of AM is set to $s_{n_{\theta}}=\epsilon^2$ in \eqref{am_c} so that
 $\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$ and $G^{-1}(\boldsymbol{\theta}_k)$ are coherently
@@ -639,7 +643,7 @@ at the $k$-th step of AMSMMALA, where $\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|
 
 To ensure that the adaptive Metropolis covariance estimator receives exact geometric updates regularly, a $\mod{(a)}$ 
 scheduler can be employed. If the $k$-th MCMC iteration is a multiple of a tuning constant $a$, then a SMMALA update is 
-attempted, else an AM proposal is made. Algorithm \ref{amsmmala} summarizes AMSMMALA with the help of pseudocode.
+attempted, else an AM proposal is made.
 
 \begin{algorithm}[t]
 	\caption{AMSMMALA}
@@ -718,6 +722,10 @@ $\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$.
 The sample means in \eqref{amsmmala_gm1} are also calculable recursively according to
 $k\bar{\boldsymbol{\theta}}_k=(k-1)\bar{\boldsymbol{\theta}}_{k-1}+\boldsymbol{\theta}_k$. Apparently, \eqref{amsmmala_gm1}
 computes the empirical covariance of AMSMMALA faster than \eqref{am_cov}.
+
+Algorithm \ref{amsmmala} summarizes AMSMMALA with the help of pseudocode.
+The inverse metric estimator $\widehat{G^{-1}}(\boldsymbol{\theta}|\boldsymbol{\theta}_{0:k-1})$ appearing in the AM 
+proposal of Algorithm \ref{amsmmala} is calculated using the recursive formula \eqref{amsmmala_gm1}. So
 
 %{\bf NOTE:  It's not clear to me whether you mean to use only \hat{G^-1}'s computed by AM or whether you intend for \eqref{amsmmala_gm1} to be updating the inverse metric computed exactly in the SMMALA steps.  I was thinking that you'd suggest the latter, since that would allow the algorithm to use a metric that adapts throughout complex distribution (e.g., bannana). But from the text, it seemed like you might mean the former.}
 
