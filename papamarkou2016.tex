@@ -655,7 +655,7 @@ relying on \eqref{am_cov}.
 
 The AM proposal kernel $\mathcal{N}(\boldsymbol{\theta}_{k}, \epsilon^2M(\boldsymbol{\theta}_{k}))$ at the 
 $k$-th iteration of AMSMMALA has covariance that is either known exactly from the previous 
-SMMALA step or it is estimated from the previous AM step according to
+SMMALA step or it is estimated from the previous AM step, therefore
 \begin{equation}
 M(\boldsymbol{\theta}_{k})=
 \left\{
@@ -683,16 +683,16 @@ proposal of Algorithm \ref{amsmmala} is calculated using the recursive formula \
 		\Else
 		\State $b_k = 0$
 		\EndIf\\
-
+		
+		\State Sample $u\sim\mathcal{U}(0, 1)$\\
+		
+		\If {$b_k = 0$} \Comment{Use adaptive Metropolis proposal}
 		\If {$b_{k-1}=1$}
 		\State $M(\boldsymbol{\theta}_k)=G^{-1}(\boldsymbol{\theta}_k)$
 		\ElsIf {$b_{k-1}=0$}
 		\State $M(\boldsymbol{\theta}_k)=\widehat{G^{-1}}(\boldsymbol{\theta}_{k})$
 		\EndIf\\
-		
-		\State Sample $u\sim\mathcal{U}(0, 1)$\\
-		
-		\If {$b_k = 0$} \Comment{Use adaptive Metropolis proposal}
+
 		\State Sample 
 		$\boldsymbol{\theta^{*}}
 		\sim\mathcal{N}(\boldsymbol{\theta}_k,
