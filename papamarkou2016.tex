@@ -118,9 +118,12 @@ Computing the geometric entities of differential geometric MCMC methods creates 
 applicability of the involved methods. For example, manifold Monte Carlo methods require to calculate the metric tensor
 $G(\boldsymbol{\theta})$ of choice. Typically, $G(\boldsymbol{\theta})$ is set to be the observed Fisher information matrix,
 which equals the negative Hessian of the log-target density at a specific point $\boldsymbol{\theta}$.
-Consequently, the complexity of manifold MCMC algorithms is dominated by Hessian-related computations, either the computation of gradient and Hessian of order  $\mathcal{O}(n_\theta^2)$ or the inversion of the Hessian, so it becomes at best of order $\mathcal{O}(n_\theta^3)$.
+Consequently, the complexity of manifold MCMC algorithms is dominated by Hessian-related computations, either the 
+computation of gradient and Hessian of order  $\mathcal{O}(n_\theta^2)$ or the inversion of the Hessian, so it becomes at 
+best of order $\mathcal{O}(n_\theta^3)$.
 
-\cite{gir_cal__rie} introduced the simplified manifold Metropolis-adjusted Langevin algorithm (SMMALA) that is of order $\mathcal{O}(n_\theta^3)$, but often faster than MMALA and RMHMC in lower-dimensional parameter spaces. The 
+\cite{gir_cal__rie} introduced the simplified manifold Metropolis-adjusted Langevin algorithm (SMMALA) that is of order 
+$\mathcal{O}(n_\theta^3)$, but often faster than MMALA and RMHMC in lower-dimensional parameter spaces. The 
 relatively faster speed of SMMALA over MMALA and RMHMC is explained by lower order terms and constant factors appearing in 
 big-oh notation, which are ordinarily omitted but affect runtime in the case of smaller $n_\theta$. For this reason, the 
 simplified manifold Metropolis adjusted Langevin algorithm (SMMALA) has been employed in conjunction with population MCMC 
@@ -138,8 +141,10 @@ limited history of samples and their gradients. Alternatively, \cite{per__prox} 
 instead of differential calculus in order to construct a Langevin Monte Carlo method for high-dimensional target 
 distributions that are log-concave and possibly not continuously differentiable.
 
-This paper develops a Monte Carlo method that improves on the sampling effectiveness of SMMALA, while remaining simple to implement.  The proposed method permits adjustments to the metric updates and at the same time significantly reduces the constant in front of the $\mathcal{O}(n_\theta^3)$ term in the computational complexity. Moreover, our algorithm performs exact metric evaluations, avoiding emulation or other 
-approximations of the Hessian of the log-target density.
+This paper develops a Monte Carlo method that improves on the sampling efficacy of SMMALA, while remaining simple to 
+implement. The proposed method permits adjustments to the metric updates and at the same time significantly reduces the 
+constant in front of the $\mathcal{O}(n_\theta^3)$ term in the computational complexity. Moreover, the suggested algorithm 
+performs exact metric evaluations, avoiding emulation or other approximations of the Hessian of the log-target density.
 
 \section{Background}
 
