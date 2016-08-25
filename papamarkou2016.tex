@@ -143,8 +143,9 @@ distributions that are log-concave and possibly not continuously differentiable.
 
 This paper develops a Monte Carlo method that improves on the sampling efficacy of SMMALA, while remaining simple to 
 implement. The proposed method permits adjustments to the metric updates and at the same time significantly reduces the 
-constant in front of the $\mathcal{O}(n_\theta^3)$ term in the computational complexity. Moreover, the suggested algorithm 
-performs exact metric evaluations, avoiding emulation or other approximations of the Hessian of the log-target density.
+constant in front of the $n_\theta^3$ term in the computational complexity of order $\mathcal{O}(n_\theta^3)$. Moreover, the 
+suggested algorithm performs exact metric evaluations, avoiding emulation or other approximations of the Hessian of the 
+log-target density.
 
 \section{Background}
 
@@ -177,10 +178,11 @@ a(\boldsymbol{\theta},\boldsymbol{\theta}^{\star}) =
 \right\}.
 \end{equation}
 
-The integration stepsize $\epsilon$ is associated with the first order Euler discretization and significantly affects the 
-rate of state space exploration. If $\epsilon$ is selected to be relatively large, many of the proposed candidates will be far from 
-the current state, and are likely to have a low probability of acceptance, so the generated chain will have low acceptance 
-rate. Reducing $\epsilon$ will increase the acceptance rate, but the chain will take longer to traverse the state space.
+The integration stepsize $\epsilon$, also known as drift step, is associated with the first order Euler discretization and 
+significantly affects the rate of state space exploration. If $\epsilon$ is selected to be relatively large, many of the 
+proposed candidates will be far from the current state, and are likely to have a low probability of acceptance, so the 
+generated chain will have low acceptance rate. Reducing $\epsilon$ will increase the acceptance rate, but the chain will 
+take longer to traverse the state space.
 
 In a Bayesian setting, the target is a possibly unnormalized posterior distribution $p(\boldsymbol{\theta}|\mathbf{y})$,
 where $\mathbf{y}$ denotes the available data. Replacing $p(\boldsymbol{\theta})$ by $p(\boldsymbol{\theta}|\mathbf{y})$ in
@@ -237,16 +239,17 @@ candidate states from a normal proposal with location and covariance given by
 where $\boldsymbol{\mu}_{(k)}$ refers to the $k$-th coordinate of proposal location
 $\boldsymbol{\mu}(\boldsymbol{\theta}, G(\boldsymbol{\theta}), \epsilon)$.
 
-If a manfiold of constant curvature is assumed, then the Christoffel symbols vanish, significantly reducing the complexity of calculations needed for complex models.  
-In this case, the proposal location of MMALA simplifies to
+If a manifold of constant curvature is assumed, then the Christoffel symbols vanish, significantly reducing the complexity 
+of calculations needed for complex models. In this case, the proposal location of MMALA simplifies to
 \begin{equation}
 \label{smmala_location}
 \boldsymbol{\mu}(\boldsymbol{\theta}, G(\boldsymbol{\theta}), \epsilon) =
 \boldsymbol{\theta}+
 \frac{\epsilon^2}{2}G^{-1}(\boldsymbol{\theta})\nabla_{\theta}\log{p(\boldsymbol{\theta})}.
 \end{equation}
-As seen from the location and covariance of their proposal mechanisms, MALA is a special case of SMMALA, which is 
-in turn a special case of MMALA.
+The method with location and covariance specified by \eqref{smmala_location} and \eqref{mmala_covariance} is known as 
+simplified Metropolis-adjusted Langeving algorithm (SMMALA). As seen from the location and covariance of their proposal 
+mechanisms, MALA is a special case of SMMALA, which is in turn a special case of MMALA.
 
 The optimal stepsize $\epsilon$ for MMALA and SMMALA is empirically suggested by \cite{gir_cal__rie} to be set so as to 
 obtain an acceptance rate of around $70\%$; this choice has not been analyzed yet from a theoretical standpoint analogously 
