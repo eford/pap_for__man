@@ -666,11 +666,8 @@ G^{-1}(\boldsymbol{\theta}_k), & \mbox{if $k-1$ step taken by SMMALA}\\
 \right.
 \end{equation}
 
-Algorithm \ref{amsmmala} summarizes AMSMMALA with the help of pseudocode.
-If $b_k=0$, that is if an AM step is taken at the $k$-th MCMC iteration, the AM proposal covariance is determined by
-In other words, if an SMMALA step was taken at step $k-1$, the exact inverse metric is used, whereas if an AM step was taken
-The inverse metric estimator $\widehat{G^{-1}}(\boldsymbol{\theta}|\boldsymbol{\theta}_{0:k-1})$ appearing in the AM 
-proposal of Algorithm \ref{amsmmala} is calculated using the recursive formula \eqref{amsmmala_gm1}. So
+Algorithm \ref{amsmmala} summarizes AMSMMALA with the help of pseudocode. The empirical covariance 
+$\widehat{G^{-1}}(\boldsymbol{\theta}_{k})$ in Algorithm \ref{amsmmala} is computed via \eqref{amsmmala_gm1}.
 
 \begin{algorithm}[t]
 	\caption{AMSMMALA}
