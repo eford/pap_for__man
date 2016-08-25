@@ -607,28 +607,19 @@ $\mbox{Cov}(\boldsymbol{\theta}_{k})=\epsilon^2 G^{-1}(\boldsymbol{\theta}_{k})$
 $\boldsymbol{\theta}^{\star}$ is proposed via adjusted Metropolis at the $k$-th iteration, the metric 
 $G(\boldsymbol{\theta}_{k})$ at the current state $\boldsymbol{\theta}_k$ may or may not be known depending on whether a
 SMMALA or AM step was taken at the previous iteration; if a SMMALA step was taken at the previous iteration, then 
-$G^{-1}(\boldsymbol{\theta}_{k})$ has been computed and is used, otherwise an empirical estimator
+$G^{-1}(\boldsymbol{\theta}_{k})$ is available, otherwise an empirical estimator
 $\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$ of $G^{-1}(\boldsymbol{\theta}_{k})$ must be 
 obtained. Setting the diffusion drift step $\epsilon$ temporarily aside, it becomes clear that 
-$G^{-1}(\boldsymbol{\theta}_{k})$ will either be evaluated exactly by SMMALA or it will be estimated by the empirical 
-covariance
+$G^{-1}(\boldsymbol{\theta}_{k})$ is either evaluated exactly by SMMALA or it is estimated by the empirical covariance
 $
 \widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})=
 \widehat{\mbox{Cov}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})
 $
-% \begin{equation}
-% \label{am_gm1}
-% \widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})=
-% \frac{1}{k-1}\left(
-% \sum_{i=0}^{k-1}\boldsymbol{\theta}_{i}\boldsymbol{\theta}_{i}^{'}-
-% k\bar{\boldsymbol{\theta}}_{k-1}\bar{\boldsymbol{\theta}}_{k-1}^{'}
-% \right)
-% \end{equation}
 as given by \eqref{am_cov}.
 
 As long as SMMALA steps are embedded throughout the AMSMMALA simulation, the AM estimator
-$\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$ is corrected by the exact inverse metric evaluation 
-at the most recently accepted SMMALA update. Put another way, recurring geometric updates prevent the empirical covariance of
+$\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$ is corrected regularly by SMMALA exact inverse 
+metric evaluations. Put another way, recurring geometric updates prevent the empirical covariance of
 AM from becoming degenerate. Hence, the $s_{n_{\theta}}\lambda I$ term in \eqref{am_c} is omitted by setting $\lambda=0$.
 Moreover, the tuning parameter $s_{n_{\theta}}$ of AM is set to $s_{n_{\theta}}=\epsilon^2$ in \eqref{am_c} so that
 $\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$ and $G^{-1}(\boldsymbol{\theta}_k)$ are coherently
@@ -656,6 +647,7 @@ k\bar{\boldsymbol{\theta}}_{k-1} \bar{\boldsymbol{\theta}}_{k-1}^{'}+
 \end{equation}
 where $\widehat{G^{-1}}(\boldsymbol{\theta}_{k})$ is a shorthand for 
 $\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$.
+
 The sample means in \eqref{amsmmala_gm1} are also calculable recursively according to
 $k\bar{\boldsymbol{\theta}}_k=(k-1)\bar{\boldsymbol{\theta}}_{k-1}+\boldsymbol{\theta}_k$. Apparently, \eqref{amsmmala_gm1}
 computes the empirical covariance of AMSMMALA faster than \eqref{am_cov}.
@@ -681,7 +673,7 @@ proposal of Algorithm \ref{amsmmala} is calculated using the recursive formula \
 		\If {$b_{k-1}=1$}
 		\State $M(\boldsymbol{\theta}_k)=G^{-1}(\boldsymbol{\theta}_k)$
 		\ElsIf {$b_{k-1}=0$}
-		\State $M(\boldsymbol{\theta}_k)=\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$
+		\State $M(\boldsymbol{\theta}_k)=\widehat{G^{-1}}(\boldsymbol{\theta}_{k})$
 		\EndIf\\
 		
 		\State Sample $u\sim\mathcal{U}(0, 1)$\\
