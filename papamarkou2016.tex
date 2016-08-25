@@ -65,15 +65,17 @@
 \begin{abstract}%   <- trailing '%' for backward compatibility of .sty file
 Manifold Markov chain Monte Carlo algorithms have been introduced to sample more effectively from challenging target 
 densities exhibiting multiple modes or strong correlations. Such algorithms exploit the local geometry of the parameter 
-space, thus enabling chains to achieve a faster convergence rate when measured in number of steps. However, often acquiring local geometric information increases 
-computational complexity per step to the extent that sampling from high-dimensional targets becomes inefficient in terms of total computational time.
-This paper proposes a manifold Langevin Monte Carlo framework aimed at balancing the benefits of exploiting local geometry with computational requirements to acheive a high effective sample size for a given computational cost.
-The suggested strategy regulates the frequency of manifold-based updates via a schedule,  An 
-exponentially decaying schedule is put forward that enables more frequent updates of geometric information in early 
-transient phases of the chain, while saving computational time in late stationary phases. Alternatively, a modulo schedule 
-is introduced to allow for infrequent yet recurring geometric updates throughout the sampling course, acting to adaptively update proposals to learn the covariance structure of the parameter space. The average complexity can be 
-manually set for either of these two schedules depending on the need for geometric exploitation posed by the underlying 
-model.  
+space, thus enabling chains to achieve a faster convergence rate when measured in number of steps. However, often acquiring 
+local geometric information increases computational complexity per step to the extent that sampling from high-dimensional 
+targets becomes inefficient in terms of total computational time. This paper proposes a manifold Langevin Monte Carlo 
+framework aimed at balancing the benefits of exploiting local geometry with computational requirements to achieve a high 
+effective sample size for a given computational cost. The suggested strategy regulates the frequency of manifold-based 
+updates via a schedule. An exponentially decaying schedule is put forward that enables more frequent updates of geometric 
+information in early transient phases of the chain, while saving computational time in late stationary phases. 
+Alternatively, a modulo schedule is introduced to allow for infrequent yet recurring geometric updates throughout the 
+sampling course, acting to adaptively update proposals to learn the covariance structure of the parameter space. The average 
+complexity can be manually set for either of these two schedules depending on the need for geometric exploitation posed by 
+the underlying model.  
 \end{abstract}
 
 \begin{keywords}
