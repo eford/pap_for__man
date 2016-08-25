@@ -661,6 +661,8 @@ $k\bar{\boldsymbol{\theta}}_k=(k-1)\bar{\boldsymbol{\theta}}_{k-1}+\boldsymbol{\
 computes the empirical covariance of AMSMMALA faster than \eqref{am_cov}.
 
 Algorithm \ref{amsmmala} summarizes AMSMMALA with the help of pseudocode.
+If $b_k=0$, that is if an AM step is taken at the $k$-th MCMC iteration, the AM proposal covariance is determined by
+In other words, if an SMMALA step was taken at step $k-1$, the exact inverse metric is used, whereas if an AM step was taken
 The inverse metric estimator $\widehat{G^{-1}}(\boldsymbol{\theta}|\boldsymbol{\theta}_{0:k-1})$ appearing in the AM 
 proposal of Algorithm \ref{amsmmala} is calculated using the recursive formula \eqref{amsmmala_gm1}. So
 
@@ -676,7 +678,7 @@ proposal of Algorithm \ref{amsmmala} is calculated using the recursive formula \
 		\State $b_k = 0$
 		\EndIf\\
 		
-		\State Sample $u\sim\mathcal{U}(0, 1)$\\
+		\State Sample $u_k\sim\mathcal{U}(0, 1)$\\
 		
 		\If {$b_k = 0$} \Comment{Use adaptive Metropolis proposal}
 		\State Sample 
@@ -685,25 +687,15 @@ proposal of Algorithm \ref{amsmmala} is calculated using the recursive formula \
 		\epsilon^2 M(\boldsymbol{\theta}_k)) %\widehat{G^{-1}}(\boldsymbol{\theta}|\boldsymbol{\theta}_{0:k-1}))
 		$\\
 		
-		\If
-		{
-			$u<\dfrac{p(\boldsymbol{\theta}^{*})}{p(\boldsymbol{\theta}_k)}$
-		}
-		
-		  \State $\boldsymbol{\theta}_{k+1}=\boldsymbol{\theta}^{*}$
-		\Else
-		  \State $\boldsymbol{\theta}_{k+1}=\boldsymbol{\theta}_k$		
-		\EndIf
+		\State $r_k = \dfrac{p(\boldsymbol{\theta}^{*})}{p(\boldsymbol{\theta}_k)}$
 		\ElsIf {$b_k=1$} \Comment{Use SMMALA proposal}
 		\State Sample 
 		$\boldsymbol{\theta^{*}}
 		\sim\mathcal{N}(\boldsymbol{\mu}(\boldsymbol{\theta}_k, G(\boldsymbol{\theta}_k), \epsilon),
 		\epsilon^2 G^{-1}(\boldsymbol{\theta}_k))
 		$\\
-		
-		\If
-		{
-			$u<\dfrac{
+
+		\State $r_k = \dfrac{
 				p(\boldsymbol{\theta}^{*})
 				\mathcal{N}(\boldsymbol{\theta}_k|
 				\boldsymbol{\mu}(\boldsymbol{\theta}^{*},
@@ -719,12 +711,15 @@ proposal of Algorithm \ref{amsmmala} is calculated using the recursive formula \
 				\epsilon),
 				\epsilon^2 G^{-1}(\boldsymbol{\theta}_k))
 			}$
+		\EndIf\\
+
+		\If
+		{
+			$u_k<r_k$
 		}
-		
 		  \State $\boldsymbol{\theta}_{k+1}=\boldsymbol{\theta}^{*}$
-		  \Else
+		\Else
 		  \State $\boldsymbol{\theta}_{k+1}=\boldsymbol{\theta}_k$		
-		  \EndIf
 		\EndIf
 		
 		\EndFor
