@@ -314,8 +314,6 @@ for learning the curvature of the associated manifold. Hence, MMALA has a comple
 poses the same computational requirements apart from setting $\partial G(\boldsymbol{\theta})/\partial\theta_k$ to zero, so 
 the complexity of SMMALA becomes $\mathcal{O}(3n_\theta^3)$.
 
-%s{\bf NOTE:  For many realistic models, the model evaulations will be orders of magnitude more expensive than matrix manipulation.  So I think that it would be worth including an explicit constant factor for the computations that involve a model evaluation (or its derivatives), as opposed to computations thare are merely matrix manipulations.  Also, if we're worrying about factors of 2 or 3 in front of the n^3, then we might should look up the actual coefficients for things like Cholesky decomposition versus inverting a lower triangular matrix.  They may have factors of things like 2/3 in front of them.  Personally, I'd be happy to ignore all the constants related to linear algebra, but maintain the coefficients distringuishing model evaluation, differentiation, second derivatives, etc.  So MMALA would require a + b  n_theta + c n_theta^2 + (1+d) n_theta^3, where a is the cost of model evaluation, b is computing gradient (given that you're computing the model), c is computing the hessian (given that you're computing the function and gradient), d is computing the third derivatives (given that your computing the function, gradient and hessian).  But SMMALA would require only So MMALA would require a + b  n_theta + c n_theta^2 + n_theta^3 computation.  }
-
 Owing to the works of \cite{dav_sto__imp}, \cite{wil__brea} and \cite{leg__pow},
 optimized versions of the Coppersmith-Winograd algorithm allow to perform matrix multiplication and therefore matrix 
 inversion in $\mathcal{O}(n_\theta^{2.373})$ time. Consequently, optimized implementations of MMALA and SMMALA can run in
@@ -347,12 +345,23 @@ $. This inner product and the gradient $\nabla_{\theta}\log{p(\boldsymbol{\theta
 $\mathcal{O}(n_{\theta})$ each. So, if $G=I$, the complexity of MALA is of order $\mathcal{O}(n_{\theta})$.
 
 An implicit assumption made for all the complexity bounds of this section is that the log-target evaluations do not
-exceed the complexity of the associated samplers. Of course there are models for which such assumption is not plausible.
-For instance, if the underlying model consists of a system of non-linear ordinary differential equations (ODEs) and each 
-log-target calculation requires solving the ODE system numerically, then the log-target evaluations might dominate the
-cost of the MCMC simulation depending on the size of the parameter and state space and on the complexity of the numerical 
-ODE solver.  
-For such models, the effective complexity of MALA is $\mathcal{O}(n_{\theta})$, while the effective complexities of MMALA and SMMALA are $\mathcal{O}(n_{\theta}^3)$ and $\mathcal{O}(n_{\theta}^2)$, respectively.  
+exceed the complexity of the associated samplers. More accurately, it is assumed that the log-target scales as
+$\mathcal{O}(1)$. Of course there are models for which such assumption is not plausible. For instance, if the underlying 
+model consists of a system of non-linear ordinary differential equations (ODEs) and each log-target calculation requires 
+solving the ODE system numerically, then the log-target and its derivative evaluations might dominate the cost of the MCMC 
+simulation depending on the size of the parameter and state space and on the complexity of the numerical ODE solver.
+
+Generally, if a log-target has a complexity of order $\mathcal{O}(f(n_{\theta}))$, where $f$ is a function of $n_{\theta}$, 
+then the complexity orders of MALA, SMMALA and MMALA grow as $\mathcal{O}(f(n_{\theta}))$, $\mathcal{O}(f^2(n_{\theta}))$ 
+and $\mathcal{O}(f^3(n_{\theta}))$, respectively. These upper bounds of complexity for MALA, SMMALA and MMALA can be made 
+more specific given a log-target, since they depend on the form of the respective log-target gradient, Hessian and Hessian
+derivatives. The main point is that computationally expensive models imply 
+$\mathcal{O}(f(n_{\theta}))>>\mathcal{O}(n_{\theta})$. In other words, if the log-target is of high complexity, then
+derivative computations supersede linear algebra calculations, and this is why the computational cost of a manifold MCMC
+algorithm tends to be reported as a function of the order of derivatives appearing in the algorithm. For instance, the
+complexity of SMMALA scales as $\mathcal{O}(f^2(n_{\theta})+2n_\theta^3+2n_\theta^{2.373})$, or more crudely as
+$\mathcal{O}(f^2(n_{\theta}))$, for a log-target with complexity time
+$\mathcal{O}(f^2(n_{\theta}))>>\mathcal{O}(n_{\theta}^3)$.
 
 Combining the best of two worlds, an effective and efficient MCMC algorithm would exploit geometric information in time as 
 close as possible to the linear time of MALA. One potential approach towards this end would be to approximate the expensive 
