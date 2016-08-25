@@ -12,7 +12,7 @@ pdf(file=file.path(OUTDIR, "amsmmala_complexity.pdf"), width=10, height=6)
 
 oldpar <- par(no.readonly=TRUE)
 
-par(mar=c(5, 6, 4, 2) + 0.1)
+par(mar=c(5, 8, 4, 2)+0.1, mgp=c(3, 1, 0))
 
 plot(
   x,
@@ -20,7 +20,7 @@ plot(
   type="l",
   col=cols[1],
   lwd=2,
-  xlab="",
+  xlab=expression("n"[theta]),
   ylab="",
   cex.axis=1.8,
   cex.lab=1.7,
@@ -34,6 +34,8 @@ axis(
   cex.axis=1.8,
   las=1
 )
+
+mtext("Complexity bound", 2, line=6, cex=1.8)
 
 lines(
   x,

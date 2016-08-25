@@ -361,7 +361,7 @@ derivative computations supersede linear algebra calculations, and this is why t
 algorithm tends to be reported as a function of the order of derivatives appearing in the algorithm. For instance, the
 complexity of SMMALA scales as $\mathcal{O}(f^2(n_{\theta})+2n_\theta^3+2n_\theta^{2.373})$, or more crudely as
 $\mathcal{O}(f^2(n_{\theta}))$, for a log-target with complexity time
-$\mathcal{O}(f^2(n_{\theta}))>>\mathcal{O}(n_{\theta}^3)$.
+$\mathcal{O}(f(n_{\theta}))>>\mathcal{O}(n_{\theta}^3)$.
 
 Combining the best of two worlds, an effective and efficient MCMC algorithm would exploit geometric information in time as 
 close as possible to the linear time of MALA. One potential approach towards this end would be to approximate the expensive 
@@ -405,7 +405,8 @@ where $a$ denotes a constant tuning factor that determines the decay rate of $p(
 Schedule \eqref{exp_schedule_a} makes SMMALA updates more probable in early transient iterations of the chain, while it 
 makes MALA updates increasingly more likely in late stationary iterations. Hence, as the chain converges, less geometric 
 information is acquired to reduce the computational load. Figure \ref{fig:exp_schedule_a} displays the schedule of Bernoulli 
-probabilities for varying decaying rates.  This schedule is likely to be efficient for problems well approximated by a single metric, even if an appropriate metric is not known {{\em a priori}.
+probabilities for varying decaying rates.  This schedule is likely to be efficient for problems well approximated by a 
+single metric, even if an appropriate metric is not known a priori.
 
 \begin{figure}[t]
 	\centering
@@ -421,7 +422,7 @@ probabilities for varying decaying rates.  This schedule is likely to be efficie
 	$i$-th MCMC iteration. The tuning factor $b$ sets the asymptotic probability of selecting the SMMALA proposal mechanism
 	over its MALA counterpart. On the other hand, the tuning factor $a$ determines the rate of decay of $p(i)$ with larger 
 	$a$ corresponding to more rapid decay.
-	[{\bf NOTE: Need to label axes in this and future figures.}] }
+	}
 	\label{fig:exp_schedule}
 \end{figure}
 

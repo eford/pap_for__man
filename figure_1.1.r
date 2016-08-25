@@ -12,6 +12,10 @@ cols <- c("blue", "green", "red", "orange")
 
 pdf(file=file.path(OUTDIR, "exp_schedule_a.pdf"), width=10, height=6)
 
+oldpar <- par(no.readonly=TRUE)
+
+par(mar=c(5, 6, 4, 2)+0.1, mgp=c(3, 1, 0))
+
 plot(
   x,
   exp_cool(x, ntot, 3, 0),
@@ -19,7 +23,7 @@ plot(
   type="l",
   col=cols[1],
   lwd=2,
-  xlab="",
+  xlab="i",
   ylab="",
   cex.axis=1.8,
   cex.lab=1.7,
@@ -33,6 +37,8 @@ axis(
   cex.axis=1.8,
   las=1
 )
+
+mtext("p(i)", 2, line=4, cex=1.8)
 
 lines(
   x,
@@ -64,5 +70,7 @@ legend(
   cex=1.5,
   bty="n"
 )
+
+par(oldpar)
 
 dev.off()
