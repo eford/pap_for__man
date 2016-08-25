@@ -645,69 +645,6 @@ To ensure that the adaptive Metropolis covariance estimator receives exact geome
 scheduler can be employed. If the $k$-th MCMC iteration is a multiple of a tuning constant $a$, then a SMMALA update is 
 attempted, else an AM proposal is made.
 
-\begin{algorithm}[t]
-	\caption{AMSMMALA}
-	\label{amsmmala}
-	\begin{algorithmic}
-		\For{$k = 1$ to $n_m$} % \Comment{$n$: number of iterations}
-		% \State Sample $b \sim \mbox{Bernoulli}(p(i))$
-		\If {$k \equiv 0~(\mod{(a)})$}
-		  \State $b = 1$
-		\Else
-		  \State $b = 0$
-		\EndIf\\
-		
-		\State Sample $u\sim\mathcal{U}(0, 1)$\\
-		
-		\If {$b = 0$} \Comment{Use adaptive Metropolis proposal}
-		\State Sample 
-		$\boldsymbol{\theta^{*}}
-		\sim\mathcal{N}(\boldsymbol{\theta},
-		\epsilon^2 \widehat{G^{-1}}(\boldsymbol{\theta}|\boldsymbol{\theta}_{0:k-1}))
-		$\\
-		
-		\If
-		{
-			$u<\dfrac{p(\boldsymbol{\theta}^{*})}{p(\boldsymbol{\theta})}$
-		}
-		
-		\State $\boldsymbol{\theta}=\boldsymbol{\theta}^{*}$
-		\EndIf
-		\ElsIf {$b=1$} \Comment{Use SMMALA proposal}
-		\State Sample 
-		$\boldsymbol{\theta^{*}}
-		\sim\mathcal{N}(\boldsymbol{\mu}(\boldsymbol{\theta}, G(\boldsymbol{\theta}), \epsilon),
-		\epsilon^2 G^{-1}(\boldsymbol{\theta}))
-		$\\
-		
-		\If
-		{
-			$u<\dfrac{
-				p(\boldsymbol{\theta}^{*})
-				\mathcal{N}(\boldsymbol{\theta}|
-				\boldsymbol{\mu}(\boldsymbol{\theta}^{*},
-				G(\boldsymbol{\theta}^{*}),
-				\epsilon),
-				\epsilon^2 G^{-1}(\boldsymbol{\theta}^{*}))
-			}
-			{
-				p(\boldsymbol{\theta})
-				\mathcal{N}(\boldsymbol{\theta}^{*}|
-				\boldsymbol{\mu}(\boldsymbol{\theta},
-				G(\boldsymbol{\theta}),
-				\epsilon),
-				\epsilon^2 G^{-1}(\boldsymbol{\theta}))
-			}$
-		}
-		
-		\State $\boldsymbol{\theta}=\boldsymbol{\theta}^{*}$
-		\EndIf
-		\EndIf
-		
-		\EndFor
-	\end{algorithmic}
-\end{algorithm}
-
 It follows from \eqref{am_cov} that the empirical inverse metric of AMSMMALA used at the AM updates calculates recursively as
 \begin{equation}
 \label{amsmmala_gm1}
@@ -727,7 +664,72 @@ Algorithm \ref{amsmmala} summarizes AMSMMALA with the help of pseudocode.
 The inverse metric estimator $\widehat{G^{-1}}(\boldsymbol{\theta}|\boldsymbol{\theta}_{0:k-1})$ appearing in the AM 
 proposal of Algorithm \ref{amsmmala} is calculated using the recursive formula \eqref{amsmmala_gm1}. So
 
-%{\bf NOTE:  It's not clear to me whether you mean to use only \hat{G^-1}'s computed by AM or whether you intend for \eqref{amsmmala_gm1} to be updating the inverse metric computed exactly in the SMMALA steps.  I was thinking that you'd suggest the latter, since that would allow the algorithm to use a metric that adapts throughout complex distribution (e.g., bannana). But from the text, it seemed like you might mean the former.}
+\begin{algorithm}[t]
+	\caption{AMSMMALA}
+	\label{amsmmala}
+	\begin{algorithmic}
+		\For{$k = 1$ to $n_m$} % \Comment{$n$: number of iterations}
+		% \State Sample $b \sim \mbox{Bernoulli}(p(i))$
+		\If {$k \equiv 0~(\mod{(a)})$}
+		\State $b_k = 1$
+		\Else
+		\State $b_k = 0$
+		\EndIf\\
+		
+		\State Sample $u\sim\mathcal{U}(0, 1)$\\
+		
+		\If {$b_k = 0$} \Comment{Use adaptive Metropolis proposal}
+		\State Sample 
+		$\boldsymbol{\theta^{*}}
+		\sim\mathcal{N}(\boldsymbol{\theta}_k,
+		\epsilon^2 M(\boldsymbol{\theta}_k)) %\widehat{G^{-1}}(\boldsymbol{\theta}|\boldsymbol{\theta}_{0:k-1}))
+		$\\
+		
+		\If
+		{
+			$u<\dfrac{p(\boldsymbol{\theta}^{*})}{p(\boldsymbol{\theta}_k)}$
+		}
+		
+		  \State $\boldsymbol{\theta}_{k+1}=\boldsymbol{\theta}^{*}$
+		\Else
+		  \State $\boldsymbol{\theta}_{k+1}=\boldsymbol{\theta}_k$		
+		\EndIf
+		\ElsIf {$b_k=1$} \Comment{Use SMMALA proposal}
+		\State Sample 
+		$\boldsymbol{\theta^{*}}
+		\sim\mathcal{N}(\boldsymbol{\mu}(\boldsymbol{\theta}_k, G(\boldsymbol{\theta}_k), \epsilon),
+		\epsilon^2 G^{-1}(\boldsymbol{\theta}_k))
+		$\\
+		
+		\If
+		{
+			$u<\dfrac{
+				p(\boldsymbol{\theta}^{*})
+				\mathcal{N}(\boldsymbol{\theta}_k|
+				\boldsymbol{\mu}(\boldsymbol{\theta}^{*},
+				G(\boldsymbol{\theta}^{*}),
+				\epsilon),
+				\epsilon^2 G^{-1}(\boldsymbol{\theta}^{*}))
+			}
+			{
+				p(\boldsymbol{\theta}_k)
+				\mathcal{N}(\boldsymbol{\theta}^{*}|
+				\boldsymbol{\mu}(\boldsymbol{\theta}_k,
+				G(\boldsymbol{\theta}_k),
+				\epsilon),
+				\epsilon^2 G^{-1}(\boldsymbol{\theta}_k))
+			}$
+		}
+		
+		  \State $\boldsymbol{\theta}_{k+1}=\boldsymbol{\theta}^{*}$
+		  \Else
+		  \State $\boldsymbol{\theta}_{k+1}=\boldsymbol{\theta}_k$		
+		  \EndIf
+		\EndIf
+		
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
 
 The AM steps of AMSMMALA waive the cost of proposal evaluations thanks to the acceptance probability \eqref{am_acceptance}
 and do not require computing log-target derivatives. However, sampling a candidate state from the AM proposal kernel creates
