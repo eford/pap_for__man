@@ -47,8 +47,14 @@
        \name Eric Ford
        \email ebf11@psu.edu\\
        \addr Center for Astrostatistics\\
-       Pennsylvania State University, USA
+             Institute for CyberScience\\
+             Center for Exoplanets \& Habitable Worlds\\
+			 Department of Astronomy \& Astrophysics\\
+			 525 Davey Lab\\
+        The Pennsylvania State University,\\
+		University Park, PA 16802 USA
 }
+%  Does this latex style have a way to indicate multiple affiliations as footnotes?
 
 \editor{Leslie Pack Kaelbling}
 
@@ -57,17 +63,15 @@
 \begin{abstract}%   <- trailing '%' for backward compatibility of .sty file
 Manifold Markov chain Monte Carlo algorithms have been introduced to sample more effectively from challenging target 
 densities exhibiting multiple modes or strong correlations. Such algorithms exploit the local geometry of the parameter 
-space, thus simulating chains with high convergence rate. However, acquiring local geometric information increases 
-computational complexity to the extent that sampling from high-dimensional targets becomes inefficient.
-This paper proposes a manifold Langevin Monte Carlo framework aimed at maintaining a feasible amount of geometric 
-computation. The suggested strategy regulates the frequency of manifold-based updates via a schedule, hence it controls the 
-trade-off between effective sample size and computational cost leading to improved computational efficiency. An 
+space, thus enabling chains to achieve a faster convergence rate when measured in number of steps. However, often acquiring local geometric information increases 
+computational complexity per step to the extent that sampling from high-dimensional targets becomes inefficient in terms of total computational time.
+This paper proposes a manifold Langevin Monte Carlo framework aimed at balancing the benefits of exploiting local geometry with computational requirements to acheive a high effective sample size for a given computational cost.
+The suggested strategy regulates the frequency of manifold-based updates via a schedule,  An 
 exponentially decaying schedule is put forward that enables more frequent updates of geometric information in early 
 transient phases of the chain, while saving computational time in late stationary phases. Alternatively, a modulo schedule 
-is introduced to allow sparse yet recurring geometric updates throughout the sampling course, acting as a correction 
-mechanism for adaptive proposals that learn the covariance structure of the parameter space. The average complexity can be 
+is introduced to allow for infrequent yet recurring geometric updates throughout the sampling course, acting to adaptively update proposals to learn the covariance structure of the parameter space. The average complexity can be 
 manually set for either of these two schedules depending on the need for geometric exploitation posed by the underlying 
-model.
+model.  
 \end{abstract}
 
 \begin{keywords}
@@ -110,11 +114,9 @@ Computing the geometric entities of differential geometric MCMC methods creates 
 applicability of the involved methods. For example, manifold Monte Carlo methods require to calculate the metric tensor
 $G(\boldsymbol{\theta})$ of choice. Typically, $G(\boldsymbol{\theta})$ is set to be the observed Fisher information matrix,
 which equals the negative Hessian of the log-target density at a specific point $\boldsymbol{\theta}$.
-Consequently, the complexity of manifold MCMC algorithms is dominated by Hessian-related computations, including inversion of
-the Hessian, so it becomes at best of order $\mathcal{O}(n_\theta^3)$.
+Consequently, the complexity of manifold MCMC algorithms is dominated by Hessian-related computations, either the computation of gradient and Hessian of order  $\mathcal{O}(n_\theta^2)$ or the inversion of the Hessian, so it becomes at best of order $\mathcal{O}(n_\theta^3)$.
 
-In spite of being of order $\mathcal{O}(n_\theta^3)$ too, the simplified manifold Metropolis-adjusted Langevin algorithm 
-(SMMALA) introduced by \cite{gir_cal__rie} is faster than MMALA and RMHMC in lower-dimensional parameter spaces. The 
+\cite{gir_cal__rie} introduced the simplified manifold Metropolis-adjusted Langevin algorithm (SMMALA) that is of order $\mathcal{O}(n_\theta^3)$, but often faster than MMALA and RMHMC in lower-dimensional parameter spaces. The 
 relatively faster speed of SMMALA over MMALA and RMHMC is explained by lower order terms and constant factors appearing in 
 big-oh notation, which are ordinarily omitted but affect runtime in the case of smaller $n_\theta$. For this reason, the 
 simplified manifold Metropolis adjusted Langevin algorithm (SMMALA) has been employed in conjunction with population MCMC 
@@ -132,9 +134,7 @@ limited history of samples and their gradients. Alternatively, \cite{per__prox} 
 instead of differential calculus in order to construct a Langevin Monte Carlo method for high-dimensional target 
 distributions that are log-concave and possibly not continuously differentiable.
 
-This paper develops a Monte Carlo method that capitalizes on the sampling effectiveness of SMMALA and at the same time 
-breaks the computational barrier of $\mathcal{O}(n_\theta^3)$. The proposed method permits to adjust the schedule of metric
-updates. Moreover, it is simple to implement and it performs exact metric evaluations, avoiding emulation or other 
+This paper develops a Monte Carlo method that improves on the sampling effectiveness of SMMALA, while remaining simple to implement.  The proposed method permits adjustments to the metric updates and at the same time significantly reduces the constant in front of the $\mathcal{O}(n_\theta^3)$ term in the computational complexity. Moreover, our algorithm performs exact metric evaluations, avoiding emulation or other 
 approximations of the Hessian of the log-target density.
 
 \section{Background}
@@ -157,7 +157,7 @@ $G$ and $\epsilon$. Both $\boldsymbol{\mu}(\boldsymbol{\theta}, G, \epsilon)$ an
 the proposed states admit a Langevin diffusion approximated by a first-order Euler discretization. In other words, the 
 Langevin diffusion has a stationary distribution $p(\boldsymbol{\theta})$, so a Markov chain simulated from the 
 Metropolis-Hastings scheme outlined by proposal \eqref{langevin_proposal} will converge to the target 
-$p(\boldsymbol{\theta})$. The Metropolis-Hastings acceptance probability is to its standard form
+$p(\boldsymbol{\theta})$. The Metropolis-Hastings acceptance probability is set to its standard form
 \begin{equation}
 \label{langevin_acceptance}
 a(\boldsymbol{\theta},\boldsymbol{\theta}^{\star}) =
@@ -168,9 +168,9 @@ a(\boldsymbol{\theta},\boldsymbol{\theta}^{\star}) =
 \right\}.
 \end{equation}
 
-The integration stepsize $\epsilon$ is associated with the first order Euler discretization and its value affects the
-state space exploration. If $\epsilon$ is selected to be relatively large, some of the proposed candidates will be far from 
-the current state, and will therefore have a low probability of acceptance, so the generated chain will have low acceptance 
+The integration stepsize $\epsilon$ is associated with the first order Euler discretization and significantly affects the 
+rate of state space exploration. If $\epsilon$ is selected to be relatively large, many of the proposed candidates will be far from 
+the current state, and are likely to have a low probability of acceptance, so the generated chain will have low acceptance 
 rate. Reducing $\epsilon$ will increase the acceptance rate, but the chain will take longer to traverse the state space.
 
 In a Bayesian setting, the target is a possibly unnormalized posterior distribution $p(\boldsymbol{\theta}|\mathbf{y})$,
@@ -228,16 +228,15 @@ candidate states from a normal proposal with location and covariance given by
 where $\boldsymbol{\mu}_{(k)}$ refers to the $k$-th coordinate of proposal location
 $\boldsymbol{\mu}(\boldsymbol{\theta}, G(\boldsymbol{\theta}), \epsilon)$.
 
-If a manfiold of constant curvature is assumed, then the Christoffel symbols vanish, so the proposal location of MMALA
-simplifies to
+If a manfiold of constant curvature is assumed, then the Christoffel symbols vanish, significantly reducing the complexity of calculations needed for complex models.  
+In this case, the proposal location of MMALA simplifies to
 \begin{equation}
 \label{smmala_location}
 \boldsymbol{\mu}(\boldsymbol{\theta}, G(\boldsymbol{\theta}), \epsilon) =
 \boldsymbol{\theta}+
 \frac{\epsilon^2}{2}G^{-1}(\boldsymbol{\theta})\nabla_{\theta}\log{p(\boldsymbol{\theta})}.
 \end{equation}
-The method associated with location \eqref{smmala_location} is known as simplified Metropolis-adjusted Langeving algorithm
-(SMMALA). As seen from the location and covariance of their proposal mechanisms, MALA is a special case of SMMALA, which is 
+As seen from the location and covariance of their proposal mechanisms, MALA is a special case of SMMALA, which is 
 in turn a special case of MMALA.
 
 The optimal stepsize $\epsilon$ for MMALA and SMMALA is empirically suggested by \cite{gir_cal__rie} to be set so as to 
@@ -303,6 +302,8 @@ for learning the curvature of the associated manifold. Hence, MMALA has a comple
 poses the same computational requirements apart from setting $\partial G(\boldsymbol{\theta})/\partial\theta_k$ to zero, so 
 the complexity of SMMALA becomes $\mathcal{O}(3n_\theta^3)$.
 
+{\bf NOTE:  For many realistic models, the model evaulations will be orders of magnitude more expensive than matrix manipulation.  So I think that it would be worth including an explicit constant factor for the computations that involve a model evaluation (or its derivatives), as opposed to computations thare are merely matrix manipulations.  Also, if we're worrying about factors of 2 or 3 in front of the n^3, then we might should look up the actual coefficients for things like Cholesky decomposition versus inverting a lower triangular matrix.  They may have factors of things like 2/3 in front of them.  Personally, I'd be happy to ignore all the constants related to linear algebra, but maintain the coefficients distringuishing model evaluation, differentiation, second derivatives, etc.  So MMALA would require a + b  n_theta + c n_theta^2 + (1+d) n_theta^3, where a is the cost of model evaluation, b is computing gradient (given that you're computing the model), c is computing the hessian (given that you're computing the function and gradient), d is computing the third derivatives (given that your computing the function, gradient and hessian).  But SMMALA would require only So MMALA would require a + b  n_theta + c n_theta^2 + n_theta^3 computation.  }
+
 Owing to the works of \cite{dav_sto__imp}, \cite{wil__brea} and \cite{leg__pow},
 optimized versions of the Coppersmith-Winograd algorithm allow to perform matrix multiplication and therefore matrix 
 inversion in $\mathcal{O}(n_\theta^{2.373})$ time. Consequently, optimized implementations of MMALA and SMMALA can run in
@@ -338,7 +339,8 @@ exceed the complexity of the associated samplers. Of course there are models for
 For instance, if the underlying model consists of a system of non-linear ordinary differential equations (ODEs) and each 
 log-target calculation requires solving the ODE system numerically, then the log-target evaluations might dominate the
 cost of the MCMC simulation depending on the size of the parameter and state space and on the complexity of the numerical 
-ODE solver.
+ODE solver.  
+For such models, the effective complexity of MALA is $\mathcal{O}(n_{\theta})$, while the effective complexities of MMALA and SMMALA are $\mathcal{O}(n_{\theta}^3)$ and $\mathcal{O}(n_{\theta}^2)$, respectively.  
 
 Combining the best of two worlds, an effective and efficient MCMC algorithm would exploit geometric information in time as 
 close as possible to the linear time of MALA. One potential approach towards this end would be to approximate the expensive 
@@ -382,7 +384,7 @@ where $a$ denotes a constant tuning factor that determines the decay rate of $p(
 Schedule \eqref{exp_schedule_a} makes SMMALA updates more probable in early transient iterations of the chain, while it 
 makes MALA updates increasingly more likely in late stationary iterations. Hence, as the chain converges, less geometric 
 information is acquired to reduce the computational load. Figure \ref{fig:exp_schedule_a} displays the schedule of Bernoulli 
-probabilities for varying decaying rates.
+probabilities for varying decaying rates.  This schedule is likely to be efficient for problems well approximated by a single metric, even if an appropriate metric is not known {{\em a priori}.
 
 \begin{figure}[t]
 	\centering
@@ -397,11 +399,12 @@ probabilities for varying decaying rates.
 	\caption{Exponentially decaying schedule of probabilities $p(i)$ of making SMMALA proposals as a function of
 	$i$-th MCMC iteration. The tuning factor $b$ sets the asymptotic probability of selecting the SMMALA proposal mechanism
 	over its MALA counterpart. On the other hand, the tuning factor $a$ determines the rate of decay of $p(i)$ with larger 
-	$a$ corresponding to more rapid decay.}
+	$a$ corresponding to more rapid decay.
+	[{\bf NOTE: Need to label axes in this and future figures.}] }
 	\label{fig:exp_schedule}
 \end{figure}
 
-Subject to the model under consideration, it might be desirable to maintain a certain probability $b$ of making SMMALA 
+For other models, the curvature of the target density may change significantly over the region of parameter space with significant probability density.  In such cases, rare updates to the metric after many iterations would lead to inefficient proposals.  For such problems, it would be desirable to maintain a certain probability $b$ of making SMMALA 
 proposals in late MCMC iterations instead of eliminating this probability. Schedule \eqref{exp_schedule_a} can be modified as
 \begin{equation}
 \label{exp_schedule_a_b}
@@ -414,13 +417,13 @@ and for $b=0.1$, which corresponds to a $10\%$ probability of picking SMMALA pro
 its end.
 
 A third and last question to be addressed in order to fully construct the hybrid sampler is how to set the preconditioning 
-matrix for MALA proposals. One way to proceed is to use the most recent metric $G(\boldsymbol{\theta}^0)$ computed at the 
-latest state $\boldsymbol{\theta}^0$ obtained via a SMMALA update. This is where the computational gain comes from, since 
-$G(\boldsymbol{\theta}^0)$, $G^{-1}(\boldsymbol{\theta}^0)$ and $\sqrt{G^{-1}(\boldsymbol{\theta}^0)}$ are cached and reused 
-for the intervening MALA steps between successive SMMALA updates. An alternative option is to utlilize an identity 
+matrix for MALA proposals. Perhaps the simplest option would be to utlilize an identity 
 preconditioning matrix $G=I$ corresponding to MALA proposal densities of the form
 $\mathcal{N}(\boldsymbol{\theta}+\frac{\epsilon^2}{2}\nabla_{\theta}\log{p(\boldsymbol{\theta})}, \epsilon^2 I)$,
 thus adhering to the most commonly used version of MALA.
+We propose a more sophisticated algorithm that reuses the most recent metric $G(\boldsymbol{\theta}^0)$ computed at the 
+latest state $\boldsymbol{\theta}^0$ obtained via a SMMALA update. This offers the benefits of making use of geometric information at no additional cost.  The improvement in computational efficiency comes from caching and reusing $G(\boldsymbol{\theta}^0)$, $G^{-1}(\boldsymbol{\theta}^0)$ and $\sqrt{G^{-1}(\boldsymbol{\theta}^0)}$ 
+for the intervening MALA steps between successive SMMALA updates. 
 
 The resulting algorithm is abbreviated as ALSMMALA. The AL prefix implies that the bulk of states are drawn from a MALA 
 proposal mechanism and the SMMALA suffix indicates that the local geometry is exploited via more expensive SMMALA updates.
@@ -597,7 +600,9 @@ of the AM proposal as given by \eqref{am_cov}.
 
 As long as SMMALA steps are embedded throughout the AMSMMALA simulation, the AM estimator
 $\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$ is corrected by the exact inverse metric evaluation 
-at the most recently accepted SMMALA update. Put another way, recurring geometric updates prevent the empirical covariance of
+at the most recently accepted SMMALA update. 
+{\bf <- [See note below.  This text makes it seem like your AM steps are recursively updating the covariance computed during the SMMALA steps.  But your algorithm block makes it seem like AM estimators don't benefit from the hessians computed during the SMMALA steps.] }  
+Put another way, recurring geometric updates prevent the empirical covariance of
 AM from becoming degenerate. Hence, the $s_{n_{\theta}}\lambda I$ term in \eqref{am_c} is omitted by setting $\lambda=0$.
 Moreover, the tuning parameter $s_{n_{\theta}}$ of AM is set to $s_{n_{\theta}}=\epsilon^2$ in \eqref{am_c} so that
 $\widehat{G^{-1}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})$ and $G^{-1}(\boldsymbol{\theta}_k)$ are coherently
@@ -692,6 +697,8 @@ The sample means in \eqref{amsmmala_gm1} are also calculable recursively accordi
 $k\bar{\boldsymbol{\theta}}_k=(k-1)\bar{\boldsymbol{\theta}}_{k-1}+\boldsymbol{\theta}_k$. Apparently, \eqref{amsmmala_gm1}
 computes the empirical covariance of AMSMMALA faster than \eqref{am_cov}.
 
+{\bf NOTE:  It's not clear to me whether you mean to use only \hat{G^-1}'s computed by AM or whether you intend for \eqref{amsmmala_gm1} to be updating the inverse metric computed exactly in the SMMALA steps.  I was thinking that you'd suggest the latter, since that would allow the algorithm to use a metric that adapts throughout complex distribution (e.g., bannana). But from the text, it seemed like you might mean the former.}
+
 The AM steps of AMSMMALA waive the cost of proposal evaluations thanks to the acceptance probability \eqref{am_acceptance}
 and do not require computing log-target derivatives. However, sampling a candidate state from the AM proposal kernel creates
 a complexity bottleneck of $\mathcal{O}(n_{\theta}^3)$ due to the associated Cholesky decomposition of the empirical 
@@ -782,9 +789,7 @@ in $n_m$ independent samples.
 
 A third criterion for assessing MCMC methods is their computational time.
 This criterion corresponds to the ordinary concept of algorithmic complexity as it entails a count of numerical operations
-performed by an MCMC algorithm. To give an example, the computational complexity of MALA is of order
-$\mathcal{O}(n_{\theta}^2)$ or $\mathcal{O}(n_{\theta})$ depending on the choice of preconditioning matrix, as explained in 
-Section \ref{Motivation}.
+performed by an MCMC algorithm. To give an example, the computational complexity of MALA is of order $\mathcal{O}(n_{\theta})$ (excluding the single initial decomposition of the  preconditioning matrix, as explained in Section \ref{Motivation}).
 
 Of these three indicators of algorithmic complexity, ESS and computational runtime are the ones typically used for
 understanding the range of applicability of MCMC methods. To get a single-number summary, the ratio of ESS over runtime is
@@ -888,6 +893,8 @@ Algorithm \ref{alsmmala} and equipped with the exponentially decaying schedule d
 MALA are $\mathcal{O}(n_{\theta}^3)$ and $\mathcal{O}(n_{\theta}^2)$.
 \end{proof}
 
+[{\bf NOTE: We should at least mention that for models where the cost of SMMALA is dominated by computation of the hessian, then the first term becomes effectively $\mathcal{O}(n_{\theta}^2)$. \} ]
+
 \begin{lemma}
 The expected complexity of AMSMMALA, as defined in Algorithm \ref{amsmmala}, is
 \begin{equation}
@@ -938,7 +945,7 @@ geometric updates, whereas smaller values of $a$ increase the complexity as they
 \subsection{Analytically Intractable Geometric Updates}
 
 In practice, challenges in the implementation of manifold MCMC algorithms might raise additional computational implications.
-In particular, two notoriously incurring issues relate to the Cholesky decomposition of metric $G^{-1}(\boldsymbol{\theta})$ 
+In particular, two notoriously recurring issues relate to the Cholesky decomposition of metric $G^{-1}(\boldsymbol{\theta})$ 
 and to the calculation of up to third order derivatives of $G(\boldsymbol{\theta})$.
 
 Various contributing factors, including finite-precision floating point arithmetic, can lead to an indefinite proposal
@@ -963,6 +970,8 @@ $f:\mathbb{R}\rightarrow\mathbb{R}^n$ (\cite{gri_wal__eva}). Consequently, rever
 derivatives of probability distributions, and finds use in statistical inference. The complexity of reverse mode AD is not
 worse than that of the respective analytical derivatives of a target density, assuming of course a carefully crafted
 implementation.
+
+[{\bf NOTE:  What about for regression problems?  The naive way to phrase the problem is  as $\theta\in\mathbb{R}^n\rightarrow\chi^2\in\mathbb{R}$.  When I do that for some applications, julia crashes.  But I can also implement my model as $\theta\in\mathbb{R}^n\rightarrow y_{pred}\in\mathbb{R}^m}$, where there are $m$ observations and we calculate $\chi^2$ (or whatever your logpdf is) based on those comparing those predictions to data.  Then I can then apply autodiff on that function and calculate $\frac{\partial \chi^2}{\partial\theta_i}$ based on $y_{pred}$ and $\frac{\partial \chi^2}{\partial\theta_i}$ (and similarly for the second derivatives).  I'm not sure whether it's actually fewer calculations, less memory or just an implementation issue.  } ]
 
 \section{Examples}
 \label{Examples}
@@ -1221,7 +1230,13 @@ better than ALSMMALA for the t-dist example. Reference ForwardDiff conference pa
 
 % Acknowledgements should go at the end, before appendices and references
 
-\acks{We would like to acknowledge support for this project from the National Science Foundation (NSF grant IIS-9988642).}
+\acks{We would like to acknowledge support for this project from the National Science Foundation (NSF grant IIS-9988642).  
+%
+% E.B.F. 
+This material is based on work supported by the National Aeronautics and Space Administration under grant NNX15AE21G issued through the Exoplanet Research Program.  
+E.B.F. acknowledges the support of the The Pennsylvania State University's Eberly College of Science, Center for Astrostatistics, Institute for CyberScience and Center for Exoplanets and Habitable Worlds.  The Center for Exoplanets and Habitable Worlds is supported by the Pennsylvania State University, the Eberly College of Science, and the Pennsylvania Space Grant Consortium.  The results reported herein benefitted from collaborations and/or information exchange within NASA's Nexus for Exoplanet System Science (NExSS) research coordination network sponsored by NASA's Science Mission Directorate.  
+}
+
 
 % Manual newpage inserted to improve layout of sample file - not
 % needed in general before appendices/bibliography.
