@@ -24,8 +24,6 @@
 \newcommand{\dataset}{{\cal D}}
 \newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
 
-% \newtheorem{proposition}{Proposition}
-
 % Heading arguments are {volume}{year}{pages}{submitted}{published}{author-full-names}
 
 \jmlrheading{1}{2016}{1-48}{4/00}{10/00}{Theodore Papamarkou and Eric Ford}
@@ -39,22 +37,26 @@
 
 \title{Manifold Langevin Monte Carlo with Partial Metric Updates}
 
-\author{\name Theodore Papamarkou
-	     \email theodore.papamarkou@glasgow.ac.uk\\
-       \addr School of Mathematics and Statistics\\
-       University of Glasgow, UK
-       \AND
-       \name Eric Ford
-       \email ebf11@psu.edu\\
-       \addr Center for Astrostatistics\\
-             Institute for CyberScience\\
-             Center for Exoplanets \& Habitable Worlds\\
-			 Department of Astronomy \& Astrophysics\\
-			 525 Davey Lab\\
-        The Pennsylvania State University,\\
-		University Park, PA 16802 USA
+\author{
+  \name Theodore Papamarkou
+  \email theodore.papamarkou@glasgow.ac.uk\\
+  \addr 
+    School of Mathematics and Statistics\\
+    University of Glasgow\\
+    15 University Gardens\\
+    Glasgow, G12 8QW, UK
+\AND
+  \name Eric B. Ford
+  \email ebf11@psu.edu\\
+  \addr
+    Center for Astrostatistics\\
+    Institute for CyberScience\\
+    Center for Exoplanets \& Habitable Worlds\\
+    Department of Astronomy \& Astrophysics\\
+    525 Davey Lab\\
+    The Pennsylvania State University\\
+    University Park, PA 16802 USA
 }
-%  Does this latex style have a way to indicate multiple affiliations as footnotes?
 
 \editor{Leslie Pack Kaelbling}
 
@@ -302,7 +304,7 @@ for learning the curvature of the associated manifold. Hence, MMALA has a comple
 poses the same computational requirements apart from setting $\partial G(\boldsymbol{\theta})/\partial\theta_k$ to zero, so 
 the complexity of SMMALA becomes $\mathcal{O}(3n_\theta^3)$.
 
-{\bf NOTE:  For many realistic models, the model evaulations will be orders of magnitude more expensive than matrix manipulation.  So I think that it would be worth including an explicit constant factor for the computations that involve a model evaluation (or its derivatives), as opposed to computations thare are merely matrix manipulations.  Also, if we're worrying about factors of 2 or 3 in front of the n^3, then we might should look up the actual coefficients for things like Cholesky decomposition versus inverting a lower triangular matrix.  They may have factors of things like 2/3 in front of them.  Personally, I'd be happy to ignore all the constants related to linear algebra, but maintain the coefficients distringuishing model evaluation, differentiation, second derivatives, etc.  So MMALA would require a + b  n_theta + c n_theta^2 + (1+d) n_theta^3, where a is the cost of model evaluation, b is computing gradient (given that you're computing the model), c is computing the hessian (given that you're computing the function and gradient), d is computing the third derivatives (given that your computing the function, gradient and hessian).  But SMMALA would require only So MMALA would require a + b  n_theta + c n_theta^2 + n_theta^3 computation.  }
+%s{\bf NOTE:  For many realistic models, the model evaulations will be orders of magnitude more expensive than matrix manipulation.  So I think that it would be worth including an explicit constant factor for the computations that involve a model evaluation (or its derivatives), as opposed to computations thare are merely matrix manipulations.  Also, if we're worrying about factors of 2 or 3 in front of the n^3, then we might should look up the actual coefficients for things like Cholesky decomposition versus inverting a lower triangular matrix.  They may have factors of things like 2/3 in front of them.  Personally, I'd be happy to ignore all the constants related to linear algebra, but maintain the coefficients distringuishing model evaluation, differentiation, second derivatives, etc.  So MMALA would require a + b  n_theta + c n_theta^2 + (1+d) n_theta^3, where a is the cost of model evaluation, b is computing gradient (given that you're computing the model), c is computing the hessian (given that you're computing the function and gradient), d is computing the third derivatives (given that your computing the function, gradient and hessian).  But SMMALA would require only So MMALA would require a + b  n_theta + c n_theta^2 + n_theta^3 computation.  }
 
 Owing to the works of \cite{dav_sto__imp}, \cite{wil__brea} and \cite{leg__pow},
 optimized versions of the Coppersmith-Winograd algorithm allow to perform matrix multiplication and therefore matrix 
@@ -697,7 +699,7 @@ The sample means in \eqref{amsmmala_gm1} are also calculable recursively accordi
 $k\bar{\boldsymbol{\theta}}_k=(k-1)\bar{\boldsymbol{\theta}}_{k-1}+\boldsymbol{\theta}_k$. Apparently, \eqref{amsmmala_gm1}
 computes the empirical covariance of AMSMMALA faster than \eqref{am_cov}.
 
-{\bf NOTE:  It's not clear to me whether you mean to use only \hat{G^-1}'s computed by AM or whether you intend for \eqref{amsmmala_gm1} to be updating the inverse metric computed exactly in the SMMALA steps.  I was thinking that you'd suggest the latter, since that would allow the algorithm to use a metric that adapts throughout complex distribution (e.g., bannana). But from the text, it seemed like you might mean the former.}
+%{\bf NOTE:  It's not clear to me whether you mean to use only \hat{G^-1}'s computed by AM or whether you intend for \eqref{amsmmala_gm1} to be updating the inverse metric computed exactly in the SMMALA steps.  I was thinking that you'd suggest the latter, since that would allow the algorithm to use a metric that adapts throughout complex distribution (e.g., bannana). But from the text, it seemed like you might mean the former.}
 
 The AM steps of AMSMMALA waive the cost of proposal evaluations thanks to the acceptance probability \eqref{am_acceptance}
 and do not require computing log-target derivatives. However, sampling a candidate state from the AM proposal kernel creates
@@ -971,7 +973,7 @@ derivatives of probability distributions, and finds use in statistical inference
 worse than that of the respective analytical derivatives of a target density, assuming of course a carefully crafted
 implementation.
 
-[{\bf NOTE:  What about for regression problems?  The naive way to phrase the problem is  as $\theta\in\mathbb{R}^n\rightarrow\chi^2\in\mathbb{R}$.  When I do that for some applications, julia crashes.  But I can also implement my model as $\theta\in\mathbb{R}^n\rightarrow y_{pred}\in\mathbb{R}^m}$, where there are $m$ observations and we calculate $\chi^2$ (or whatever your logpdf is) based on those comparing those predictions to data.  Then I can then apply autodiff on that function and calculate $\frac{\partial \chi^2}{\partial\theta_i}$ based on $y_{pred}$ and $\frac{\partial \chi^2}{\partial\theta_i}$ (and similarly for the second derivatives).  I'm not sure whether it's actually fewer calculations, less memory or just an implementation issue.  } ]
+%[{\bf NOTE:  What about for regression problems?  The naive way to phrase the problem is  as $\theta\in\mathbb{R}^n\rightarrow\chi^2\in\mathbb{R}$.  When I do that for some applications, julia crashes.  But I can also implement my model as $\theta\in\mathbb{R}^n\rightarrow y_{pred}\in\mathbb{R}^m}$, where there are $m$ observations and we calculate $\chi^2$ (or whatever your logpdf is) based on those comparing those predictions to data.  Then I can then apply autodiff on that function and calculate $\frac{\partial \chi^2}{\partial\theta_i}$ based on $y_{pred}$ and $\frac{\partial \chi^2}{\partial\theta_i}$ (and similarly for the second derivatives).  I'm not sure whether it's actually fewer calculations, less memory or just an implementation issue.  } ]
 
 \section{Examples}
 \label{Examples}
