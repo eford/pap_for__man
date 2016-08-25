@@ -1261,8 +1261,22 @@ better than ALSMMALA for the t-dist example. Reference ForwardDiff conference pa
 \newpage
 \section{Discussion}
 
-% Potential for applicability in intensive applications
-% It will be tried with thermodynamic integration
+In the era of big data, MCMC methods are in a transient phase. Ongoing research activity attempts to scale MCMC algorithms 
+more efficiently in high-dimensional parameter and data spacess, as well as with the cost of model evaluations. This paper 
+initiates a conceptually straightforward yet potentially powerful approach to the problem of making manifold MCMC
+algorithms more accessible with increasing number of parameters. The main idea is to combine proposal mechanisms to find a
+balance between computational complexity and sampling efficacy. The empirical validation of ALSMMALA and AMSMMALA has 
+signalled promising signs.
+
+Several follow-up developments are awaiting to spring out of the current inititative. Other combinations of geometric 
+proposals, such as manifold Hamiltonian Monte Carlo, with computationally cheaper proposals can be examined in search of
+efficient hybrid samplers. Seeking an adaptive or geometrically informed schedule for switching between proposal mechanisms 
+is of practical importance as it may further impact overall speedup. Yet another avenue of research would be to recruit the
+samplers of this paper as power posteriors to investigate the effectiveness of the resulting thermodynamic integration upon
+challenging multi-modal targets in increasing parameter dimensions.
+
+The foreseeable continuation of this line of work is instigated both by methodological curiosity towards advancing manifold 
+MCMC efficiency and by the need for Bayesian inference for exoplanet discovery...
 
 % Acknowledgements should go at the end, before appendices and references
 
