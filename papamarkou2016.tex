@@ -1051,6 +1051,7 @@ the $i$-th row of $X$ and $\boldsymbol{\theta}\in\mathbb{R}^{n_{\theta}}$ the re
 assumed for the model parameters $\boldsymbol{\theta}\sim\pi({\boldsymbol{\theta}})=\mathcal{N}(\boldsymbol{0},vI)$ for some
 positive hyperparameter $v$. The unnormalized log-target density for Bayesian logistic regression thus takes the form
 \begin{equation}
+\label{eq:logit_target}
 \log{(p(\boldsymbol{\theta}|\mathbf{y}, X))}=L(\mathbf{y}, X | \boldsymbol{\theta})+\log{(\pi(\boldsymbol{\theta}))},
 \end{equation}
 where the log-likelihood is given by \eqref{eq:logit_logl}.
@@ -1066,14 +1067,15 @@ The gradient of the log-prior evaluates as
 \begin{equation}
 \label{eq:logit_gradlogprior}
 \nabla_{\boldsymbol{\theta}}(\log{(\pi({\boldsymbol{\theta}}))})=
--\frac{1}{a}\boldsymbol{\theta}.
+-\frac{1}{v}\boldsymbol{\theta}.
 \end{equation}
 So, the gradient
 $\nabla_{\boldsymbol{\theta}}(\log{(p(\boldsymbol{\theta}|\mathbf{y}, X))})$ of the log-target equals the sum of
 \eqref{eq:logit_gradlogl} and \eqref{eq:logit_gradlogprior}.
 
-The metric of a log-target $p$ is conventionally taken to be the expected Fisher information of $p$, which is equal to the 
-negative Hessian of log-likelihood $L$ minus the Hessian of log-prior $\pi$ in a Bayesian setting. By differentiating 
+The metric of a log-target $\log{(p)}$ is conventionally taken to be the expected Fisher information of $\log{(p)}$, which 
+is equal to the  negative Hessian of log-likelihood $L$ minus the Hessian of log-prior $\log{(\pi)}$ in a Bayesian setting. 
+By differentiating 
 \eqref{eq:logit_gradlogl} and \eqref{eq:logit_gradlogprior}, it is deduced that the metric 
 $G(\boldsymbol{\theta}|X)$ for the Bayesian logistic regression model with a normal prior $\mathcal{N}(\boldsymbol{0},vI)$ is
 \begin{equation}
@@ -1183,6 +1185,7 @@ properties.
 
 \subsection{Bayesian Poisson Regression}
 
+The log-likelihood of a Bayesian Poisson regression model with $n_d$ samples and $n_{\theta}$ covariates has the form
 \begin{equation}
 \label{eq:poisson_logl}
 L(\mathbf{y}, X | \boldsymbol{\theta})=
@@ -1190,20 +1193,27 @@ L(\mathbf{y}, X | \boldsymbol{\theta})=
 \sum_{i=1}^{n_d}\left(
 \exp(\boldsymbol{\theta}^T\mathbf{x_{i,}})
 +\log{(y_i!)}
-\right)
+\right),
 \end{equation}
-
-\begin{equation}
+where $\mathbf{y}\in\mathbb{R}^d$ is the response variable, $X$ the $n_d\cdot n_{\theta}$ design matrix and 
+$\boldsymbol{\theta}\in\mathbb{R}^{n_{\theta}}$ the regression coefficients. By differentiating \eqref{eq:poisson_logl}, the 
+gradient $\nabla_{\boldsymbol{\theta}}(L(\mathbf{y},X|\boldsymbol{\theta}))$ and the Hessian
+$H(L(\mathbf{y}, X | \boldsymbol{\theta}))$ of the Bayesian Poisson log-likelihood are found to be
+\begin{eqnarray}
 \label{eq:poisson_gradlogl}
 \nabla_{\boldsymbol{\theta}}(L(\mathbf{y},X|\boldsymbol{\theta}))=
 X^T\left(\mathbf{y}-
-\exp\left(X\boldsymbol{\theta}\right)\right)
-\end{equation}
-
-\begin{equation}
+\exp\left(X\boldsymbol{\theta}\right)\right),\\
 \label{eq:plr:H}
-H(\boldsymbol{\theta}|X))=-X^T\mbox{diag}\left[\exp(\boldsymbol{\theta}^T\mathbf{x_{i,}})\right]X
-\end{equation}
+H(L(\mathbf{y}, X | \boldsymbol{\theta}))=-X^T\mbox{diag}\left[\exp(\boldsymbol{\theta}^T\mathbf{x_{i,}})\right]X.
+\end{eqnarray}
+
+Assuming a normal prior $\boldsymbol{\theta}\sim\pi({\boldsymbol{\theta}})=\mathcal{N}(\boldsymbol{0},vI)$ with 
+hyperparameter $v>0$, the unnormalized log-target of Bayesian Poisson regression is given by \eqref{eq:logit_target}
+with the log-likelihood defined by \eqref{eq:poisson_logl}. Furthermore, the gradient of the log-target equals the sum of
+\eqref{eq:poisson_gradlogl} and \eqref{eq:logit_gradlogprior}, while the associated metric
+expresses as the negated sum $G(\boldsymbol{\theta}|X)=-H(L(\mathbf{y}, X | \boldsymbol{\theta}))+I/v$ of the log-likelihood 
+Hessian \eqref{eq:plr:H} and of the log-prior Hessian $-I/v$.
 
 \begin{table}
 	\caption{Poisson regression - comparison of Langevin sampling methods}
