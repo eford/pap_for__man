@@ -412,11 +412,11 @@ single metric, even if an appropriate metric is not known a priori.
 	\centering
 	\subfloat[$b=0$]{
 		\label{fig:exp_schedule_a}
-		\includegraphics[width=2.3in]{exp_schedule_a.pdf}
+		\includegraphics[width=2.8in]{exp_schedule_a.pdf}
 	}
 	\subfloat[$b=0.1$]{
 	  \label{fig:exp_schedule_a_b}
-		\includegraphics[width=2.3in]{exp_schedule_a_b.pdf}
+		\includegraphics[width=2.8in]{exp_schedule_a_b.pdf}
 	} \\
 	\caption{Exponentially decaying schedule of probabilities $p(i)$ of making SMMALA proposals as a function of
 	$i$-th MCMC iteration. The tuning factor $b$ sets the asymptotic probability of selecting the SMMALA proposal mechanism
@@ -801,7 +801,7 @@ require regular geometric updates throughout the simulation.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=2.3in]{cooling_schedules.pdf}
+\includegraphics[width=2.8in]{cooling_schedules.pdf}
 \caption{
 Visualization of four cooling schedule types of Table \ref{tab:cooling_schedules} for probability $p(i)$ of making a 
 geometric proposal as a function of the $i$-th MCMC iteration. The displayed schedules have been generated using $a=30$ and 
@@ -963,11 +963,11 @@ geometric updates, whereas smaller values of $a$ increase the complexity as they
 	\centering
 	\subfloat[ALSMMALA]{
 		\label{fig:alsmmala_exp_schedule}
-		\includegraphics[width=2.3in]{alsmmala_complexity.pdf}
+		\includegraphics[width=2.8in]{alsmmala_complexity.pdf}
 	}
 	\subfloat[AMSMMALA]{
 		\label{fig:amsmmala_mod_schedule}
-		\includegraphics[width=2.3in]{amsmmala_complexity.pdf}
+		\includegraphics[width=2.8in]{amsmmala_complexity.pdf}
 	} \\
 	\caption{
 		Time complexity of ALSMMALA with an exponential schedule given by \eqref{exp_schedule_a} and AMSMMALA with a $\mod{(a)}$ 
@@ -1159,12 +1159,12 @@ MALA, from which the bulk of proposals are made.
 
 \begin{figure}[t]
 	\centering
-	\subfloat[Running mean]{\includegraphics[width=2.3in]{logit_meanplot.pdf}} 
-	\subfloat[Linear autocorrelation]{\includegraphics[width=2.3in]{logit_acfplot.pdf}} \\
-	\subfloat[MALA traceplot]{\includegraphics[width=2.3in]{logit_mala_traceplot.pdf}} 
-	\subfloat[SMMALA traceplot]{\includegraphics[width=2.3in]{logit_smmala_traceplot.pdf}} \\
-	\subfloat[AMSMMALA traceplot]{\includegraphics[width=2.3in]{logit_amsmmala_traceplot.pdf}}
-	\subfloat[ALSMMALA traceplot]{\includegraphics[width=2.3in]{logit_alsmmala_traceplot.pdf}} \\
+	\subfloat[Running mean]{\includegraphics[width=2.8in]{logit_meanplot.pdf}} 
+	\subfloat[Linear autocorrelation]{\includegraphics[width=2.8in]{logit_acfplot.pdf}} \\
+	\subfloat[MALA traceplot]{\includegraphics[width=2.8in]{logit_mala_traceplot.pdf}} 
+	\subfloat[SMMALA traceplot]{\includegraphics[width=2.8in]{logit_smmala_traceplot.pdf}} \\
+	\subfloat[AMSMMALA traceplot]{\includegraphics[width=2.8in]{logit_amsmmala_traceplot.pdf}}
+	\subfloat[ALSMMALA traceplot]{\includegraphics[width=2.8in]{logit_alsmmala_traceplot.pdf}} \\
 	\caption{
 		Plots of single chains corresponding to the regression coefficient of covariate $\boldsymbol{\theta}_{(2)}$ 
 		simulated from each of MALA, SMMALA, AMSMMALA and ALSMMALA samplers by applying Bayesian logistic regression on the 
@@ -1223,10 +1223,23 @@ Lauraceae. Interest is in predicting the number of trees per unit area from the 
 the tree locations.
 
 Before conducting MCMC inference, the altitude and gradient predictors are aggregated in a coarse $50$ by $50$ meter grid by
-taking their means over the initial finer $5$ by $5$ meter grid. Figure X visualizes the tree locations and the coarsed 
-predictors. Consequently, the processed data consist of the response variable $\mathbf{y}$ holding the number of trees
-in each of the $n_d=200$ coarse grid cells as well as the altitude and slop per coarse grid cell. The Poisson regression 
-model comprises $n_{\theta}=4$ covariates, namely an intercept, the altitude and its square, and the elevational gradient.
+taking their means over the initial finer $5$ by $5$ meter grid. Figure \ref{fig:poisson_data} visualizes the tree locations 
+and the coarsed data. Consequently, the processed data consist of the response variable $\mathbf{y}$ holding the number of 
+trees in each of the $n_d=200$ coarse grid cells as well as the altitude and slop per coarse grid cell. The Poisson 
+regression model comprises $n_{\theta}=4$ covariates, namely an intercept, the altitude and its square, and the elevational 
+gradient.
+
+\begin{figure}
+	\centering
+	\subfloat[Location of trees]{\includegraphics[width=2.8in]{tree_locations.pdf}} 
+	\subfloat[Mean altitude in coarse grid]{\includegraphics[width=2.8in]{tree_altitude.pdf}} \\
+	\subfloat[Mean slope in coarse grid]{\includegraphics[width=2.8in]{tree_gradient.pdf}} 
+	\subfloat[Number of trees per coarse grid cell]{\includegraphics[width=2.8in]{tree_y.pdf}} \\
+	\caption{Visualization of tree data of of the species Beilschmiedia pendula Lauraceaecollected collected in 1995 from 
+	the $500$ by $1000$ meter Barro Colorado Island plot, Panama. (a): location of $3605$ observed trees (original data);
+	(b)-(d): mean altitude, mean elevational gradient and mean number of observed trees per coarse grid.}
+	\label{fig:poisson_data}
+\end{figure}
 
 \begin{table}
 	\caption{Poisson regression - comparison of Langevin sampling methods}
@@ -1251,12 +1264,12 @@ model comprises $n_{\theta}=4$ covariates, namely an intercept, the altitude and
 
 \begin{figure}
 	\centering
-	\subfloat[Running mean]{\includegraphics[width=2.3in]{poisson_meanplot.pdf}} 
-	\subfloat[Linear ACF]{\includegraphics[width=2.3in]{poisson_acfplot.pdf}} \\
-	\subfloat[MALA traceplot]{\includegraphics[width=2.3in]{poisson_mala_traceplot.pdf}} 
-	\subfloat[SMMALA traceplot]{\includegraphics[width=2.3in]{poisson_smmala_traceplot.pdf}} \\
-	\subfloat[AMSMMALA traceplot]{\includegraphics[width=2.3in]{poisson_amsmmala_traceplot.pdf}}
-	\subfloat[ALSMMALA traceplot]{\includegraphics[width=2.3in]{poisson_alsmmala_traceplot.pdf}} \\ 
+	\subfloat[Running mean]{\includegraphics[width=2.8in]{poisson_meanplot.pdf}} 
+	\subfloat[Linear ACF]{\includegraphics[width=2.8in]{poisson_acfplot.pdf}} \\
+	\subfloat[MALA traceplot]{\includegraphics[width=2.8in]{poisson_mala_traceplot.pdf}} 
+	\subfloat[SMMALA traceplot]{\includegraphics[width=2.8in]{poisson_smmala_traceplot.pdf}} \\
+	\subfloat[AMSMMALA traceplot]{\includegraphics[width=2.8in]{poisson_amsmmala_traceplot.pdf}}
+	\subfloat[ALSMMALA traceplot]{\includegraphics[width=2.8in]{poisson_alsmmala_traceplot.pdf}} \\ 
 	\caption{Poisson regression - plots}
 	\label{fig:poisson}
 \end{figure}
@@ -1292,12 +1305,12 @@ better than ALSMMALA for the t-dist example. Reference ForwardDiff conference pa
 
 \begin{figure}
 	\centering
-	\subfloat[Running mean]{\includegraphics[width=2.3in]{tdist_meanplot.pdf}} 
-	\subfloat[Linear ACF]{\includegraphics[width=2.3in]{tdist_acfplot.pdf}} \\
-	\subfloat[MALA traceplot]{\includegraphics[width=2.3in]{tdist_mala_traceplot.pdf}} 
-	\subfloat[SMMALA traceplot]{\includegraphics[width=2.3in]{tdist_smmala_traceplot.pdf}} \\
-	\subfloat[AMSMMALA traceplot]{\includegraphics[width=2.3in]{tdist_amsmmala_traceplot.pdf}}
-	\subfloat[ALSMMALA traceplot]{\includegraphics[width=2.3in]{tdist_alsmmala_traceplot.pdf}} \\
+	\subfloat[Running mean]{\includegraphics[width=2.8in]{tdist_meanplot.pdf}} 
+	\subfloat[Linear ACF]{\includegraphics[width=2.8in]{tdist_acfplot.pdf}} \\
+	\subfloat[MALA traceplot]{\includegraphics[width=2.8in]{tdist_mala_traceplot.pdf}} 
+	\subfloat[SMMALA traceplot]{\includegraphics[width=2.8in]{tdist_smmala_traceplot.pdf}} \\
+	\subfloat[AMSMMALA traceplot]{\includegraphics[width=2.8in]{tdist_amsmmala_traceplot.pdf}}
+	\subfloat[ALSMMALA traceplot]{\includegraphics[width=2.8in]{tdist_alsmmala_traceplot.pdf}} \\
 	\caption{t-density target - plots}
 	\label{fig:t}
 \end{figure}
