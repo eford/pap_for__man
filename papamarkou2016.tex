@@ -1261,44 +1261,65 @@ better than ALSMMALA for the t-dist example. Reference ForwardDiff conference pa
 \newpage
 \section{Discussion}
 
-MCMC methods have proven critical to the adoption of Bayesian parameter estimation in many scientific and engineering disciplines.  
-In the era of big data, researchers are eager to perform inference on models of increasing realism, often requiring many model parameters and/or computationally demanding models.  
-Despite increasing computational resources, there will always be a tension between model complexity and computational resources.  
-For many realistic problems, traditional MCMC methods can struggle, even in moderately-high dimensional parameter spaces, due to target densities with complex shapes.  
+MCMC methods have proven critical to the adoption of Bayesian parameter estimation in many scientific and engineering 
+disciplines. In the era of big data, researchers are eager to perform inference on models of increasing realism, often 
+requiring many model parameters or computationally demanding models. Despite increasing computational resources, there will 
+always be a tension between model complexity and computational resources. For many realistic problems, traditional MCMC 
+methods can struggle, even in moderately-high dimensional parameter spaces, due to target densities with complex shapes.  
 Manifold MCMC algorithms hold considerable promise for improving the efficiency of posterior sampling for such problems.  
-However, existing manifold MCMC algorithms can rapidly become prohibitively expensive with increasing dimensionality for problems with expensive model evaluations (e.g., $\mathcal{O}(f(n_{\theta})^3)$ and $\mathcal{O}(f(n_{\theta})^2)$ for MMALA and SMMALA).  
-Therefore, developing efficient MCMC algorithms that are efficient for such problems has the potential to enable more realistic models, so as improve the accuracy and robustness of scientific research across multiple disciplines. 
+However, existing manifold MCMC algorithms can rapidly become prohibitively expensive with increasing dimensionality for 
+problems with costly model evaluations of order $\mathcal{O}(f^3(n_{\theta}))$ and $\mathcal{O}(f^2(n_{\theta}))$ for 
+MMALA and SMMALA. Therefore, developing geometric MCMC algorithms that are efficient for such problems has the potential to 
+enable more realistic models, so as improve the accuracy and robustness of scientific research across multiple disciplines. 
 
-This paper initiates a conceptually straightforward, yet potentially powerful, approach to the problem of making manifold MCMC algorithms more accessible with increasing number of parameters. 
-The main idea is to combine proposal mechanisms to find a balance between computational complexity and sampling efficacy. 
-The ALSMMALA and AMSMMALA algorithms have been empirically validated on standard statistical models.
-Even for these computationally trivial problem, the ALSMMALA and AMSMMALA algorithms demonstrate considerable promise in terms of performance relative to previous algorithms.  
-The increased effective sample size per model evaluation could have an even bigger impact for more complex models with which require more model parameters and more expensive model evaluations.  
+This paper initiates a conceptually straightforward, yet potentially powerful, approach to the problem of making manifold 
+MCMC algorithms more accessible with increasing number of parameters. The main idea is to combine proposal mechanisms to 
+find a balance between computational complexity and sampling efficacy. TALSMMALA and AMSMMALA have been empirically 
+validated on standard statistical models. Even for these computationally trivial examples, the ALSMMALA and AMSMMALA 
+algorithms demonstrate considerable promise in terms of performance relative to previous algorithms. The increased effective 
+sample size per model evaluation could have an even bigger impact for more complex models which entail more model parameters 
+and more expensive model evaluations.  
 
-For example, MCMC methods are essential for the accurate characterization of the masses and orbits of extrasolar planets \cite[e.g.,]{for__qua}.  
-For many datasets, a well-chosen random walk Metropolis-Hastings MCMC sampler can be effective \cite{for__im}.  
-However, designing an efficient sampler requires considerable human effort for each system.  
-Recently, ensemble samplers, such as differential evolution MCMC\cite[DEMCMC;]{bra__ama, nel_for_pay__run} and the affine-invariant sampler\cite{hou_goo_hog__ana,mac_hog_lan__emc}, have become go-to algorithms for interpreting exoplanet observations, thanks to their balance of computational efficiency and the minimal level human effort needed.
-When analyzing a planetary system containing one star and $n_{\mathrm{pl}}$ planets, specifying the model requires at least $n_{\theta} \ge (5-7)\times n_{\mathrm{pl}}-1$ model parameters (depending on whether the orbital planes are assumed to be coplanar or potentially inclined), plus additional model parameters for modelling the observing process.  
-Each full model evaluation consists of integrating a set of $6\times n_{\mathrm{pl}}$ first-order ordinary differential equations.  
-For some planetary systems, the mutual gravitational interactions can be ignored, so using a simpler approximate model can dramatically reducing the computational cost.  
-However, many of the most scientifically interesting planetary systems and data sets require using the full and more expensive model, including Doppler observations of near-resonant planetary systems and transit timing measurements for near-resonant and/or tightly packed systems.  
-Even combining the DEMCMC algorithm and parallelizing over a cluster of CPUs or a GPU, computing usable posterior samples for such systems typically requires weeks of computation \cite[e.g.,]{doy_car_fab__kep,car_ago_cha__kep,oro_wel_car__kep,nel_for_wri__the,nel_rob_pay__ane,jon_row_lis__the,jon_for_row__sec,mil_fab_mig__are}.  
-Despite these heroic efforts and scientific successes, the resulting effective sample size is often smaller than one would like.
-Further, dozens of scientifically interesting data sets remain unanalyzed\cite{hol_maz_nac__tra}, largely due to the computational cost.  
-For example, the Kepler-57 planetary system has a complex posterior shape\cite{jon_for_row__sec} that is not well suited to the above ensemble samplers.  
-Algorithms that exploiting geometric information about the posterior shape are likely to be more efficient in terms of the number of model evaluations.  
-The manifold MCMC could make make it practical to generate posterior samples with increased effective sample sizes
-Unfortunately, computing partial derivatives for every proposal, as required for MMALA or SMMALA, would be extremely expensive.  
-The ALSMMALA and AMSMMALA algorithms have the potential to significantly reduce the number of gradient and Hessian evaluations required.  
-
-% The foreseeable continuation of this line of work is instigated both by methodological curiosity towards advancing manifold  MCMC efficiency and by the need for Bayesian inference for exoplanet discovery...
+For example, MCMC methods are essential for the accurate characterization of the masses and orbits of extrasolar planets 
+(\cite{for__qua}). For many datasets, a well-chosen random walk Metropolis-Hastings MCMC sampler can be effective 
+\cite{for__im}. However, designing an efficient sampler requires considerable human effort for each system. Recently, 
+ensemble samplers, such as the differential evolution MCMC (DE-MC) introduced by \cite{bra__ama} and 
+adapted by \cite{nel_for_pay__run} and the affine-invariant sampler \cite{hou_goo_hog__ana, mac_hog_lan__emc}, have become 
+go-to algorithms for interpreting exoplanet observations, thanks to their balance of computational efficiency and the 
+minimal level human effort needed. When analyzing a planetary system containing one star and $n_{\mathrm{pl}}$ planets, 
+specifying the model requires at least $n_{\theta} \ge 5\times n_{\mathrm{pl}}-1$ or
+$n_{\theta} \ge 7\times n_{\mathrm{pl}}-1$ model parameters depending on whether the orbital planes are assumed to be 
+coplanar or potentially inclined, plus additional model parameters for modelling the observing process. Each full model 
+evaluation consists of integrating a set of $6\times n_{\mathrm{pl}}$ first-order ordinary differential equations. For some 
+planetary systems, the mutual gravitational interactions can be ignored, so using a simpler approximate model can
+dramatically reduce the computational cost. However, many of the most scientifically interesting planetary systems and data 
+sets require using the full and more expensive model, including Doppler observations of near-resonant planetary systems and 
+transit timing measurements for near-resonant or tightly packed systems. Even if the DE-MC algorithm is parallelized over a
+cluster of CPUs or a GPU, computing usable posterior samples for such systems typically requires weeks of computation
+(\cite{
+doy_car_fab__kep,
+car_ago_cha__kep,
+oro_wel_car__kep,
+nel_for_wri__the,
+nel_rob_pay__ane,
+jon_row_lis__the,
+jon_for_row__sec,
+mil_fab_mig__are
+}.  
+Despite these heroic efforts and scientific successes, the resulting effective sample size is often smaller than one would 
+like. Further, dozens of scientifically interesting data sets remain unanalyzed (\cite{hol_maz_nac__tra}), largely due to 
+the computational cost. For example, the Kepler-57 planetary system has a complex posterior shape (\cite{jon_for_row__sec}) 
+that is not well suited to the above ensemble samplers. Algorithms that exploite geometric information about the posterior 
+shape are likely to be more efficient in terms of the number of model evaluations. manifold MCMC methods could make make it 
+practical to generate posterior samples with increased effective sample sizes. Unfortunately, computing partial derivatives 
+for every proposal, as required for MMALA or SMMALA, would be extremely expensive. The ALSMMALA and AMSMMALA algorithms have 
+the potential to significantly reduce the number of gradient and Hessian evaluations required.  
 
 This paper represents one step in the effort to develop more efficient samplers and suggests several future elaborations.  
-Other combinations of geometric proposals, such as manifold Hamiltonian Monte Carlo, with computationally cheaper proposals can be examined in search of efficient hybrid samplers. 
-Seeking an adaptive or geometrically informed schedule for switching between proposal mechanisms could further improve computational efficiency.  
-Another avenue of research would be to apply the samplers of this paper to a sequence of power posteriors (i.e., $\pi({\boldsymbol{\theta}}) L(\boldsymbol{\theta})^\alpha$ for $\alpha \in [0,1]$) to perform thermodynamic integration upon challenging multi-modal posterior densities.   
-
+Other combinations of geometric proposals, such as manifold Hamiltonian Monte Carlo, with computationally cheaper proposals 
+can be examined in search of efficient hybrid samplers. Seeking an adaptive or geometrically informed schedule for switching 
+between proposal mechanisms could further improve computational efficiency. Another avenue of research would be to apply the 
+samplers of this paper to perform thermodynamic integration upon challenging multi-modal posterior densities.   
 
 % Acknowledgements should go at the end, before appendices and references
 
