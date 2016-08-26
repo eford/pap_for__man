@@ -1166,22 +1166,22 @@ MALA, from which the bulk of proposals are made.
 	\subfloat[AMSMMALA traceplot]{\includegraphics[width=2.3in]{logit_amsmmala_traceplot.pdf}}
 	\subfloat[ALSMMALA traceplot]{\includegraphics[width=2.3in]{logit_alsmmala_traceplot.pdf}} \\
 	\caption{
-		Plots of single chains corresponding to covariate $\boldsymbol{\theta}_{(2)}$ simulated from each of MALA, SMMALA, 
-		AMSMMALA and ALSMMALA samplers by applying Bayesian logistic regression on the Swiss banknotes data. (a) Overlaid 
-		running means, (b) overlaid linear autocorrelations for the four chains, (c)-(f) individual traceplots per chain (the 
-		red horizontal line represent the Monte Carlo mean).
+		Plots of single chains corresponding to the regression coefficient of covariate $\boldsymbol{\theta}_{(2)}$ 
+		simulated from each of MALA, SMMALA, AMSMMALA and ALSMMALA samplers by applying Bayesian logistic regression on the 
+		Swiss banknotes data. (a) Overlaid running means, (b) overlaid linear autocorrelations for the four chains, (c)-(f) 
+		individual traceplots per chain (the red horizontal line represent the Monte Carlo mean).
 	}
 	\label{fig:logit}
 \end{figure}
 
-Figure \ref{fig:logit} visualizes four chains corresponding to covariate $\boldsymbol{\theta}_{(2)}$, with a single chain 
-simulated from each of MALA, SMMALA, AMSMMALA and ALSMMALA samplers using the Bayesian logistic regression log-target on the 
-Swiss banknotes data. All four overlaid running means, plotted as a function of the number of iterations, demonstrate that 
-the respective samplers converge towards the same value. The overlaid linear autocorrelations exhibit magnitudes that agree 
-with the effective sample sizes of Table \ref{tab:logit}. More specifically, ALSMMALA has the smallest linear 
-autocorrelation and highest ESS by far, followed by SMMALA, while AMSMMALA and MALA have roughly the same linear 
-autocorrelation and ESS. All four traceplots of MALA, SMMALA and of the two algorithms of this paper exhibit strong mixing 
-properties.
+Figure \ref{fig:logit} visualizes four chains corresponding to the regression coefficient of covariate 
+$\boldsymbol{\theta}_{(2)}$, with a single chain simulated from each of MALA, SMMALA, AMSMMALA and ALSMMALA samplers using 
+the Bayesian logistic regression log-target on the Swiss banknotes data. All four overlaid running means, plotted as a 
+function of the number of iterations, demonstrate that the respective samplers converge towards the same value. The overlaid 
+linear autocorrelations exhibit magnitudes that agree with the effective sample sizes of Table \ref{tab:logit}. More 
+specifically, ALSMMALA has the smallest linear autocorrelation and highest ESS by far, followed by SMMALA, while AMSMMALA 
+and MALA have roughly the same linear autocorrelation and ESS. All four traceplots of MALA, SMMALA and of the two algorithms 
+of this paper exhibit strong mixing properties.
 
 \subsection{Bayesian Poisson Regression}
 
@@ -1226,7 +1226,7 @@ Before conducting MCMC inference, the altitude and gradient predictors are aggre
 taking their means over the initial finer $5$ by $5$ meter grid. Figure X visualizes the tree locations and the coarsed 
 predictors. Consequently, the processed data consist of the response variable $\mathbf{y}$ holding the number of trees
 in each of the $n_d=200$ coarse grid cells as well as the altitude and slop per coarse grid cell. The Poisson regression 
-model comprises $n_{\theta}$ covariates, namely an intercept, the altitude and its square, and the elevational gradient.
+model comprises $n_{\theta}=4$ covariates, namely an intercept, the altitude and its square, and the elevational gradient.
 
 \begin{table}
 	\caption{Poisson regression - comparison of Langevin sampling methods}
