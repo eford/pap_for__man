@@ -1326,11 +1326,32 @@ corresponding to the altitude covariate.
 	\label{fig:poisson}
 \end{figure}
 
-\newpage
 \subsection{Multivariate t-Distribution}
 
-Mention that the base algorithm drives the simulation and sets the properties of the sampler. For this reason AMSMMALA works
-better than ALSMMALA for the t-dist example. Reference ForwardDiff conference paper, \cite{rev_lub_pap__for}.
+Monte Carlo samples are drawn from the class of $n_{\theta}$-dimensional Student-t targets
+$t_{\nu}(\mathbf{0},\frac{\nu-2}{\nu}\Sigma)$
+with $\nu$ degrees of freedom and covariance matrix
+\begin{equation}
+\label{tp:eq:normal:sigma}
+\Sigma=\left(\begin{array}{ccccccc}
+1 & a^1 & a^2 & \dots & a^{n_{\theta}-3} & a^{n_{\theta}-2} & a^{n_{\theta}-1} \\
+a^1 & 1 & a^1 & \dots & a^{n_{\theta}-4} & a^{n_{\theta}-3} & a^{n_{\theta}-2} \\
+a^2 & a^1 & 1 & \dots & a^{n_{\theta}-5} & a^{n_{\theta}-4} & a^{n_{\theta}-3} \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots \\
+a^{n_{\theta}-3} & a^{n_{\theta}-4} & a^{n_{\theta}-5} & \dots & 1 & a^{1} & a^{2} \\
+a^{n_{\theta}-2} & a^{n_{\theta}-3} & a^{n_{\theta}-4} & \dots & a^{1} & 1 & a^{1} \\
+a^{n_{\theta}-1} & a^{n_{\theta}-2} & a^{n_{\theta}-3} & \dots & a^{2} & a^1 & 1 \\
+\end{array}\right),
+\end{equation}
+for some constant $0<a<1$. So the elements of the $i$-th diagonal of
+the $n_{\theta}\times n_{\theta}$ covariance matrix $\Sigma$ are equal to
+$a^{i-1},~i=1,2,\dots,n_{\theta}$. It is worth noticing that the scale matrix
+$\frac{\nu-2}{\nu}\Sigma$ of the t-distribution is defined by factorizing 
+$\Sigma$ by $(\nu-2)/\nu$ so that the covariance matrix of the t-distribution
+is $\Sigma$.
+
+%Mention that the base algorithm drives the simulation and sets the properties of the sampler. For this reason AMSMMALA works
+%better than ALSMMALA for the t-dist example. Reference ForwardDiff conference paper, \cite{rev_lub_pap__for}.
 
 \begin{table}
 	\caption{t-density target - comparison of Langevin sampling methods. SMMALA (r) is SMMALA with reverse mode AD, and 
