@@ -1294,26 +1294,22 @@ evaluation consists of integrating a set of $6\times n_{\mathrm{pl}}$ first-orde
 planetary systems, the mutual gravitational interactions can be ignored, so using a simpler approximate model can
 dramatically reduce the computational cost. However, many of the most scientifically interesting planetary systems and data 
 sets require using the full and more expensive model, including Doppler observations of near-resonant planetary systems and 
-transit timing measurements for near-resonant or tightly packed systems. Even if the DE-MC algorithm is parallelized over a
-cluster of CPUs or a GPU, computing usable posterior samples for such systems typically requires weeks of computation
-(\cite{
-doy_car_fab__kep,
-car_ago_cha__kep,
-oro_wel_car__kep,
-nel_for_wri__the,
-nel_rob_pay__ane,
-jon_row_lis__the,
-jon_for_row__sec,
-mil_fab_mig__are
-}.  
+transit timing measurements for near-resonant or tightly packed systems.
+
+Even if the DE-MC algorithm is parallelized over a cluster of CPUs or a GPU, computing usable posterior samples for such 
+systems typically requires weeks of computation
+(\cite{doy_car_fab__kep, car_ago_cha__kep, oro_wel_car__kep, nel_for_wri__the, nel_rob_pay__ane, jon_row_lis__the,
+jon_for_row__sec, mil_fab_mig__are}.  
 Despite these heroic efforts and scientific successes, the resulting effective sample size is often smaller than one would 
 like. Further, dozens of scientifically interesting data sets remain unanalyzed (\cite{hol_maz_nac__tra}), largely due to 
 the computational cost. For example, the Kepler-57 planetary system has a complex posterior shape (\cite{jon_for_row__sec}) 
-that is not well suited to the above ensemble samplers. Algorithms that exploite geometric information about the posterior 
-shape are likely to be more efficient in terms of the number of model evaluations. manifold MCMC methods could make make it 
-practical to generate posterior samples with increased effective sample sizes. Unfortunately, computing partial derivatives 
-for every proposal, as required for MMALA or SMMALA, would be extremely expensive. The ALSMMALA and AMSMMALA algorithms have 
-the potential to significantly reduce the number of gradient and Hessian evaluations required.  
+that is not well suited to the above ensemble samplers.
+
+Algorithms that exploite geometric information about the posterior shape are likely to be more efficient in terms of the 
+number of model evaluations. manifold MCMC methods could make make it practical to generate posterior samples with increased 
+effective sample sizes. Unfortunately, computing partial derivatives for every proposal, as required for MMALA or SMMALA, 
+would be extremely expensive. The ALSMMALA and AMSMMALA algorithms have the potential to significantly reduce the number of 
+gradient and Hessian evaluations required.  
 
 This paper represents one step in the effort to develop more efficient samplers and suggests several future elaborations.  
 Other combinations of geometric proposals, such as manifold Hamiltonian Monte Carlo, with computationally cheaper proposals 
