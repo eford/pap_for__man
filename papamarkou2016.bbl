@@ -1,0 +1,389 @@
+\begin{thebibliography}{50}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[andJason F.~Rowe et~al.(2015)andJason F.~Rowe, Lissauer, Fabrycky, and
+  Ford]{jon_row_lis__the}
+Daniel Jontof-Hutter andJason F.~Rowe, Jack~J. Lissauer, Daniel~C. Fabrycky,
+  and Eric~B. Ford.
+\newblock The mass of the mars-sized exoplanet kepler-138 b from transit
+  timing.
+\newblock \emph{Nature}, 522:\penalty0 321--323, June 2015.
+
+\bibitem[Betancourt(2013)]{bet__age}
+Michael Betancourt.
+\newblock \emph{A General Metric for Riemannian Manifold Hamiltonian Monte
+  Carlo}, pages 327--334.
+\newblock Springer, Berlin Heidelberg, 2013.
+\newblock ISBN 978-3-642-40020-9.
+
+\bibitem[Braak(2006)]{bra__ama}
+Cajo J. F.~Ter Braak.
+\newblock A markov chain monte carlo version of the genetic algorithm
+  differential evolution: Easy bayesian computing for real parameter spaces.
+\newblock \emph{Statistics and Computing}, 16\penalty0 (3):\penalty0 239--249,
+  2006.
+\newblock ISSN 1573-1375.
+
+\bibitem[Byrne and Girolami(2013)]{byr_gir__geo}
+Simon Byrne and Mark Girolami.
+\newblock Geodesic monte carlo on embedded manifolds.
+\newblock \emph{Scandinavian Journal of Statistics}, 40\penalty0 (4):\penalty0
+  825--845, 2013.
+\newblock ISSN 1467-9469.
+
+\bibitem[Calderhead and Girolami(2011)]{cal_gir__sta}
+Ben Calderhead and Mark Girolami.
+\newblock Statistical analysis of nonlinear dynamical systems using
+  differential geometric sampling methods.
+\newblock \emph{Interface Focus}, 1\penalty0 (821--835), 2011.
+\newblock ISSN 2042-8898.
+
+\bibitem[Calderhead et~al.(2013)Calderhead, Epstein, Sivilotti, and
+  Girolami]{cal_eps_sil__bay}
+Ben Calderhead, Michael Epstein, Lucia Sivilotti, and Mark Girolami.
+\newblock \emph{Bayesian Approaches for Mechanistic Ion Channel Modeling},
+  chapter~13, pages 247--272.
+\newblock Humana Press, Totowa, NJ, 2013.
+
+\bibitem[Carter1 et~al.(2012)Carter1, Agol, Chaplin, Basu, Bedding, Buchhave,
+  Christensen-Dalsgaard, Deck, Elsworth, Fabrycky, Ford, Fortney, Hale,
+  Handberg, Hekker, Holman, Huber, Karoff, Kawaler, Kjeldsen, Lissauer, Lopez,
+  Lund, Lundkvist, Metcalfe, Miglio, Rogers, Stello, Borucki, Bryson,
+  Christiansen, Cochran, Geary, Gilliland, Haas, Hall, Howard, Jenkins, Klaus,
+  Koch, Latham, MacQueen, Sasselov, Steffen, Twicken, and
+  Winn]{car_ago_cha__kep}
+Joshua~A. Carter1, Eric Agol, William~J. Chaplin, Sarbani Basu, Timothy~R.
+  Bedding, Lars~A. Buchhave, J{\o}rgen Christensen-Dalsgaard, Katherine~M.
+  Deck, Yvonne Elsworth, Daniel~C. Fabrycky, Eric~B. Ford, Jonathan~J. Fortney,
+  Steven~J. Hale, Rasmus Handberg, Saskia Hekker, Matthew~J. Holman, Daniel
+  Huber, Christopher Karoff, Steven~D. Kawaler, Hans Kjeldsen, Jack~J.
+  Lissauer, Eric~D. Lopez, Mikkel~N. Lund, Mia Lundkvist, Travis~S. Metcalfe,
+  Andrea Miglio, Leslie~A. Rogers, Dennis Stello, William~J. Borucki, Steve
+  Bryson, Jessie~L. Christiansen, William~D. Cochran, John~C. Geary, Ronald~L.
+  Gilliland, Michael~R. Haas, Jennifer Hall, Andrew~W. Howard, Jon~M. Jenkins,
+  Todd Klaus, David~G. Koch, David~W. Latham, Phillip~J. MacQueen, Dimitar
+  Sasselov, Jason~H. Steffen, Joseph~D. Twicken, and Joshua~N. Winn.
+\newblock Kepler-36: A pair of planets with neighboring orbits and dissimilar
+  densities.
+\newblock \emph{Science}, 337\penalty0 (6094):\penalty0 556--559, 2012.
+
+\bibitem[Chib and Greenberg(1995)]{chi_gre__und}
+Siddhartha Chib and Edward Greenberg.
+\newblock Understanding the metropolis-hastings algorithm.
+\newblock \emph{The American Statistician}, 49\penalty0 (4):\penalty0 327--335,
+  November 1995.
+
+\bibitem[\c{S}im\c{s}ekli et~al.(2016)\c{S}im\c{s}ekli, Badeau, Cemgil, and
+  Richard]{sim_bad_cem__sto}
+Umut \c{S}im\c{s}ekli, Roland Badeau, A.~Taylan Cemgil, and Ga\"{e}l Richard.
+\newblock Stochastic quasi-newton langevin monte carlo.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, New
+  York, NY, United States, June 2016.
+
+\bibitem[Davie and Stothers(2013)]{dav_sto__imp}
+Sandy Davie and Andrew~J. Stothers.
+\newblock Improved bound for complexity of matrix multiplication.
+\newblock \emph{Proceedings of the Royal Society of Edinburgh, Section: A
+  Mathematics}, 143:\penalty0 351--369, 4 2013.
+\newblock ISSN 1473-7124.
+
+\bibitem[Doyle et~al.(2011)Doyle, Carter, Fabrycky, Slawson, Howell, Winn,
+  Orosz, Pr\u{s}a, Welsh, Quinn, Latham, Torres, Buchhave, Marcy, Fortney,
+  Shporer, Ford, Lissauer, Ragozzine, Rucker, Batalha, Jenkins, Borucki, Koch,
+  Middour, Hall, McCauliff, Fanelli, Quintana, Holman, Caldwell, Still,
+  Stefanik, Brown, Esquerdo, Tang, Furesz, Geary, Berlind, Calkins, Short,
+  Steffen, Sasselov, Dunham, Cochran, Boss, Haas, Buzasi, and
+  Fischer]{doy_car_fab__kep}
+Laurance~R. Doyle, Joshua~A. Carter, Daniel~C. Fabrycky, Robert~W. Slawson,
+  Steve~B. Howell, Joshua~N. Winn, Jerome~A. Orosz, Andrej Pr\u{s}a, William~F.
+  Welsh, Samuel~N. Quinn, David Latham, Guillermo Torres, Lars~A. Buchhave,
+  Geoffrey~W. Marcy, Jonathan~J. Fortney, Avi Shporer, Eric~B. Ford, Jack~J.
+  Lissauer, Darin Ragozzine, Michael Rucker, Natalie Batalha, Jon~M. Jenkins,
+  William~J. Borucki, David Koch, Christopher~K. Middour, Jennifer~R. Hall,
+  Sean McCauliff, Michael~N. Fanelli, Elisa~V. Quintana, Matthew~J. Holman,
+  Douglas~A. Caldwell, Martin Still, Robert~P. Stefanik, Warren~R. Brown,
+  Gilbert~A. Esquerdo, Sumin Tang, Gabor Furesz, John~C. Geary, Perry Berlind,
+  Michael~L. Calkins, Donald~R. Short, Jason~H. Steffen, Dimitar Sasselov,
+  Edward~W. Dunham, William~D. Cochran, Alan Boss, Michael~R. Haas, Derek
+  Buzasi, and Debra Fischer.
+\newblock Kepler-16: A transiting circumbinary planet.
+\newblock \emph{Science}, 333\penalty0 (6049):\penalty0 1602--1606, 2011.
+
+\bibitem[Duane et~al.(1987)Duane, Kennedy, Pendleton, and
+  Roweth]{dua_ken_pen__hyb}
+Simon Duane, A.D. Kennedy, Brian~J. Pendleton, and Duncan Roweth.
+\newblock Hybrid monte carlo.
+\newblock \emph{Physics Letters B}, 195\penalty0 (2):\penalty0 216--222, 1987.
+\newblock ISSN 0370-2693.
+
+\bibitem[Flury and Riedwyl(1988)]{flu_rie__mul}
+Bernhard Flury and Hans Riedwyl.
+\newblock \emph{Multivariate Statistics}.
+\newblock Chapman and Hall, 1988.
+
+\bibitem[Ford(2005)]{for__qua}
+Eric~B. Ford.
+\newblock Quantifying the uncertainty in the orbits of extrasolar planets.
+\newblock \emph{The Astronomical Journal}, 129:\penalty0 1706--1717, March
+  2005.
+
+\bibitem[Ford(2006)]{for__im}
+Eric~B. Ford.
+\newblock Improving the efficiency of markov chain monte carlo for analyzing
+  the orbits of extrasolar planets.
+\newblock \emph{The Astrophysical Journal}, 642:\penalty0 505--522, May 2006.
+
+\bibitem[Foreman-Mackey et~al.(2013)Foreman-Mackey, Hogg, Lang, and
+  Goodman]{mac_hog_lan__emc}
+Daniel Foreman-Mackey, David~W. Hogg, Dustin Lang, and Jonathan Goodman.
+\newblock emcee: The mcmc hammer.
+\newblock \emph{Publications of the Astronomical Society of the Pacific},
+  125\penalty0 (925):\penalty0 306--312, 2013.
+
+\bibitem[Gall(2014)]{leg__pow}
+Fran\c{c}ois~Le Gall.
+\newblock Powers of tensors and fast matrix multiplication.
+\newblock In \emph{Proceedings of the 39th International Symposium on Symbolic
+  and Algebraic Computation}, ISSAC '14, pages 296--303, New York, NY, USA,
+  2014. ACM.
+
+\bibitem[Geyer(1992)]{gey__pra}
+Charles~J. Geyer.
+\newblock Practical markov chain monte carlo.
+\newblock \emph{Statistical Science}, 7\penalty0 (4):\penalty0 473--483, 11
+  1992.
+
+\bibitem[Gill et~al.(1974)Gill, Golub, Murray, and Saunders]{gill_gol_wal__met}
+Philip~E Gill, Gene~H Golub, Walter Murray, and Michael~A Saunders.
+\newblock Methods for modifying matrix factorizations.
+\newblock \emph{Mathematics of Computation}, 28\penalty0 (126):\penalty0
+  505--535, 1974.
+
+\bibitem[Girolami and Calderhead(2011)]{gir_cal__rie}
+Mark Girolami and Ben Calderhead.
+\newblock Riemann manifold langevin and hamiltonian monte carlo methods.
+\newblock \emph{Journal of the Royal Statistical Society: Series B (Statistical
+  Methodology)}, 73\penalty0 (2):\penalty0 123--214, 2011.
+\newblock ISSN 1467-9868.
+
+\bibitem[Griewank(2014)]{gri__ona}
+Andreas Griewank.
+\newblock On automatic differentiation and alalgorithm linearization.
+\newblock \emph{Pesquisa Operacional}, 34:\penalty0 621--645, 12 2014.
+\newblock ISSN 0101-7438.
+
+\bibitem[Griewank and Walther(2008)]{gri_wal__eva}
+Andreas Griewank and Andrea Walther.
+\newblock \emph{Evaluating Derivatives: Principles and Techniques of
+  Algorithmic Differentiation}.
+\newblock Number 105 in Other Titles in Applied Mathematics. SIAM,
+  Philadelphia, PA, 2nd edition, 2008.
+\newblock ISBN 978--0--898716--59--7.
+
+\bibitem[Haario et~al.(2001)Haario, Saksman, and Tamminen]{haa_sak_tam__ana}
+Heikki Haario, Eero Saksman, and Johanna Tamminen.
+\newblock An adaptive metropolis algorithm.
+\newblock \emph{Bernoulli}, 7\penalty0 (2):\penalty0 223--242, 04 2001.
+
+\bibitem[Hajek(1987)]{haj__coo}
+Bruce Hajek.
+\newblock \emph{Cooling Schedules for Optimal Annealing}, pages 147--150.
+\newblock Springer New York, New York, NY, 1987.
+
+\bibitem[Higham(1988)]{hig__com01}
+Nicholas~J. Higham.
+\newblock Computing a nearest symmetric positive semidefinite matrix.
+\newblock \emph{Linear Algebra and its Applications}, 103:\penalty0 103--118,
+  1988.
+\newblock ISSN 0024-3795.
+
+\bibitem[Higham(2002)]{hig__com02}
+Nicholas~J. Higham.
+\newblock Computing the nearest correlation matrix - a problem from finance.
+\newblock \emph{IMA Journal of Numerical Analysis}, 22\penalty0 (3):\penalty0
+  329--343, 2002.
+
+\bibitem[Holczer et~al.(2016)Holczer, Mazeh, Nachmani, Jontof-Hutter, Ford,
+  Fabrycky, Ragozzine, Kane, and Steffen]{hol_maz_nac__tra}
+Tomer Holczer, Tsevi Mazeh, Gil Nachmani, Daniel Jontof-Hutter, Eric~B. Ford,
+  Daniel Fabrycky, Darin Ragozzine, Mackenzie Kane, and Jason~H. Steffen.
+\newblock Transit timing observations from kepler. ix. catalog of the full
+  long-cadence data set.
+\newblock \emph{The Astrophysical Journal Supplement Series}, 225\penalty0
+  (1):\penalty0 9, 2016.
+
+\bibitem[Hou et~al.(2012)Hou, Goodman, Hogg, Weare, and
+  Schwab]{hou_goo_hog__ana}
+Fengji Hou, Jonathan Goodman, David~W. Hogg, Jonathan Weare, and Christian
+  Schwab.
+\newblock An affine-invariant sampler for exoplanet fitting and discovery in
+  radial velocity data.
+\newblock \emph{The Astrophysical Journal}, 745:\penalty0 198, February 2012.
+
+\bibitem[Jontof-Hutter et~al.(2016)Jontof-Hutter, Ford, Rowe, Lissauer,
+  Fabrycky, Laerhoven, Agol, Deck, Holczer, and Mazeh]{jon_for_row__sec}
+Daniel Jontof-Hutter, Eric~B. Ford, Jason~F. Rowe, Jack~J. Lissauer, Daniel~C.
+  Fabrycky, Christa~Van Laerhoven, Eric Agol, Katherine~M. Deck, Tomer Holczer,
+  and Tsevi Mazeh.
+\newblock Secure mass measurements from transit timing: 10 kepler exoplanets
+  between 3 and 8 $m_{\oplus}$ with diverse densities and incident fluxes.
+\newblock \emph{The Astrophysical Journal}, 820\penalty0 (1):\penalty0 1--23,
+  2016.
+
+\bibitem[Lan et~al.(2014)Lan, Streets, and Shahbaba]{lan_str_sha__wor}
+Shiwei Lan, Jeffrey Streets, and Babak Shahbaba.
+\newblock Wormhole hamiltonian monte carlo.
+\newblock In \emph{Proceedings of the Twenty-Eighth AAAI Conference on
+  Artificial Intelligence}, pages 1953--1959, 2014.
+
+\bibitem[Lan et~al.(2015)Lan, Stathopoulos, Shahbaba, and
+  Girolami]{lan_sta_sha__mar}
+Shiwei Lan, Vasileios Stathopoulos, Babak Shahbaba, and Mark Girolami.
+\newblock Markov chain monte carlo from lagrangian dynamics.
+\newblock \emph{Journal of Computational and Graphical Statistics}, 24\penalty0
+  (2):\penalty0 357--378, 2015.
+
+\bibitem[Lan et~al.(2016)Lan, Bui-Thanh, Christie, and
+  Girolami]{lan_tha_chr__emu}
+Shiwei Lan, Tan Bui-Thanh, Mike Christie, and Mark Girolami.
+\newblock Emulation of higher-order tensors in manifold monte carlo methods for
+  bayesian inverse problems.
+\newblock \emph{Journal of Computational Physics}, 308:\penalty0 81--101, 2016.
+\newblock ISSN 0021-9991.
+
+\bibitem[Livingstone and Girolami(2014)]{liv_gir__inf}
+Samuel Livingstone and Mark Girolami.
+\newblock Information-geometric markov chain monte carlo methods using
+  diffusions.
+\newblock \emph{Entropy}, 16\penalty0 (6):\penalty0 3074, 2014.
+\newblock ISSN 1099-4300.
+
+\bibitem[Mills et~al.(2016)Mills, Fabrycky, Migaszewski, Ford, Petigura, and
+  Isaacson]{mil_fab_mig__are}
+Sean~M. Mills, Daniel~C. Fabrycky, Cezary Migaszewski, Eric~B. Ford, Erik
+  Petigura, and Howard Isaacson.
+\newblock A resonant chain of four transiting, sub-neptune planets.
+\newblock \emph{Nature}, 533:\penalty0 509--512, May 2016.
+
+\bibitem[Neal(1996)]{nea__bay}
+Radford~M. Neal.
+\newblock \emph{Bayesian Learning for Neural Networks}, volume 118.
+\newblock Springer, 1996.
+
+\bibitem[Nelson et~al.(2014{\natexlab{a}})Nelson, Ford, and
+  Payne]{nel_for_pay__run}
+Benjamin Nelson, Eric~B. Ford, and Matthew~J. Payne.
+\newblock Run dmc: An efficient, parallel code for analyzing radial velocity
+  observations using n-body integrations and differential evolution markov
+  chain monte carlo.
+\newblock \emph{The Astrophysical Journal Supplement Series}, 210\penalty0
+  (1-13):\penalty0 11, January 2014{\natexlab{a}}.
+
+\bibitem[Nelson et~al.(2014{\natexlab{b}})Nelson, Ford, Wright, Fischer, von
+  Braun, Howard, Payne, and Dindar]{nel_for_wri__the}
+Benjamin~E. Nelson, Eric~B. Ford, Jason~T. Wright, Debra~A. Fischer, Kaspar von
+  Braun, Andrew~W. Howard, Matthew~J. Payne, and Saleh Dindar.
+\newblock The 55 cancri planetary system: fully self-consistent n-body
+  constraints and a dynamical analysis.
+\newblock \emph{Monthly Notices of the Royal Astronomical Society},
+  2014{\natexlab{b}}.
+
+\bibitem[Nelson et~al.(2016)Nelson, Robertson, Payne, Pritchard, Deck, Ford,
+  Wright, and Isaacson]{nel_rob_pay__ane}
+Benjamin~E. Nelson, Paul~M. Robertson, Matthew~J. Payne, Seth~M. Pritchard,
+  Katherine~M. Deck, Eric~B. Ford, Jason~T. Wright, and Howard~T. Isaacson.
+\newblock An empirically derived three-dimensional laplace resonance in the
+  gliese 876 planetary system.
+\newblock \emph{Monthly Notices of the Royal Astronomical Society},
+  455\penalty0 (3):\penalty0 2484--2499, 2016.
+
+\bibitem[Nourani and Andresen(1998)]{nou_and__aco}
+Yaghout Nourani and Bjarne Andresen.
+\newblock A comparison of simulated annealing cooling strategies.
+\newblock \emph{Journal of Physics A: Mathematical and General}, 31\penalty0
+  (41):\penalty0 8373--8385, 1998.
+
+\bibitem[Orosz et~al.(2012)Orosz, Welsh, Carter, Fabrycky, Cochran, Endl, Ford,
+  Haghighipour, MacQueen, Mazeh, Sanchis-Ojeda, Short, Torre, Agol, Buchhave,
+  Doyle, Isaacson, Lissauer, Marcy, Shporer, Windmiller, Barclay, Boss, Clarke,
+  Fortney, Geary, Holman, Huber, Jenkins, Kinemuchi, Kruse, Ragozzine,
+  Sasselov, Still, Tenenbaum, Uddin, Winn, Koch, and Borucki]{oro_wel_car__kep}
+Jerome~A. Orosz, William~F. Welsh, Joshua~A. Carter, Daniel~C. Fabrycky,
+  William~D. Cochran, Michael Endl, Eric~B. Ford, Nader Haghighipour,
+  Phillip~J. MacQueen, Tsevi Mazeh, Roberto Sanchis-Ojeda, Donald~R. Short,
+  Guillermo Torre, Eric Agol, Lars~A. Buchhave, Laurance~R. Doyle, Howard
+  Isaacson, Jack~J. Lissauer, Geoffrey~W. Marcy, Avi Shporer, Gur Windmiller,
+  Thomas Barclay, Alan~P. Boss, Bruce~D. Clarke, Jonathan Fortney, John~C.
+  Geary, Matthew~J. Holman, Daniel Huber, Jon~M. Jenkins, Karen Kinemuchi,
+  Ethan Kruse, Darin Ragozzine, Dimitar Sasselov, Martin Still, Peter
+  Tenenbaum, Kamal Uddin, Joshua~N. Winn, David~G. Koch, and William~J.
+  Borucki.
+\newblock Kepler-47: A transiting circumbinary multiplanet system.
+\newblock \emph{Science}, 337\penalty0 (6101):\penalty0 1511--1514, 2012.
+
+\bibitem[Pereyra(2016)]{per__prox}
+Marcelo Pereyra.
+\newblock Proximal markov chain monte carlo algorithms.
+\newblock \emph{Statistics and Computing}, 26\penalty0 (4):\penalty0 745--760,
+  2016.
+\newblock ISSN 1573-1375.
+
+\bibitem[Revels et~al.(2016)Revels, Lubin, and Papamarkou]{rev_lub_pap__for}
+Jarrett Revels, Miles Lubin, and Theodore Papamarkou.
+\newblock Forward-mode automatic differentiation in julia.
+\newblock \emph{arXiv}, 2016.
+
+\bibitem[Roberts and Rosenthal(1998)]{rob_ros__opt}
+Gareth~O. Roberts and Jeffrey~S. Rosenthal.
+\newblock Optimal scaling of discrete approximations to langevin diffusions.
+\newblock \emph{Journal of the Royal Statistical Society: Series B (Statistical
+  Methodology)}, 60\penalty0 (1):\penalty0 255--268, 1998.
+\newblock ISSN 1467-9868.
+
+\bibitem[Roberts and Stramer(2002)]{rob_stra__lan}
+Gareth~O. Roberts and Osnat Stramer.
+\newblock Langevin diffusions and metropolis-hastings algorithms.
+\newblock \emph{Methodology And Computing In Applied Probability}, 4\penalty0
+  (4):\penalty0 337--357, 2002.
+\newblock ISSN 1573-7713.
+
+\bibitem[Roberts and Tweedie(1996)]{rob_twe__exp}
+Gareth~O. Roberts and Richard~L. Tweedie.
+\newblock Exponential convergence of langevin distributions and their discrete
+  approximations.
+\newblock \emph{Bernoulli}, 2\penalty0 (4):\penalty0 341--363, 12 1996.
+
+\bibitem[Roberts et~al.(1997)Roberts, Gelman, and Gilks]{rob_gel_gil__wea}
+Gareth~O. Roberts, Andrew Gelman, and Walter~R. Gilks.
+\newblock Weak convergence and optimal scaling of random walk metropolis
+  algorithms.
+\newblock \emph{Annals of Applied Probability}, 7\penalty0 (1):\penalty0
+  110--120, 02 1997.
+
+\bibitem[Schwentner et~al.(2015)Schwentner, Papamarkou, Kauer, Stathopoulos,
+  Yang, Bilke, Meltzer, Girolami, and Kovar]{sch_pap__ews}
+Raphaela Schwentner, Theodore Papamarkou, Maximilian~O. Kauer, Vassilios
+  Stathopoulos, Fan Yang, Sven Bilke, Paul~S. Meltzer, Mark Girolami, and
+  Heinrich Kovar.
+\newblock Ews-fli1 employs an e2f switch to drive target gene expression.
+\newblock \emph{Nucleic Acids Research}, 2015.
+
+\bibitem[Seeger(2004)]{see__low}
+Matthias Seeger.
+\newblock Low rank updates for the cholesky decomposition.
+\newblock Technical report, 2004.
+
+\bibitem[Wilkinson(1971)]{wil__mod}
+James~H. Wilkinson.
+\newblock Modern error analysis.
+\newblock \emph{SIAM Review}, 13\penalty0 (4):\penalty0 548--568, 1971.
+
+\bibitem[Williams(2011)]{wil__brea}
+Virginia~Vassilevska Williams.
+\newblock Breaking the coppersmith-winograd barrier, 2011.
+
+\end{thebibliography}
