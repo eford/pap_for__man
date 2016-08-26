@@ -1075,14 +1075,14 @@ $\nabla_{\boldsymbol{\theta}}(\log{(p(\boldsymbol{\theta}|\mathbf{y}, X))})$ of 
 The metric of a log-target $p$ is conventionally taken to be the expected Fisher information of $p$, which is equal to the 
 negative Hessian of log-likelihood $L$ minus the Hessian of log-prior $\pi$ in a Bayesian setting. By differentiating 
 \eqref{eq:logit_gradlogl} and \eqref{eq:logit_gradlogprior}, it is deduced that the metric 
-$G(\boldsymbol{\theta}|\mathbf{y}, X)$ for the Bayesian logistic regression model with a normal prior
-$\mathcal{N}(\boldsymbol{0},vI)$ is
+$G(\boldsymbol{\theta}|X)$ for the Bayesian logistic regression model with a normal prior $\mathcal{N}(\boldsymbol{0},vI)$ is
 \begin{equation}
 \label{eq:blr:G:normalprior}
-G(\boldsymbol{\theta}|\mathbf{y}, X))=X^T\Lambda(\boldsymbol{\theta})X+
+G(\boldsymbol{\theta}|X))=X^T\Lambda(\boldsymbol{\theta})X+
 \frac{1}{v}I,
 \end{equation}
-where the $n_d\cdot n_d$ diagonal matrix $\Lambda(\boldsymbol{\theta})=diag[p_i(1-p_i)]$ has diagonal elements
+where the $n_d\cdot n_d$ diagonal matrix $\Lambda(\boldsymbol{\theta})=\mbox{diag}\left[p_i(1-p_i)\right]$ has diagonal 
+elements
 \begin{equation}
 p_i=P(y_i=1)=\exp(\boldsymbol{\theta}^T\mathbf{x_{i,}})/
 (1+\exp(\boldsymbol{\theta}^T\mathbf{x_{i,}})),~i\in\left\{1,2,\dots,n_{d}\right\}.
@@ -1092,7 +1092,7 @@ The gradient
 $\nabla_{\boldsymbol{\theta}}(\log{(p(\boldsymbol{\theta}|\mathbf{y}, X))})$
 of the Bayesian logistic log-target is needed for MALA proposals made by ALSMMALA. Both the log-target gradient
 $\nabla_{\boldsymbol{\theta}}(\log{(p(\boldsymbol{\theta}|\mathbf{y}, X))})$ and metric
-$G(\boldsymbol{\theta}|\mathbf{y}, X))$ are needed for SMMALA proposals made by either of ALSMMALA and AMSMMALA.
+$G(\boldsymbol{\theta}|X))$ are needed for SMMALA proposals made by either of ALSMMALA and AMSMMALA.
 
 MALA, SMMALA, ALSMMALA and AMSMMALA are run on the bank dataset taken from \cite{flu_rie__mul} with the Bayesian logistic 
 regression log-target outlined in the current section and with the prior hyperparameter set to $v=100$, which implies a  
@@ -1186,11 +1186,23 @@ properties.
 \begin{equation}
 \label{eq:poisson_logl}
 L(\mathbf{y}, X | \boldsymbol{\theta})=
+(X\boldsymbol{\theta})^T\mathbf{y}-
 \sum_{i=1}^{n_d}\left(
-y_i\boldsymbol{\theta}^{T}\mathbf{x_{i,}}
--\exp(\boldsymbol{\theta}^T)
--\log{(y_i!)}
-\right),
+\exp(\boldsymbol{\theta}^T\mathbf{x_{i,}})
++\log{(y_i!)}
+\right)
+\end{equation}
+
+\begin{equation}
+\label{eq:poisson_gradlogl}
+\nabla_{\boldsymbol{\theta}}(L(\mathbf{y},X|\boldsymbol{\theta}))=
+X^T\left(\mathbf{y}-
+\exp\left(X\boldsymbol{\theta}\right)\right)
+\end{equation}
+
+\begin{equation}
+\label{eq:plr:H}
+H(\boldsymbol{\theta}|X))=-X^T\mbox{diag}\left[\exp(\boldsymbol{\theta}^T\mathbf{x_{i,}})\right]X
 \end{equation}
 
 \begin{table}
