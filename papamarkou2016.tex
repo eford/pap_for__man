@@ -576,8 +576,8 @@ matrix
 \label{am_cov}
 \widehat{\mbox{Cov}}(\boldsymbol{\theta}_{k}|\boldsymbol{\theta}_{0:k-1})=
 \frac{1}{k-1}\left(
-\sum_{i=0}^{k-1}\boldsymbol{\theta}_{i}\boldsymbol{\theta}_{i}^{'}-
-k\bar{\boldsymbol{\theta}}_{k-1}\bar{\boldsymbol{\theta}}_{k-1}^{'}
+\sum_{i=0}^{k-1}\boldsymbol{\theta}_{i}\boldsymbol{\theta}_{i}^{T}-
+k\bar{\boldsymbol{\theta}}_{k-1}\bar{\boldsymbol{\theta}}_{k-1}^{T}
 \right).
 \end{equation}
 $\bar{\boldsymbol{\theta}}_{k-1}$ denotes the sample mean of $\boldsymbol{\theta}_{0:k-1}$. The tuning parameter 
@@ -641,9 +641,9 @@ $\widehat{G^{-1}}(\boldsymbol{\theta}_{k})$, at the $k$-th AMSMMALA iteration ca
 \label{amsmmala_gm1}
 (k-1)\widehat{G^{-1}}(\boldsymbol{\theta}_{k})=
 (k-2)M(\boldsymbol{\theta}_{k-1})+
-\boldsymbol{\theta}_{k-1} \boldsymbol{\theta}_{k-1}^{'}-
-k\bar{\boldsymbol{\theta}}_{k-1} \bar{\boldsymbol{\theta}}_{k-1}^{'}+
-(k-1)\bar{\boldsymbol{\theta}}_{k-2} \bar{\boldsymbol{\theta}}_{k-2}^{'}.
+\boldsymbol{\theta}_{k-1} \boldsymbol{\theta}_{k-1}^{T}-
+k\bar{\boldsymbol{\theta}}_{k-1} \bar{\boldsymbol{\theta}}_{k-1}^{T}+
+(k-1)\bar{\boldsymbol{\theta}}_{k-2} \bar{\boldsymbol{\theta}}_{k-2}^{T}.
 \end{equation}
 The sample means in \eqref{amsmmala_gm1} are also calculable recursively according to
 \begin{equation}
@@ -1043,8 +1043,8 @@ The log-likelihood of the model expresses as
 \label{eq:logit_logl}
 L(\mathbf{y}, X | \boldsymbol{\theta})=
 (X\boldsymbol{\theta})^T\mathbf{y}-
-\sum_{i=1}^{n_d}\ln\left[1+\exp(\boldsymbol{\theta}^T
-\mathbf{x_{i,}})\right],
+\sum_{i=1}^{n_d}\log\left(1+\exp(\boldsymbol{\theta}^T
+\mathbf{x_{i,}})\right),
 \end{equation}
 where $y\in\{0,1\}^{n_d}$ is the binary response variable, $X$ the $n_d\cdot n_{\theta}$ design matrix, $\mathbf{x_{i,}}$ 
 the $i$-th row of $X$ and $\boldsymbol{\theta}\in\mathbb{R}^{n_{\theta}}$ the regression coefficients. A normal prior is 
@@ -1059,8 +1059,8 @@ Differentiating \eqref{eq:logit_logl} gives the gradient of the log-likelihood
 \begin{equation}
 \label{eq:logit_gradlogl}
 \nabla_{\boldsymbol{\theta}}(L(\mathbf{y},X|\boldsymbol{\theta}))=
-X^T\left[\mathbf{y}-
-\frac{1}{1+\exp\left(-X\boldsymbol{\theta}\right)}\right].
+X^T\left(\mathbf{y}-
+\frac{1}{1+\exp\left(-X\boldsymbol{\theta}\right)}\right).
 \end{equation}
 The gradient of the log-prior evaluates as
 \begin{equation}
@@ -1181,8 +1181,17 @@ autocorrelation and highest ESS by far, followed by SMMALA, while AMSMMALA and M
 autocorrelation and ESS. All four traceplots of MALA, SMMALA and of the two algorithms of this paper exhibit strong mixing 
 properties.
 
-\newpage
 \subsection{Bayesian Poisson Regression}
+
+\begin{equation}
+\label{eq:poisson_logl}
+L(\mathbf{y}, X | \boldsymbol{\theta})=
+\sum_{i=1}^{n_d}\left(
+y_i\boldsymbol{\theta}^{T}\mathbf{x_{i,}}
+-\exp(\boldsymbol{\theta}^T)
+-\log{(y_i!)}
+\right),
+\end{equation}
 
 \begin{table}
 	\caption{Poisson regression - comparison of Langevin sampling methods}
