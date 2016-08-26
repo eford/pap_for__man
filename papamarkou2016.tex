@@ -1215,6 +1215,19 @@ with the log-likelihood defined by \eqref{eq:poisson_logl}. Furthermore, the gra
 expresses as the negated sum $G(\boldsymbol{\theta}|X)=-H(L(\mathbf{y}, X | \boldsymbol{\theta}))+I/v$ of the log-likelihood 
 Hessian \eqref{eq:plr:H} and of the log-prior Hessian $-I/v$.
 
+MALA, SMMALA, ALSMMALA and AMSMMALA are run on a tropical tree data set using the Bayesian Poisson log-target of this 
+section and the flat normal prior $\mathcal{N}(\boldsymbol{0},100I)$. The employed data are extracted from a big data set 
+collected in the $500$ by $1000$ meter Barro Colorado Island plot in Panama (\cite{con_hub_fos__cha}). More specifically, 
+the data used in this example describe the spatial positions in 1995 of $3605$ trees of the species Beilschmiedia pendula 
+Lauraceae. Interest is in predicting the number of trees per unit area from the altitude and elevational gradient (slope) of 
+the tree locations.
+
+Before conducting MCMC inference, the altitude and gradient predictors are aggregated in a coarse $50$ by $50$ meter grid by
+taking their means over the initial finer $5$ by $5$ meter grid. Figure X visualizes the tree locations and the coarsed 
+predictors. Consequently, the processed data consist of the response variable $\mathbf{y}$ holding the number of trees
+in each of the $n_d=200$ coarse grid cells as well as the altitude and slop per coarse grid cell. The Poisson regression 
+model comprises $n_{\theta}$ covariates, namely an intercept, the altitude and its square, and the elevational gradient.
+
 \begin{table}
 	\caption{Poisson regression - comparison of Langevin sampling methods}
 	\label{tab:poisson}
