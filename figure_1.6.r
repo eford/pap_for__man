@@ -22,7 +22,7 @@ plot(
   bei$x,
   bei$y,
   pch=20,
-  cex=0.5,
+  cex=0.75,
   col="darkgreen",
   main="", # "Location of trees in the Barro Colorado plot", 
   xlab="x coordinate (meters)",

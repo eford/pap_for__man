@@ -1159,12 +1159,30 @@ MALA, from which the bulk of proposals are made.
 
 \begin{figure}[t]
 	\centering
-	\subfloat[Running mean]{\includegraphics[width=2.8in]{logit_meanplot.pdf}} 
-	\subfloat[Linear autocorrelation]{\includegraphics[width=2.8in]{logit_acfplot.pdf}} \\
-	\subfloat[MALA traceplot]{\includegraphics[width=2.8in]{logit_mala_traceplot.pdf}} 
-	\subfloat[SMMALA traceplot]{\includegraphics[width=2.8in]{logit_smmala_traceplot.pdf}} \\
-	\subfloat[AMSMMALA traceplot]{\includegraphics[width=2.8in]{logit_amsmmala_traceplot.pdf}}
-	\subfloat[ALSMMALA traceplot]{\includegraphics[width=2.8in]{logit_alsmmala_traceplot.pdf}} \\
+	\subfloat[Running mean]{
+		\label{fig:logit:a}
+		\includegraphics[width=2.8in]{logit_meanplot.pdf}
+	} 
+	\subfloat[Linear autocorrelation]{
+	  \label{fig:logit:b}
+		\includegraphics[width=2.8in]{logit_acfplot.pdf}
+	} \\
+	\subfloat[MALA traceplot]{
+	  \label{fig:logit:c}		
+		\includegraphics[width=2.8in]{logit_mala_traceplot.pdf}
+	} 
+	\subfloat[SMMALA traceplot]{
+		\label{fig:logit:d}	
+		\includegraphics[width=2.8in]{logit_smmala_traceplot.pdf}
+	} \\
+	\subfloat[AMSMMALA traceplot]{
+		\label{fig:logit:e}		
+		\includegraphics[width=2.8in]{logit_amsmmala_traceplot.pdf}
+	}
+	\subfloat[ALSMMALA traceplot]{
+		\label{fig:logit:f}		
+		\includegraphics[width=2.8in]{logit_alsmmala_traceplot.pdf}
+	} \\
 	\caption{
 		Plots of single chains corresponding to the regression coefficient of covariate $\boldsymbol{\theta}_{(2)}$ 
 		simulated from each of MALA, SMMALA, AMSMMALA and ALSMMALA samplers by applying Bayesian logistic regression on the 
@@ -1174,14 +1192,15 @@ MALA, from which the bulk of proposals are made.
 	\label{fig:logit}
 \end{figure}
 
-Figure \ref{fig:logit} visualizes four chains corresponding to the regression coefficient of covariate 
-$\boldsymbol{\theta}_{(2)}$, with a single chain simulated from each of MALA, SMMALA, AMSMMALA and ALSMMALA samplers using 
-the Bayesian logistic regression log-target on the Swiss banknotes data. All four overlaid running means, plotted as a 
-function of the number of iterations, demonstrate that the respective samplers converge towards the same value. The overlaid 
-linear autocorrelations exhibit magnitudes that agree with the effective sample sizes of Table \ref{tab:logit}. More 
-specifically, ALSMMALA has the smallest linear autocorrelation and highest ESS by far, followed by SMMALA, while AMSMMALA 
-and MALA have roughly the same linear autocorrelation and ESS. All four traceplots of MALA, SMMALA and of the two algorithms 
-of this paper exhibit strong mixing properties.
+Figures \ref{fig:logit:c}-\ref{fig:logit:f} visualize the traceplots of four chains corresponding to the regression 
+coefficient of covariate $\boldsymbol{\theta}_{(2)}$, with a single chain simulated from each of MALA, SMMALA, AMSMMALA and 
+ALSMMALA using the Bayesian logistic regression log-target on the Swiss banknotes data. All four overlaid running means in 
+Figure \ref{fig:logit:a}, plotted as a function of the number of iterations, demonstrate that the respective samplers 
+converge towards the same value. The overlaid linear autocorrelations in Figure \ref{fig:logit:b} exhibit magnitudes that 
+agree with the effective sample sizes of Table \ref{tab:logit}. More specifically, ALSMMALA has the smallest linear 
+autocorrelation and highest ESS by far, followed by SMMALA, while AMSMMALA and MALA have roughly the same linear 
+autocorrelation and ESS. All four traceplots of MALA, SMMALA and of the two algorithms of this paper exhibit strong mixing 
+properties.
 
 \subsection{Bayesian Poisson Regression}
 
@@ -1241,9 +1260,22 @@ gradient.
 	\label{fig:poisson_data}
 \end{figure}
 
+As it can be seen from the ESS of Table \ref{tab:poisson}, which is averaged across all ten simulated chains per sampler, 
+and from the linear autocorrelation Figure \ref{fig:poisson:b}, which displays a single chain per sampler, two main groups 
+of sampling effectiveness are formed. ALSMMALA and SMMALA acquire samples more effectively than AMSMMALA and MALA, plus it
+is observed that ALSMMALA having a marginal advantage over SMMALA. Moreover, ALSMMALA has smaller runtime than SMMALA. 
+Overall, ALSMMALA stands out among all four samplers with a speedup of $2.09$ overtaking SMMALA. SMMALA exhibits a speedup 
+of $1.03$, so it is doing better than MALA in this example. Although both ALSMMALA and SMMALA exploit local geometric 
+information effectively, the former runs faster, hence it is preferred over latter. 
+
+Figures \ref{fig:poisson:c}-\ref{fig:poisson:f} display the traceplots of four chains corresponding to the regression 
+coefficient of covariate $\boldsymbol{\theta}_{(2)}$ (altitude), with a single chain simulated from each of MALA, SMMALA,
+ALSMMALA and AMSMMALA. All four traceplots show that the involved samplers attain sufficient mixing. The overlaid running 
+means of Figure \ref{fig:poisson:a} demonstrates that all four samplers converge to the same value for the coefficient 
+corresponding to the altitude covariate.
+
 \begin{table}
-	\caption{Poisson regression - comparison of Langevin sampling methods}
-	\label{tab:poisson}
+  \centering
 	\begin{tabular}{l|r|rrrr|r|r|r}
 		\hline\noalign{\smallskip}
 		\multirow{2}{*}{Method} &
@@ -1260,16 +1292,36 @@ gradient.
 		ALSMMALA & .60 & 43157 & 43089 & 42892 & 43249 & 3.83 & 11194.52 & 2.09 \\
 		\noalign{\smallskip}\hline
 	\end{tabular}
+	\caption{Poisson regression - comparison of Langevin sampling methods}
+	\label{tab:poisson}
 \end{table}
 
 \begin{figure}
 	\centering
-	\subfloat[Running mean]{\includegraphics[width=2.8in]{poisson_meanplot.pdf}} 
-	\subfloat[Linear ACF]{\includegraphics[width=2.8in]{poisson_acfplot.pdf}} \\
-	\subfloat[MALA traceplot]{\includegraphics[width=2.8in]{poisson_mala_traceplot.pdf}} 
-	\subfloat[SMMALA traceplot]{\includegraphics[width=2.8in]{poisson_smmala_traceplot.pdf}} \\
-	\subfloat[AMSMMALA traceplot]{\includegraphics[width=2.8in]{poisson_amsmmala_traceplot.pdf}}
-	\subfloat[ALSMMALA traceplot]{\includegraphics[width=2.8in]{poisson_alsmmala_traceplot.pdf}} \\ 
+	\subfloat[Running mean]{
+		\label{fig:poisson:a}
+		\includegraphics[width=2.8in]{poisson_meanplot.pdf}
+	} 
+	\subfloat[Linear ACF]{
+		\label{fig:poisson:b}
+		\includegraphics[width=2.8in]{poisson_acfplot.pdf}
+	} \\
+	\subfloat[MALA traceplot]{
+		\label{fig:poisson:c}
+		\includegraphics[width=2.8in]{poisson_mala_traceplot.pdf}
+	} 
+	\subfloat[SMMALA traceplot]{
+		\label{fig:poisson:d}
+		\includegraphics[width=2.8in]{poisson_smmala_traceplot.pdf}
+	} \\
+	\subfloat[AMSMMALA traceplot]{
+		\label{fig:poisson:e}
+		\includegraphics[width=2.8in]{poisson_amsmmala_traceplot.pdf}
+	}
+	\subfloat[ALSMMALA traceplot]{
+		\label{fig:poisson:f}
+		\includegraphics[width=2.8in]{poisson_alsmmala_traceplot.pdf}
+	} \\ 
 	\caption{Poisson regression - plots}
 	\label{fig:poisson}
 \end{figure}
