@@ -1,0 +1,15 @@
+Dear Editors,
+
+We are pleased to submit the following manuscript, titled "Manifold Langevin Monte Carlo with Partial Metric Updates".
+We believe it to be well-suited to JMLR, as it contains two new principled algorithms with sound empirical validation and theoretical justification.  
+
+This is an original manuscript with no significant overlap with any other manuscripts previously submitted to journals or conferences proceeding by the authors.  It is not under review by any other journals.  
+Both coauthors are aware of its submission and consent  to its review by JMLR.  
+The authors are not aware of any significant conflicts of interest, and have disclosed relevant funding sources in the acknowledgements.  
+The authors have no direct collaborations with any of the action editors and are not aware of any collaborations via large teams.  
+The authors nominate Nando De Freitas, Arthur Gretton, and Neil Lawrence as potential action editors.  
+ 
+Sincerely,
+Theodore Papamarkou
+Eric B. Ford
+
