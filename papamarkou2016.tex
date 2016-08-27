@@ -289,14 +289,33 @@ $G(\boldsymbol{\theta})$.
 So, SMMALA and MMALA necessitate computing the two matrix inverses $G^{-1}(\boldsymbol{\theta})$ and 
 $G^{-1}(\boldsymbol{\theta}^{\star})$ in order to evaluate the proposals involved in the acceptance probability 
 \eqref{langevin_acceptance}, and one Cholesky decomposition $\sqrt{G^{-1}(\boldsymbol{\theta})}$ to sample from the 
-proposal. Consequently, the cost of computations associated with the proposal kernel is of order $\mathcal{O}(3n_\theta^3)$ 
+proposal. Consequently, the cost of computations associated with the normal proposal is of order $\mathcal{O}(3n_\theta^3)$ 
 for each of these two samplers.
 
-% MALA, as opposed to SMMALA and MMALA, relies on a constant preconditioning matrix G,
-%therefore $G^{-1}$ and $\sqrt{G^{-1}}$ are evaluated once and cached at the beginning of the simulation avoiding the
-%$\mathcal{O}(2n_\theta^3)$ cost.
-%Once again, MALA avoids the $\mathcal{O}(n_\theta^3)$ penalty at proposal evaluations as the
-%position-independent inverse $G^{-1}$ is initially computed and is then kept fixed.
+MALA, as opposed to SMMALA and MMALA, relies on a constant preconditioning matrix $G$, therefore $G^{-1}$ and 
+$\sqrt{G^{-1}}$ are evaluated once and cached at the beginning of the simulation avoiding the $\mathcal{O}(2n_\theta^3)$ 
+penalty. Since the preconditioning matrix $G$, its inverse $G^{-1}$ and the Cholesky decomposition $\sqrt{G^{-1}}$ are 
+cached upon initialization for MALA, the quadratic form
+$
+(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star})'
+G^{-1}
+(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star})
+$
+in the normal proposal density dictates a time complexity of $\mathcal{O}(n_{\theta}^2)$ for proposal-related computations
+in MALA. If $G$ is set to be the identity matrix, then
+$
+(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star})'
+G^{-1}
+(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star})
+$
+reduces to the inner product
+$
+\langle\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star},
+\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star}\rangle
+$ and the complexity of proposal-related calculations in MALA is of order $\mathcal{O}(n_{\theta})$.
+
+%and the gradient $\nabla_{\theta}\log{p(\boldsymbol{\theta})}$  of the log-target have a complexity of 
+%$\mathcal{O}(n_{\theta})$ each. So, if $G=I$, the complexity of MALA is of order $\mathcal{O}(n_{\theta})$.
 
 MMALA and RMHMC, as introduced by \cite{gir_cal__rie}, additionally require to compute the Christoffel symbols 
 $\Gamma^{k}_{ij}(\boldsymbol{\theta})$, which involve
@@ -326,32 +345,9 @@ $\mathcal{O}(2n_\theta^3+2n_\theta^{2.373})$ and $\mathcal{O}(n_\theta^3+2n_\the
 % <- CHECK:  Shouldn't these be 
 %$\mathcal{O}((1+f(n_\theta)n_\theta^3+2n_\theta^{2.373})$ and %$\mathcal{O}(n_\thetaf(n_\theta)+n_\theta^3+2n_\theta^{2.373})$ time, respectively.
 
-
 A detailed account of the time complexity of SMMALA has been given to highlight the main sources of computational load
 involved in geometric updates. In what follows, scaling factors and constants will be suppressed in big-$\mathcal{O}$ 
 notation following common practice.
-
-Since the preconditioning matrix $G$, its inverse $G^{-1}$ and the Cholesky decomposition $\sqrt{G^{-1}}$ are cached upon 
-initialization for MALA, the quadratic form
-$
-(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star})'
-G^{-1}
-(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star})
-$
-in the normal proposal density dictates a time complexity of $\mathcal{O}(n_{\theta}^2)$ for MALA. If $G$ is set to be the 
-identity matrix, then
-$
-(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star})'
-G^{-1}
-(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star})
-$
-reduces to the inner product
-$
-\langle\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star},
-\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star}\rangle
-$. This inner product and the gradient $\nabla_{\theta}\log{p(\boldsymbol{\theta})}$  of the log-target have a complexity of 
-$\mathcal{O}(n_{\theta})$ each. So, if $G=I$, the complexity of MALA is of order $\mathcal{O}(n_{\theta})$.
-%<- CHECK   $\mathcal{O}((1+f(n_{\theta}))n_{\theta})$.
 
 % CHECK If we agree on the above change, then can revise this paragraph, replacing the first three sentances with
 % For many scientific applications, the complexity of evaluating the log-target will substantially exceed the complexity of the samplers.  
