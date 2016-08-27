@@ -1373,38 +1373,37 @@ converge to zero. In other words, the zero mode of $t_{\nu}(\mathbf{0},\frac{\nu
 vector to be estimated.
 
 To emulate some of the conditions of real-life applications, the dimension of the t-target in the MCMC simulations is 
-increased to $n_{\theta}=20$ as opposed to the $n_{\theta}=4$ dimensions of Bayesian logistic and Poisson regression models, 
+increased to $n_{\theta}=20$ from the $n_{\theta}=4$ dimensions of Bayesian logistic and Poisson regression models, 
 relatively high correlation is induced by selecting $c=0.9$ in \eqref{tp:eq:normal:sigma}, and some amount of probability 
 mass is maintained in the distribution tails by choosing $\nu=30$ degrees of freedom. Furthermore, automatic differentiation 
-is employed instead of deriving the gradient and Hessian of the t-target analytically and the SoftAbs metric is used for 
+is employed instead of deriving the gradient and Hessian of the $t$-target analytically and the SoftAbs metric is used for 
 correcting the indefinite inverse metric evaluations arising in the course of simulations. Of course the present example does
 not reach the realm of a fully-fledged application, especially in terms of log-target complexity, but it gives a first
 indication of other common computational costs appearing in more realistic applications.
 
-Table \ref{tab:t} reports the minimum, median and maximum ESS across the $n_{\theta}=20$ parameter dimensions after 
-averaging across the ten simulated chains per sampler. As seen from Table \ref{tab:t}, MALA and SMMALA struggle with the 
-$t$-distribution yielding very 
-low effective sample size. This is explained by the fact that in general Langevin Monte Carlo does not produce geometrically
-ergodic chains for targets with heavier tails. ALSMMALA still does poorly in terms of ESS, albeit somewhat better than its
-Langevin proposal counterparts. ALSMMALA still remains impractical, because it reaches its optimal ESS for the simulated
-t-target after empirical tuning that results in a high acceptance rate of $0.96$. Besides, ALSMMALA is somewhat unstable in 
-the sense that if the acceptance rate is not very close to $0.95$ then ESS drops dramatically. After all, ALSMMALA is in
-essence a Langevin Monte Carlo sampler, so it is not anticipated to overcome the intrinsic limitations of its MALA and SMMALA
-proposal kernels.
+Table \ref{tab:t} reports the minimum, median and maximum ESS of the $n_{\theta}=20$ parameter dimensions after averaging 
+across the ten simulated chains per sampler. As seen from Table \ref{tab:t}, MALA and SMMALA struggle with the 
+$t$-distribution yielding very low effective sample size. This is explained by the fact that Langevin Monte Carlo does not 
+produce geometrically ergodic chains for targets with heavier tails. ALSMMALA also does poorly in terms of ESS, albeit 
+somewhat better than its Langevin proposal counterparts. ALSMMALA is impractical for this example, because it reaches its 
+optimal ESS for the simulated $t$-target after empirical tuning that results in a high acceptance rate of $0.96$. Besides, 
+ALSMMALA is somewhat unstable in the sense that if the acceptance rate is not very close to $0.95$ then ESS drops 
+dramatically. After all, ALSMMALA is in essence a Langevin Monte Carlo sampler, so it is not anticipated to overcome the 
+intrinsic limitations of its MALA and SMMALA proposal kernels.
 
-On the other hand, AMSMMALA attains much higher ESS than its three Langevin-based contestant samplers. Unfortunately, the AM
-algorithm of \cite{haa_sak_tam__ana} is not directly applicable to a t-target for two reasons. The original AM sampler is
-designed to work with targets of bounded support; this shortcoming can be circumvented by a truncated proposal. However, the
-AM sampler assumes that the probability mass of the target vanishes outside the region of support, so the t-target can not 
-be accommodated directly by the AM algorithm as initially conceived by \cite{haa_sak_tam__ana}. Empirical validation via 
-simulations shows that AMSMMALA converges to the mode of the simulated t-target despite the heavier target tails and 
+On the other hand, AMSMMALA attains much higher ESS than the three Langevin-centric samplers. The AM algorithm of 
+\cite{haa_sak_tam__ana} is not directly applicable to a $t$-target for two reasons. The original AM sampler is designed to 
+work with targets of bounded support; this shortcoming can be circumvented by a truncated proposal. However, the AM sampler 
+assumes that the probability mass of the target vanishes outside the region of support, so the $t$-target can not be 
+accommodated directly by the AM algorithm as initially conceived by \cite{haa_sak_tam__ana}. Empirical validation via 
+simulations shows that AMSMMALA converges to the mode of the simulated $t$-target despite the heavier target tails and 
 correlation between parameter dimensions. In other words, AMSMMALA offers a new algorithm with greater range of applicability
-than its AM proposal kernel. This is explained by the recurring geometric corrections of the empirical covariance via SMMALA
-steps. It is worth noticing that Metropolis-Hastings is less effective than Langevin Monte Carlo samplers such as MALA and
-SMMALA in the case of the simulated t-target, so AMSMMALA offers a viable way to simulate from the Student $t$-distribution of
-this example, where its contenstants fail. In the future, it would be of interest to further compare AMSMMALA with other
-adaptive Metropolis samplers such as the random adaptive Metropolis (RAM) sampler by \cite{vih__rob} and the adaptive 
-Metropolis-within-Gibbs (AMWG) algorithm by \cite{rob_ros__exa}.
+than its AM proposal kernel. This is explained by the recurring local geometric corrections of the empirical covariance via 
+SMMALA steps. It is worth noticing that Metropolis-Hastings is less effective than Langevin Monte Carlo samplers, such as 
+MALA and SMMALA, in the case of the simulated $t$-target, so AMSMMALA offers a viable way to simulate from the Student 
+$t$-distribution of this example, where its contestants fail. In the future, it would be of interest to further compare 
+AMSMMALA with other adaptive Metropolis samplers such as the random adaptive Metropolis (RAM) sampler by \cite{vih__rob} and 
+the adaptive Metropolis-within-Gibbs (AMWG) algorithm by \cite{rob_ros__exa}.
 
 SMMALA has been run using two modes of automatic differentiation, namely reverse AD with source transformation and forward 
 mode. The average SMMALA runtime across ten simulations with forward mode is $575.29$ seconds, roughly fourteen times slower
@@ -1413,16 +1412,17 @@ package (\cite{rev_lub_pap__for}), which benefits from tuples that are stack-all
 computational cost for forward mode AD remains prohibitive for this example and for probabilistic problems more generally.
 
 AMSMMALA has an average runtime of $15.13$ seconds, and therefore attains a threefold increase in execution time in
-comparison to SMMALA when both samplers rely on revere mode. Overall, AMSMMALA achieves a speedup factor of $7.75$ thanks to
+comparison to SMMALA when both samplers rely on reverse mode. Overall, AMSMMALA achieves a speedup factor of $7.75$ thanks to
 its increased ESS and speed of execution.
 
 Figure \ref{fig:t} visualizes the output of four chains that correspond to the seventh dimension $\boldsymbol{\theta}_{(7)}$
-of the $20$-dimensional t-target $t_{30}(\mathbf{0},\frac{28}{30}\Sigma(0.9))$, with a single chain simulated from each of 
+of the $20$-dimensional $t$-target $t_{30}(\mathbf{0},\frac{28}{30}\Sigma(0.9))$, with a single chain simulated from each of 
 MALA, SMMALA, ALSMMALA and AMSMMALA. Figure \ref{fig:t:b} shows the substantial reduction in linear autocorrelation achieved 
 by AMSMMALA, leading to optimal ESS among the four compared samplers. ALSMMALA also reduces the linear autocorrelation, 
-although it is not the sampler of choice for the t-target. As seen from Figure \ref{fig:t:a}, the running means of AMSMMALA 
-and ALSMMALA converge, as opposed to the means of MALA and SMMALA. The traceplots of Figures \ref{fig:t:c}-\ref{fig:t:f} 
-demonstrate the superior mixing of AMSMMALA and the problematic mixing of MALA and SMMALA for the t-target of this example.
+although it is not the sampler of choice for the $t$-target. As seen from Figure \ref{fig:t:a}, the running means of AMSMMALA 
+and ALSMMALA converge to the same value, as opposed to the means of MALA and SMMALA. The traceplots of Figures 
+\ref{fig:t:c}-\ref{fig:t:f} demonstrate the superior mixing of AMSMMALA and the problematic mixing of MALA and SMMALA for 
+the $t$-target of this example.
 
 \begin{table}
 	\begin{tabular}{l|r|rrr|r|r|r}
