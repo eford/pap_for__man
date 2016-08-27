@@ -1328,8 +1328,7 @@ corresponding to the altitude covariate.
 
 \subsection{Multivariate t-Distribution}
 
-Monte Carlo samples are drawn from the class of $n_{\theta}$-dimensional Student-t targets
-$t_{\nu}(\mathbf{0},\frac{\nu-2}{\nu}\Sigma)$
+Monte Carlo samples are drawn from an $n_{\theta}$-dimensional Student-t target $t_{\nu}(\mathbf{0},\frac{\nu-2}{\nu}\Sigma)$
 with $\nu$ degrees of freedom and covariance matrix
 \begin{equation}
 \label{tp:eq:normal:sigma}
@@ -1343,12 +1342,25 @@ a^{n_{\theta}-2} & a^{n_{\theta}-3} & a^{n_{\theta}-4} & \dots & a^{1} & 1 & a^{
 a^{n_{\theta}-1} & a^{n_{\theta}-2} & a^{n_{\theta}-3} & \dots & a^{2} & a^1 & 1 \\
 \end{array}\right),
 \end{equation}
-for some constant $0<a<1$. So the elements of the $i$-th diagonal of
-the $n_{\theta}\times n_{\theta}$ covariance matrix $\Sigma$ are equal to
-$a^{i-1},~i=1,2,\dots,n_{\theta}$. It is worth noticing that the scale matrix
-$\frac{\nu-2}{\nu}\Sigma$ of the t-distribution is defined by factorizing 
-$\Sigma$ by $(\nu-2)/\nu$ so that the covariance matrix of the t-distribution
-is $\Sigma$.
+for some constant $0<a<1$ that determines the level of correlation between parameter dimensions. The elements of the 
+$i$-th diagonal of the $n_{\theta}\times n_{\theta}$ covariance matrix $\Sigma$ equal $a^{i-1},~i=1,2,\dots,n_{\theta}$. It 
+The scale matrix $\frac{\nu-2}{\nu}\Sigma$ of the t-distribution scales $\Sigma$ by a factor of $(\nu-2)/\nu$ so that the 
+covariance matrix of the t-distribution is $\Sigma$.
+
+In this example, the setting is not Bayesian, so there is no prior distribution involved. Instead, MCMC is used for drawing
+samples from a Student-t distribution $t_{\nu}(\mathbf{0},\frac{\nu-2}{\nu}\Sigma)$ acting as a random number generator. The
+simulated chains are randomly initialized away from the zero mode of the t-distribution, and they are expected to converge to
+zero. In other words, the zero mode of $t_{\nu}(\mathbf{0},\frac{\nu-2}{\nu}\Sigma)$ is seen as the parameter vector to be
+estimated.
+
+To emulate some of the conditions of real-life applications, the dimension of the t-target in the MCMC simulations is 
+increased to $n_{\theta}=20$ as opposed to the $n_{\theta}=4$ dimensions of Bayesian logistic and Poisson regression models, 
+relatively high correlation is induced by selecting $a=0.9$ in \eqref{tp:eq:normal:sigma}, and some amount of probability 
+mass is maintained in the distribution tails by choosing $\nu=30$ degrees of freedom. Furthermore, automatic differentiation 
+is employed instead of deriving the gradient and Hessian of the t-target analytically and the SoftAbs metric is used for 
+correcting the indefinite inverse metric evaluations arising in the course of simulations. Of course the present example does
+not raise to the heights of a fully-fledged application, especially in terms of log-target complexity, but it gives a first
+idication of other common computational costs appearing in more realistic applications.
 
 %Mention that the base algorithm drives the simulation and sets the properties of the sampler. For this reason AMSMMALA works
 %better than ALSMMALA for the t-dist example. Reference ForwardDiff conference paper, \cite{rev_lub_pap__for}.
