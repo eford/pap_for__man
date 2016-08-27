@@ -818,13 +818,12 @@ in $n_m$ independent samples.
 A third criterion for assessing MCMC methods is their computational time.
 This criterion corresponds to the ordinary concept of algorithmic complexity as it entails a count of numerical operations
 performed by an MCMC algorithm. To give an example, the computational complexity of MALA with an identity preconditioning
-matrix is of order $\mathcal{O}(n_{\theta})$, as explained in Section \ref{Motivation}.
+matrix for a simple model is of order $\mathcal{O}(n_{\theta})$, as explained in Section \ref{Motivation}.
 
 Of these three indicators of algorithmic complexity, ESS and computational runtime are the ones typically used for
 understanding the range of applicability of MCMC methods. To get a single-number summary, the ratio of ESS over runtime is
-usually employed. In the present paper, the computational time of ALSMMALA and AMSMMALA are derived theoretically for models
-whose complexity do not dominate the computations (as discussed in Section \ref{Motivation}), while both samplers are 
-empirically assessed in Section \ref{Examples} via their ESS and CPU runtime.
+usually employed. In the present paper, the computational time of ALSMMALA and AMSMMALA are derived theoretically, while 
+both samplers are empirically assessed in Section \ref{Examples} via their ESS and CPU runtime.
 
 \begin{proposition}
 Let $A_1$ and $A_2$ be two MCMC algorithms whose proposal mechanisms have computational complexities $c_1$ and $c_2$, 
