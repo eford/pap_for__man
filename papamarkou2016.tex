@@ -284,12 +284,19 @@ $\mathcal{O}(n_\theta^3)$ operations.
 To calculate the Metropolis-Hastings acceptance ratio \eqref{langevin_acceptance} appearing in SMMALA and MMALA,
 it is required to evaluate the normal proposal twice. As it has become apparent, a proposal evaluation has a complexity of
 $\mathcal{O}(n_\theta^3)$ due to the proposal covariance $\epsilon^2 G^{-1}(\boldsymbol{\theta})$ entailing the inversion of 
-$G(\boldsymbol{\theta})$. Once again, MALA avoids the $\mathcal{O}(n_\theta^3)$ penalty at proposal evaluations as the
-position-independent inverse $G^{-1}$ is initially computed and is then kept fixed.
+$G(\boldsymbol{\theta})$.
 
-MALA, as opposed to SMMALA and MMALA, relies on a constant preconditioning matrix G,
-therefore $G^{-1}$ and $\sqrt{G^{-1}}$ are evaluated once and cached at the beginning of the simulation avoiding the
-$\mathcal{O}(n_\theta^3)$ cost.
+So, SMMALA and MMALA necessitate computing the two matrix inverses $G^{-1}(\boldsymbol{\theta})$ and 
+$G^{-1}(\boldsymbol{\theta}^{\star})$ in order to evaluate the proposals involved in the acceptance probability 
+\eqref{langevin_acceptance}, and one Cholesky decomposition $\sqrt{G^{-1}(\boldsymbol{\theta})}$ to sample from the 
+proposal. Consequently, the cost of computations associated with the proposal kernel is of order $\mathcal{O}(3n_\theta^3)$ 
+for each of these two samplers.
+
+% MALA, as opposed to SMMALA and MMALA, relies on a constant preconditioning matrix G,
+%therefore $G^{-1}$ and $\sqrt{G^{-1}}$ are evaluated once and cached at the beginning of the simulation avoiding the
+%$\mathcal{O}(2n_\theta^3)$ cost.
+%Once again, MALA avoids the $\mathcal{O}(n_\theta^3)$ penalty at proposal evaluations as the
+%position-independent inverse $G^{-1}$ is initially computed and is then kept fixed.
 
 MMALA and RMHMC, as introduced by \cite{gir_cal__rie}, additionally require to compute the Christoffel symbols 
 $\Gamma^{k}_{ij}(\boldsymbol{\theta})$, which involve
