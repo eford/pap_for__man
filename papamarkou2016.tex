@@ -341,8 +341,8 @@ models, the cost of computations implicating the log-target is much higher than 
 other words, if the log-target is of high complexity, then derivative computations supersede linear algebra calculations, 
 and this is why the computational cost of a manifold MCMC algorithm tends to be reported as a function of the order of 
 derivatives appearing in the algorithm. For instance, the complexity of SMMALA, which scales as 
-$\mathcal{O}(f(n_{\theta})n_\theta^2+n_\theta^3+2n_\theta^{2.373})$, can be simply written as $\mathcal{O}(f^2(n_{\theta}))$ 
-for a computationally intensive model.
+$\mathcal{O}(f(n_{\theta})n_\theta^2+n_\theta^3+2n_\theta^{2.373})$, can be simply written as 
+$\mathcal{O}(f(n_{\theta})n_\theta^2$ for a computationally intensive model.
 
 A typical example of a computationally expensive model is a system of non-linear ordinary differential equations (ODEs), 
 where each log-target calculation requires solving the ODE system numerically. It is then expected that the log-target and 
