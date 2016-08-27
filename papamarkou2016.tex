@@ -1387,8 +1387,17 @@ this example, where its contenstants fail. In the future, it would be of interes
 adaptive Metropolis samplers such as the random adaptive Metropolis (RAM) sampler by \cite{vih__rob} and the adaptive 
 Metropolis-within-Gibbs (AMWG) algorithm by \cite{rob_ros__exa}.
 
-%Mention that the base algorithm drives the simulation and sets the properties of the sampler. For this reason AMSMMALA works
-%better than ALSMMALA for the t-dist example. Reference ForwardDiff conference paper, \cite{rev_lub_pap__for}.
+SMMALA has been run using two modes of automatic differentiation, namely reverse AD with source transformation and forward 
+mode. The average SMMALA runtime across ten simulations with forward mode is $575.29$ seconds, roughly fourteen times slower
+than the respective runtime of $41.39$ seconds for SMMALA with reverse mode. In spite of using the ForwardDiff Julia 
+package (\cite{rev_lub_pap__for}), which benefits from tuples that are stack-allocated instead of being heap-allocated, the
+computational cost for forward mode AD remains prohibitive for this example and for probabilistic problems more generally.
+
+AMSMMALA has an average runtime of $15.13$ seconds, and therefore attains a threefold increase in execution time in
+comparison to SMMALA when both samplers rely on revere mode. Overall, AMSMMALA achieves a speedup factor of $7.75$ thanks to
+its increased ESS and speed of execution.
+
+Figure X shows the substantial reduction in linear autocorrelation achieved by 
 
 \begin{table}
 	\begin{tabular}{l|r|rrr|r|r|r}

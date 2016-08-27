@@ -1,4 +1,4 @@
-\begin{thebibliography}{52}
+\begin{thebibliography}{53}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -338,6 +338,11 @@ Marcelo Pereyra.
 \newblock \emph{Statistics and Computing}, 26\penalty0 (4):\penalty0 745--760,
   2016.
 \newblock ISSN 1573-1375.
+
+\bibitem[Revels et~al.(2016)Revels, Lubin, and Papamarkou]{rev_lub_pap__for}
+Jarrett Revels, Miles Lubin, and Theodore Papamarkou.
+\newblock Forward-mode automatic differentiation in julia.
+\newblock \emph{arXiv}, 2016.
 
 \bibitem[Roberts and Rosenthal(1998)]{rob_ros__opt}
 Gareth~O. Roberts and Jeffrey~S. Rosenthal.
