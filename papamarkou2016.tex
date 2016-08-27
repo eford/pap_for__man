@@ -1359,16 +1359,38 @@ relatively high correlation is induced by selecting $a=0.9$ in \eqref{tp:eq:norm
 mass is maintained in the distribution tails by choosing $\nu=30$ degrees of freedom. Furthermore, automatic differentiation 
 is employed instead of deriving the gradient and Hessian of the t-target analytically and the SoftAbs metric is used for 
 correcting the indefinite inverse metric evaluations arising in the course of simulations. Of course the present example does
-not raise to the heights of a fully-fledged application, especially in terms of log-target complexity, but it gives a first
-idication of other common computational costs appearing in more realistic applications.
+not reach the realm of a fully-fledged application, especially in terms of log-target complexity, but it gives a first
+indication of other common computational costs appearing in more realistic applications.
+
+Table \ref{tab:t} reports the minimum, median and maximum ESS across the $n_{\theta}=20$ parameter dimensions after 
+averaging across the ten simulated chains per sampler. As seen from Table \ref{tab:t}, MALA and SMMALA struggle with the 
+t-distribution yielding very 
+low effective sample size. This is explained by the fact that in general Langevin Monte Carlo does not produce geometrically
+ergodic chains for targets with heavier tails. ALSMMALA still does poorly in terms of ESS, albeit somewhat better than its
+Langevin proposal counterparts. ALSMMALA still remains impractical, because it reaches its optimal ESS for the simulated
+t-target after empirical tuning that results in a high acceptance rate of $0.96$. Besides, ALSMMALA is somewhat unstable in 
+the sense that if the acceptance rate is not very close to $0.95$ then ESS drops dramatically. After all, ALSMMALA is in
+essence a Langevin Monte Carlo sampler, so it is not anticipated to overcome the intrinsic limitations of its MALA and SMMALA
+proposal kernels.
+
+On the other hand, AMSMMALA attains much higher ESS than its three Langevin-based contestant samplers. Unfortunately, the AM
+algorithm of \cite{haa_sak_tam__ana} is not directly applicable to a t-target for two reasons. The original AM sampler is
+designed to work with targets of bounded support; this shortcoming can be circumvented by a truncated proposal. However, the
+AM sampler assumes that the probability mass of the target vanishes outside the region of support, so the t-target can not 
+be accommodated directly by the AM algorithm as initially conceived by \cite{haa_sak_tam__ana}. Empirical validation via 
+simulations shows that AMSMMALA converges to the mode of the simulated t-target despite the heavier target tails and 
+correlation between parameter dimensions. In other words, AMSMMALA offers a new algorithm with greater range of applicability
+than its AM proposal kernel. This is explained by the recurring geometric corrections of the empirical covariance via SMMALA
+steps. It is worth noticing that Metropolis-Hastings is less effective than Langevin Monte Carlo samplers such as MALA and
+SMMALA in the case of the simulated t-target, so AMSMMALA offers a viable way to simulate from the Student t-distribution of
+this example, where its contenstants fail. In the future, it would be of interest to further compare AMSMMALA with other
+adaptive Metropolis samplers such as the random adaptive Metropolis (RAM) sampler by \cite{vih__rob} and the adaptive 
+Metropolis-within-Gibbs (AMWG) algorithm by \cite{rob_ros__exa}.
 
 %Mention that the base algorithm drives the simulation and sets the properties of the sampler. For this reason AMSMMALA works
 %better than ALSMMALA for the t-dist example. Reference ForwardDiff conference paper, \cite{rev_lub_pap__for}.
 
 \begin{table}
-	\caption{t-density target - comparison of Langevin sampling methods. SMMALA (r) is SMMALA with reverse mode AD, and 
-	SMMALA (f) is SMMALA with forward mode AD}
-	\label{tab:t}
 	\begin{tabular}{l|r|rrr|r|r|r}
 		\hline\noalign{\smallskip}
 		\multirow{2}{*}{Method} &
@@ -1386,6 +1408,9 @@ idication of other common computational costs appearing in more realistic applic
 		ALSMMALA & .96 & 2465 & 2538 & 2574 & 16.16 & 152.51 & 2.34 \\	
 		\noalign{\smallskip}\hline
 	\end{tabular}
+	\caption{t-density target - comparison of Langevin sampling methods. SMMALA (r) is SMMALA with reverse mode AD, and 
+		SMMALA (f) is SMMALA with forward mode AD}
+	\label{tab:t}
 \end{table}
 
 \begin{figure}
