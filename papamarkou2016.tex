@@ -302,21 +302,21 @@ $\sqrt{G^{-1}}$ are evaluated once and cached at the beginning of the simulation
 penalty. Since the preconditioning matrix $G$, its inverse $G^{-1}$ and the Cholesky decomposition $\sqrt{G^{-1}}$ are 
 cached upon initialization for MALA, the quadratic form
 $
-(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star})'
+(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta})'
 G^{-1}
-(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star})
+(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta})
 $
 in the normal proposal density dictates a time complexity of $\mathcal{O}(n_{\theta}^2)$ for proposal-related computations
 in MALA. If $G$ is set to be the identity matrix, then
 $
-(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star})'
+(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta})'
 G^{-1}
-(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star})
+(\boldsymbol{\theta}^{\star}-\boldsymbol{\theta})
 $
 reduces to the inner product
 $
-\langle\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star},
-\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star}\rangle
+\langle\boldsymbol{\theta}^{\star}-\boldsymbol{\theta},
+\boldsymbol{\theta}^{\star}-\boldsymbol{\theta}\rangle
 $ and the complexity of calculations associate wit the proposal in MALA is of order $\mathcal{O}(n_{\theta})$.
 
 If a log-target has a complexity of order $\mathcal{O}(f(n_{\theta}))$, where $f$ is a function of $n_{\theta}$, then the 
