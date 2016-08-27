@@ -330,23 +330,24 @@ Monte Carlo. So, it follows that MALA, SMMALA and MMALA run in $\mathcal{O}(f(n_
 $\mathcal{O}(f(n_{\theta})n_\theta^2+n_\theta^3+2n_\theta^{2.373})$ and 
 $\mathcal{O}(f(n_{\theta})n_{\theta}^3+n_\theta^3+2n_\theta^{2.373})$ time, respectively.
 
-% CHECK If we agree on the above change, then can revise this paragraph, replacing the first three sentances with
-% For many scientific applications, the complexity of evaluating the log-target will substantially exceed the complexity of the samplers.  
-%
-An implicit assumption made for all the complexity bounds of this section is that the log-target evaluations do not
-exceed the complexity of the associated samplers. More accurately, it is assumed that the log-target scales as
-$\mathcal{O}(1)$. Of course there are models for which such assumption is not plausible. For instance, if the underlying 
-model consists of a system of non-linear ordinary differential equations (ODEs) and each log-target calculation requires 
-solving the ODE system numerically, then the log-target and its derivative evaluations might dominate the cost of the MCMC 
-simulation depending on the size of the parameter and state space and on the complexity of the numerical ODE solver.
+For simple models, the order of complexity of the log-target is not greater than that of the proposal, so it is assumed that
+the log-target scales as $\mathcal{O}(1)$. Thus, for simple models, the respective complexity bounds for MALA, SMMALA and
+MMALA reduce to $\mathcal{O}(n_{\theta}^2)$, $\mathcal{O}(n_{\theta}^2)$ and $\mathcal{O}(n_{\theta}^3)$ after dropping
+scaling factors and lower-order terms. The complexity order of the typical MALA with identity preconditioning matrix further
+reduces to $\mathcal{O}(n_{\theta})$ for a simple model.
 
-% CHECK:  If we agree on above changes, can move first two sentances earlier
-Computationally expensive models imply $\mathcal{O}(f(n_{\theta}))>>\mathcal{O}(n_{\theta})$. In other words, if the log-target is of high complexity, then
-derivative computations supersede linear algebra calculations, and this is why the computational cost of a manifold MCMC
-algorithm tends to be reported as a function of the order of derivatives appearing in the algorithm. For instance, the
-complexity of SMMALA scales as $\mathcal{O}(f^2(n_{\theta})+2n_\theta^3+2n_\theta^{2.373})$, or more crudely as
-$\mathcal{O}(f^2(n_{\theta}))$, for a log-target with complexity time
-$\mathcal{O}(f(n_{\theta}))>>\mathcal{O}(n_{\theta}^3)$.
+On the other hand, computationally expensive models imply $\mathcal{O}(f(n_{\theta}))>>\mathcal{O}(n_{\theta})$. For such
+models, the cost of computations implicating the log-target is much higher than the cost of proposal-related calculation. In 
+other words, if the log-target is of high complexity, then derivative computations supersede linear algebra calculations, 
+and this is why the computational cost of a manifold MCMC algorithm tends to be reported as a function of the order of 
+derivatives appearing in the algorithm. For instance, the complexity of SMMALA, which scales as 
+$\mathcal{O}(f(n_{\theta})n_\theta^2+n_\theta^3+2n_\theta^{2.373})$, can be simply written as $\mathcal{O}(f^2(n_{\theta}))$ 
+for a computationally intensive model.
+
+A typical example of a computationally expensive model is a system of non-linear ordinary differential equations (ODEs), 
+where each log-target calculation requires solving the ODE system numerically. It is then expected that the log-target and 
+its derivative evaluations will dominate the cost of Langevin Monte Carlo simulations according to the discussed complexity
+bounds.
 
 A detailed account of the time complexity of SMMALA has been given to highlight the main sources of computational load
 involved in geometric updates. In what follows, scaling factors and constants will be suppressed in big-$\mathcal{O}$ 
