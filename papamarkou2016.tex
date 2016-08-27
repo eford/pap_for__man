@@ -982,8 +982,8 @@ geometric updates, whereas smaller values of $a$ increase the complexity as they
 	\caption{
 		Time complexity of ALSMMALA with an exponential schedule given by \eqref{exp_schedule_a} and AMSMMALA with a $\mod{(a)}$ 
 		schedule as a function of the number $n_{\theta}$ of parameters. Different curves correspond to varying levels of 
-		decaying rate $a$ for ALSMMALA and of modulus $a$ for AMSMMALA. The qubic complexity of SMMALA and quadratic complexity
-		of MALA are displayed as baseline cases.
+		decaying rate $a$ for ALSMMALA and of modulus $a$ for AMSMMALA. The cubic complexity of SMMALA and quadratic complexity
+		of MALA with a preconditioning matrix other than the identity matrix are displayed as baseline cases.
 	}
 	\label{fig:alsmmala_amsmmala_schedule}
 \end{figure}
@@ -1197,7 +1197,7 @@ MALA, from which the bulk of proposals are made.
 		Plots of single chains corresponding to the regression coefficient of covariate $\boldsymbol{\theta}_{(2)}$ 
 		simulated from each of MALA, SMMALA, AMSMMALA and ALSMMALA samplers by applying Bayesian logistic regression on the 
 		Swiss banknotes data. (a) Overlaid running means, (b) overlaid linear autocorrelations for the four chains, (c)-(f) 
-		individual traceplots per chain (the red horizontal line represent the Monte Carlo mean).
+		individual traceplots per chain (the red horizontal lines represent the Monte Carlo mean).
 	}
 	\label{fig:logit}
 \end{figure}
@@ -1261,12 +1261,12 @@ gradient.
 \begin{figure}
 	\centering
 	\subfloat[Location of trees]{\includegraphics[width=2.8in]{tree_locations.pdf}} 
-	\subfloat[Mean altitude in coarse grid]{\includegraphics[width=2.8in]{tree_altitude.pdf}} \\
-	\subfloat[Mean slope in coarse grid]{\includegraphics[width=2.8in]{tree_gradient.pdf}} 
+	\subfloat[Mean altitude per coarse grid cell]{\includegraphics[width=2.8in]{tree_altitude.pdf}} \\
+	\subfloat[Mean slope per coarse grid cell]{\includegraphics[width=2.8in]{tree_gradient.pdf}} 
 	\subfloat[Number of trees per coarse grid cell]{\includegraphics[width=2.8in]{tree_y.pdf}} \\
-	\caption{Visualization of tree data of the species Beilschmiedia pendula Lauraceaecollected collected in 1995 from the 
-	$500$ by $1000$ meter Barro Colorado Island plot, Panama. (a): location of $3605$ observed trees (original data); (b)-(d): 
-	mean altitude, mean elevational gradient and mean number of observed trees per coarse grid.}
+	\caption{Visualization of tree data of the species Beilschmiedia pendula Lauraceae collected in 1995 from the $500$ by 
+	$1000$ meter Barro Colorado Island plot, Panama. (a): location of $3605$ observed trees (original data); (b)-(d): mean 
+	altitude, mean elevational gradient and mean number of observed trees per coarse grid cell.}
 	\label{fig:poisson_data}
 \end{figure}
 
@@ -1337,11 +1337,11 @@ corresponding to the altitude covariate.
 		\label{fig:poisson:f}
 		\includegraphics[width=2.8in]{poisson_alsmmala_traceplot.pdf}
 	} \\ 
-	\caption{Plots of single chains corresponding to the regression coefficient of covariate $\boldsymbol{\theta}_{(2)}$ 
-		simulated from each of MALA, SMMALA, AMSMMALA and ALSMMALA samplers by applying Bayesian Poisson regression on the 
-		tree data of the species Beilschmiedia pendula Lauraceae. (a) Overlaid running means, (b) overlaid linear 
-		autocorrelations for the four chains, (c)-(f) 
-		individual traceplots per chain (the red horizontal line represent the Monte Carlo mean).}
+	\caption{Plots of single chains corresponding to the regression coefficient of the altitude covariate
+		$\boldsymbol{\theta}_{(2)}$ simulated from each of MALA, SMMALA, AMSMMALA and ALSMMALA samplers by applying Bayesian 
+		Poisson regression on the tree data of the species Beilschmiedia pendula Lauraceae. (a) Overlaid running means, (b) 
+		overlaid linear autocorrelations for the four chains, (c)-(f) individual traceplots per chain (the red horizontal lines 
+		represent the Monte Carlo mean).}
 	\label{fig:poisson}
 \end{figure}
 
@@ -1383,25 +1383,25 @@ indication of other common computational costs appearing in more realistic appli
 
 Table \ref{tab:t} reports the minimum, median and maximum ESS of the $n_{\theta}=20$ parameter dimensions after averaging 
 across the ten simulated chains per sampler. As seen from Table \ref{tab:t}, MALA and SMMALA struggle with the 
-$t$-distribution yielding very low effective sample size. This is explained by the fact that Langevin Monte Carlo does not 
+t-distribution yielding very low effective sample size. This is explained by the fact that Langevin Monte Carlo does not 
 produce geometrically ergodic chains for targets with heavier tails. ALSMMALA also does poorly in terms of ESS, albeit 
 somewhat better than its Langevin proposal counterparts. ALSMMALA is impractical for this example, because it reaches its 
-optimal ESS for the simulated $t$-target after empirical tuning that results in a high acceptance rate of $0.96$. Besides, 
+optimal ESS for the simulated t-target after empirical tuning that results in a high acceptance rate of $0.96$. Besides, 
 ALSMMALA is somewhat unstable in the sense that if the acceptance rate is not very close to $0.95$ then ESS drops 
 dramatically. After all, ALSMMALA is in essence a Langevin Monte Carlo sampler, so it is not anticipated to overcome the 
 intrinsic limitations of its MALA and SMMALA proposal kernels.
 
 On the other hand, AMSMMALA attains much higher ESS than the three Langevin-centric samplers. The AM algorithm of 
-\cite{haa_sak_tam__ana} is not directly applicable to a $t$-target for two reasons. The original AM sampler is designed to 
+\cite{haa_sak_tam__ana} is not directly applicable to a t-target for two reasons. The original AM sampler is designed to 
 work with targets of bounded support; this shortcoming can be circumvented by a truncated proposal. However, the AM sampler 
-assumes that the probability mass of the target vanishes outside the region of support, so the $t$-target can not be 
+assumes that the probability mass of the target vanishes outside the region of support, so the t-target can not be 
 accommodated directly by the AM algorithm as initially conceived by \cite{haa_sak_tam__ana}. Empirical validation via 
-simulations shows that AMSMMALA converges to the mode of the simulated $t$-target despite the heavier target tails and 
+simulations shows that AMSMMALA converges to the mode of the simulated t-target despite the heavier target tails and 
 correlation between parameter dimensions. In other words, AMSMMALA offers a new algorithm with greater range of applicability
 than its AM proposal kernel. This is explained by the recurring local geometric corrections of the empirical covariance via 
 SMMALA steps. It is worth noticing that Metropolis-Hastings is less effective than Langevin Monte Carlo samplers, such as 
-MALA and SMMALA, in the case of the simulated $t$-target, so AMSMMALA offers a viable way to simulate from the Student 
-$t$-distribution of this example, where its contestants fail. In the future, it would be of interest to further compare 
+MALA and SMMALA, in the case of the simulated t-target, so AMSMMALA offers a viable way to simulate from the Student 
+t-distribution of this example, where its contestants fail. In the future, it would be of interest to further compare 
 AMSMMALA with other adaptive Metropolis samplers such as the random adaptive Metropolis (RAM) sampler by \cite{vih__rob} and 
 the adaptive Metropolis-within-Gibbs (AMWG) algorithm by \cite{rob_ros__exa}.
 
@@ -1419,10 +1419,10 @@ Figure \ref{fig:t} visualizes the output of four chains that correspond to the s
 of the $20$-dimensional $t$-target $t_{30}(\mathbf{0},\frac{28}{30}\Sigma(0.9))$, with a single chain simulated from each of 
 MALA, SMMALA, ALSMMALA and AMSMMALA. Figure \ref{fig:t:b} shows the substantial reduction in linear autocorrelation achieved 
 by AMSMMALA, leading to optimal ESS among the four compared samplers. ALSMMALA also reduces the linear autocorrelation, 
-although it is not the sampler of choice for the $t$-target. As seen from Figure \ref{fig:t:a}, the running means of AMSMMALA 
+although it is not the sampler of choice for the t-target. As seen from Figure \ref{fig:t:a}, the running means of AMSMMALA 
 and ALSMMALA converge to the same value, as opposed to the means of MALA and SMMALA. The traceplots of Figures 
 \ref{fig:t:c}-\ref{fig:t:f} demonstrate the superior mixing of AMSMMALA and the problematic mixing of MALA and SMMALA for 
-the $t$-target of this example.
+the t-target of this example.
 
 \begin{table}
 	\begin{tabular}{l|r|rrr|r|r|r}
@@ -1442,7 +1442,7 @@ the $t$-target of this example.
 		ALSMMALA & .96 & 2465 & 2538 & 2574 & 16.16 & 152.51 & 2.34 \\	
 		\noalign{\smallskip}\hline
 	\end{tabular}
-	\caption{Comparison of sampling efficacy between MALA, SMMALA, AMSMMALA and ALSMMALA by sampling from a $20$-dimensional
+	\caption{Comparison of sampling efficacy between MALA, SMMALA, AMSMMALA and ALSMMALA by sampling from the $20$-dimensional
 		t-target $t_{30}(\mathbf{0},\frac{28}{30}\Sigma(0.9))$. AR: acceptance rate; ESS: effective sample size; Time: CPU 
 		runtime in seconds; Efficiency: smaller ESS across four covariates divided by runtime; Speedup: ratio of computational 
 		efficiencies with a MALA baseline. All the tabulated numbers have been rounded to the second decimal place, apart from 
