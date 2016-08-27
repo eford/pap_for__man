@@ -294,9 +294,8 @@ for each of these two samplers.
 
 Owing to the works of \cite{dav_sto__imp}, \cite{wil__brea} and \cite{leg__pow},
 optimized versions of the Coppersmith-Winograd algorithm allow to perform matrix multiplication and therefore matrix 
-inversion in $\mathcal{O}(n_\theta^{2.373})$ time. Consequently, optimized implementations of SMMALA and MMALA can run their
-proposal-related computations in $\mathcal{O}(2n_\theta^3+2n_\theta^{2.373})$ and 
-$\mathcal{O}(n_\theta^3+2n_\theta^{2.373})$ time, respectively.
+inversion in $\mathcal{O}(n_\theta^{2.373})$ time. Hence, optimized implementations of SMMALA and MMALA can each run their
+proposal-related computations in $\mathcal{O}(n_\theta^3+2n_\theta^{2.373})$ and time.
 
 MALA, as opposed to SMMALA and MMALA, relies on a constant preconditioning matrix $G$, therefore $G^{-1}$ and 
 $\sqrt{G^{-1}}$ are evaluated once and cached at the beginning of the simulation avoiding the $\mathcal{O}(2n_\theta^3)$ 
@@ -320,39 +319,16 @@ $
 \boldsymbol{\theta}^{\star}-\boldsymbol{\theta}^{\star}\rangle
 $ and the complexity of calculations associate wit the proposal in MALA is of order $\mathcal{O}(n_{\theta})$.
 
-%and the gradient $\nabla_{\theta}\log{p(\boldsymbol{\theta})}$  of the log-target have a complexity of 
-%$\mathcal{O}(n_{\theta})$ each. So, if $G=I$, the complexity of MALA is of order $\mathcal{O}(n_{\theta})$.
-
 If a log-target has a complexity of order $\mathcal{O}(f(n_{\theta}))$, where $f$ is a function of $n_{\theta}$, then the 
 complexity orders for computations associated with the log-target in MALA, SMMALA and MMALA grow as 
 $\mathcal{O}(f(n_{\theta})n_{\theta})$, $\mathcal{O}(f(n_{\theta})n_\theta^2)$ and $\mathcal{O}(f(n_{\theta})n_{\theta}^3)$, 
-respectively. These incurring costs for MALA, SMMALA and MALA arise from the respective evaluations of log-target gradient, 
+respectively. These incurring costs for MALA, SMMALA and MMALA arise from the respective evaluations of log-target gradient, 
 Hessian and Hessian derivatives.
 
-MMALA and RMHMC, as introduced by \cite{gir_cal__rie}, additionally require to compute the Christoffel symbols 
-$\Gamma^{k}_{ij}(\boldsymbol{\theta})$, which involve
-the partial derivatives $\partial G(\boldsymbol{\theta})/\partial\theta_k,~k\in\left\{1,2,\dots,n_{\theta}\right\},$
-of metric $G(\boldsymbol{\theta})$. If $G(\boldsymbol{\theta})$ is chosen to be the 
-observed Fisher information matrix, $\partial G(\boldsymbol{\theta})/\partial\theta_k$ represent the partial derivatives of 
-the negative Hessian, that is they are equal to minus the third-order partial derivatives of the log-target density 
-$\log{p(\boldsymbol{\theta})}$, thereby the computation of $\partial G(\boldsymbol{\theta})/\partial\theta_k$ is an 
-operation of order $\mathcal{O}(n_\theta^3)$. Since the Christoffel symbols vanish in the case of SMMALA, the cost of
-$\mathcal{O}(n_\theta^3)$ for the computation of $\partial G(\boldsymbol{\theta})/\partial\theta_k$ is not inflicted on
-SMMALA.
-
-To sum up, MMALA necessitates computing the two matrix inverses $G^{-1}(\boldsymbol{\theta})$ and 
-$G^{-1}(\boldsymbol{\theta}^{\star})$ in order to evaluate the proposals involved in the acceptance probability 
-\eqref{langevin_acceptance}, one Cholesky decomposition $\sqrt{G^{-1}(\boldsymbol{\theta})}$ to sample from the proposal, 
-and the third-order derivatives $\partial G(\boldsymbol{\theta})/\partial\theta_k$ of $G(\boldsymbol{\theta})$
-for learning the curvature of the associated manifold. Hence, MMALA has a complexity of $\mathcal{O}(4n_\theta^3)$. 
-% <- CHECK:  Shouldn't MMALA be (3+f(n_\theta))n_\theta^3 for consistency with next-to-last-paragraph of this section?
-%
-SMMALA poses the same computational requirements apart from setting $\partial G(\boldsymbol{\theta})/\partial\theta_k$ to zero, so 
-the complexity of SMMALA becomes $\mathcal{O}(3n_\theta^3)$.
-
-A detailed account of the time complexity of SMMALA has been given to highlight the main sources of computational load
-involved in geometric updates. In what follows, scaling factors and constants will be suppressed in big-$\mathcal{O}$ 
-notation following common practice.
+Adding up the cost of computations associated with the proposal and the target yields the order of complexity for Langevin
+Monte Carlo. So, it follows that MALA, SMMALA and MMALA run in $\mathcal{O}(f(n_{\theta})n_{\theta}+n_\theta^2)$, 
+$\mathcal{O}(f(n_{\theta})n_\theta^2+n_\theta^3+2n_\theta^{2.373})$ and 
+$\mathcal{O}(f(n_{\theta})n_{\theta}^3+n_\theta^3+2n_\theta^{2.373})$ time, respectively.
 
 % CHECK If we agree on the above change, then can revise this paragraph, replacing the first three sentances with
 % For many scientific applications, the complexity of evaluating the log-target will substantially exceed the complexity of the samplers.  
@@ -371,6 +347,10 @@ algorithm tends to be reported as a function of the order of derivatives appeari
 complexity of SMMALA scales as $\mathcal{O}(f^2(n_{\theta})+2n_\theta^3+2n_\theta^{2.373})$, or more crudely as
 $\mathcal{O}(f^2(n_{\theta}))$, for a log-target with complexity time
 $\mathcal{O}(f(n_{\theta}))>>\mathcal{O}(n_{\theta}^3)$.
+
+A detailed account of the time complexity of SMMALA has been given to highlight the main sources of computational load
+involved in geometric updates. In what follows, scaling factors and constants will be suppressed in big-$\mathcal{O}$ 
+notation following common practice.
 
 Combining the best of two worlds, an effective and efficient MCMC algorithm would exploit geometric information in time as 
 close as possible to the linear time of MALA. One potential approach towards this end would be to approximate the expensive 
