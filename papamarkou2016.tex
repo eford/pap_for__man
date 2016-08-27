@@ -124,12 +124,12 @@ Hessian or the inversion of the Hessian.
 \cite{gir_cal__rie} introduced the simplified manifold Metropolis-adjusted Langevin algorithm (SMMALA) that is of the same 
 order but often faster than MMALA and RMHMC in lower-dimensional parameter spaces. The faster speed of SMMALA over MMALA and 
 RMHMC is explained by lower order terms and constant factors appearing in big-oh notation, which are ordinarily omitted but 
-affect runtime in the case of smaller $n_\theta$. For this reason, the simplified manifold Metropolis adjusted Langevin 
-algorithm (SMMALA) has been employed in conjunction with population MCMC for the Bayesian analysis of mechanistic models 
-based on systems of non-linear differential equations, see \cite{cal_gir__sta} and \cite{sch_pap__ews}. Despite the capacity 
-of SMMALA to exploit local geometric information so as to cope with non-linear correlations and modest increase in the 
-dimensionality of the parameter space, in other cases its computational complexity can render the performance inferior to 
-other algorithms such as the Metropolis-adjusted Langevin algorithm (MALA) or adaptive MCMC, see \cite{cal_eps_sil__bay}.
+affect runtime in the case of smaller $n_\theta$. For this reason, SMMALA has been employed in conjunction with population 
+MCMC for the Bayesian analysis of mechanistic models based on systems of non-linear differential equations, see 
+\cite{cal_gir__sta} and \cite{sch_pap__ews}. Despite the capacity of SMMALA to exploit local geometric information so as to 
+cope with non-linear correlations and modest increase in the dimensionality of the parameter space, in other cases its 
+computational complexity can render the performance inferior to other algorithms such as the Metropolis-adjusted Langevin 
+algorithm (MALA) or adaptive MCMC, see \cite{cal_eps_sil__bay}.
 
 Various attempts have been made to ameliorate the computational implications of geometric Monte Carlo methods. Along these 
 lines, \cite{lan_tha_chr__emu} used Gaussian processes to emulate the Hessian matrix and Christoffel symbols associated with 
@@ -210,20 +210,18 @@ which case MALA is defined in its conventional form
 \Sigma(\epsilon) = \epsilon^2 I.
 \end{equation}
 
-MALA uses the gradient flow $\nabla_{\theta}\log{p(\boldsymbol{\theta})}$ to make proposals effectively.
-According to the theoretical analysis of \cite{rob_ros__opt}, the optimal scaling $\epsilon$ has been found to be the value 
-of $\epsilon$ which yields a limiting acceptance rate of $57.4\%$ in high-dimensional parametric spaces 
-(as $n_{\theta}\rightarrow\infty$).
+MALA uses the gradient flow $\nabla_{\theta}\log{p(\boldsymbol{\theta})}$ to make proposals effectively. According to the 
+theoretical analysis of \cite{rob_ros__opt}, the optimal scaling $\epsilon$ has been found to be the value of $\epsilon$ 
+which yields a limiting acceptance rate of $57.4\%$ in high-dimensional parametric spaces (as $n_{\theta}\rightarrow\infty$).
 
 \subsection{Manifold Langevin Monte Carlo Algorithms}
 \label{smmala_section}
 
-It is possible to incorporate further geometric structure in the form of a 
-position-dependent metric $G(\boldsymbol{\theta})$, as explained by \cite{gir_cal__rie}.
-The Langevin diffusion is defined on a Riemann manifold endowed by the metric $G(\boldsymbol{\theta})$, and the
-corresponding Levi-Civita connection specified by the Christoffel symbols of second-kind 
-$\Gamma^{k}_{ij}(\boldsymbol{\theta})$. The resulting manifold Metropolis-adjusted Langevin algorithm (MMALA) draws 
-candidate states from a normal proposal with location and covariance given by
+It is possible to incorporate further geometric structure in the form of a position-dependent metric 
+$G(\boldsymbol{\theta})$, as explained by \cite{gir_cal__rie}. The Langevin diffusion is defined on a Riemann manifold 
+endowed by the metric $G(\boldsymbol{\theta})$, and the corresponding Levi-Civita connection specified by the Christoffel 
+symbols of second-kind $\Gamma^{k}_{ij}(\boldsymbol{\theta})$. The resulting manifold Metropolis-adjusted Langevin algorithm 
+(MMALA) draws candidate states from a normal proposal with location and covariance given by
 \begin{eqnarray}
 \label{mmala_location}
 \boldsymbol{\mu}_{(k)}(\boldsymbol{\theta}, G(\boldsymbol{\theta}), \epsilon) =
@@ -250,15 +248,15 @@ mechanisms, MALA is a special case of SMMALA, which is in turn a special case of
 
 The optimal stepsize $\epsilon$ for MMALA and SMMALA is empirically suggested by \cite{gir_cal__rie} to be set so as to 
 obtain an acceptance rate of around $70\%$; this choice has not been analyzed yet from a theoretical standpoint analogously 
-to the choice of scaling for MALA by \cite{rob_ros__opt}.
-Even if the curvature of the target density is not strictly constant, SMMALA can be applied and may be more efficient than MMALA.  .  
+to the choice of scaling for MALA by \cite{rob_ros__opt}. Even if the curvature of the target density is not strictly 
+constant, SMMALA can be applied and may be more efficient than MMALA.
 
 \subsection{Computational Complexity}
 \label{Motivation}
 
-To dissect the incurring computational cost of geometric MCMC methods, it suffices to consider their three common steps
-that dominate computation. In brief, these three steps include sampling from the proposal, evaluating the proposal density,
-and for some geometric schemes evaluating the derivatives of the metric tensor.
+Calculations associated with the proposal and target densities determine the incurring computational cost of Langevin 
+Monte Carlo methods. In brief, the main computational requirements include sampling from and evaluating the proposal, as well
+as evaluating the target and its derivatives.
 
 Ordinarily, the proposal used in Langevin Monte Carlo is set to be a multivariate normal distribution
 $
@@ -281,15 +279,17 @@ $
 and $\tau\sim\mathcal{N}(\mathbf{0}, I)$, \cite{chi_gre__und}.
 So, sampling from the proposal has a complexity of $\mathcal{O}(2n_\theta^3)$, since it requires the inversion of metric 
 $G(\boldsymbol{\theta})$ and the Cholesky decomposition of $G^{-1}(\boldsymbol{\theta})$, each of which are
-$\mathcal{O}(n_\theta^3)$ operations. MALA, as opposed to SMMALA and MMALA, relies on a constant preconditioning matrix G,
-therefore $G^{-1}$ and $\sqrt{G^{-1}}$ are evaluated once and cached at the beginning of the simulation avoiding the
-$\mathcal{O}(n_\theta^3)$ cost.
+$\mathcal{O}(n_\theta^3)$ operations.
 
 To calculate the Metropolis-Hastings acceptance ratio \eqref{langevin_acceptance} appearing in SMMALA and MMALA,
 it is required to evaluate the normal proposal twice. As it has become apparent, a proposal evaluation has a complexity of
 $\mathcal{O}(n_\theta^3)$ due to the proposal covariance $\epsilon^2 G^{-1}(\boldsymbol{\theta})$ entailing the inversion of 
 $G(\boldsymbol{\theta})$. Once again, MALA avoids the $\mathcal{O}(n_\theta^3)$ penalty at proposal evaluations as the
 position-independent inverse $G^{-1}$ is initially computed and is then kept fixed.
+
+MALA, as opposed to SMMALA and MMALA, relies on a constant preconditioning matrix G,
+therefore $G^{-1}$ and $\sqrt{G^{-1}}$ are evaluated once and cached at the beginning of the simulation avoiding the
+$\mathcal{O}(n_\theta^3)$ cost.
 
 MMALA and RMHMC, as introduced by \cite{gir_cal__rie}, additionally require to compute the Christoffel symbols 
 $\Gamma^{k}_{ij}(\boldsymbol{\theta})$, which involve
