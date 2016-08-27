@@ -361,8 +361,10 @@ simulation depending on the size of the parameter and state space and on the com
 
 % CHECK:  If we agree on above changes, can move first two sentances earlier
 Generally, if a log-target has a complexity of order $\mathcal{O}(f(n_{\theta}))$, where $f$ is a function of $n_{\theta}$, 
-then the complexity orders of MALA, SMMALA and MMALA grow as $\mathcal{O}(f(n_{\theta}))$, $\mathcal{O}(f^2(n_{\theta}))$ 
-and $\mathcal{O}(f^3(n_{\theta}))$, respectively. These upper bounds of complexity for MALA, SMMALA and MMALA can be made 
+then the complexity orders of MALA, SMMALA and MMALA grow as $\mathcal{O}(f(n_{\theta}))$, $\mathcal{O}(f(n_{\theta})n_\theta^3)$ 
+and $\mathcal{O}(f(n_{\theta})n_theta^2)$, respectively. 
+% CHECK: That you agree with this correction
+These upper bounds of complexity for MALA, SMMALA and MMALA can be made 
 more specific given a log-target, since they depend on the form of the respective log-target gradient, Hessian and Hessian
 derivatives. Computationally expensive models imply $\mathcal{O}(f(n_{\theta}))>>\mathcal{O}(n_{\theta})$. In other words, if the log-target is of high complexity, then
 derivative computations supersede linear algebra calculations, and this is why the computational cost of a manifold MCMC
@@ -1531,7 +1533,7 @@ like. Further, dozens of scientifically interesting data sets remain unanalyzed 
 the computational cost. For example, the Kepler-57 planetary system has a complex posterior shape (\cite{jon_for_row__sec}) 
 that is not well suited to the above ensemble samplers.
 
-Algorithms that exploite geometric information about the posterior shape are likely to be more efficient in terms of the 
+Algorithms that exploit geometric information about the posterior shape are likely to be more efficient in terms of the 
 number of model evaluations. manifold MCMC methods could make make it practical to generate posterior samples with increased 
 effective sample sizes. Unfortunately, computing partial derivatives for every proposal, as required for MMALA or SMMALA, 
 would be extremely expensive. The ALSMMALA and AMSMMALA algorithms have the potential to significantly reduce the number of 
