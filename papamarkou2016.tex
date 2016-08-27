@@ -323,6 +323,12 @@ $ and the complexity of calculations associate wit the proposal in MALA is of or
 %and the gradient $\nabla_{\theta}\log{p(\boldsymbol{\theta})}$  of the log-target have a complexity of 
 %$\mathcal{O}(n_{\theta})$ each. So, if $G=I$, the complexity of MALA is of order $\mathcal{O}(n_{\theta})$.
 
+If a log-target has a complexity of order $\mathcal{O}(f(n_{\theta}))$, where $f$ is a function of $n_{\theta}$, then the 
+complexity orders for computations associated with the log-target in MALA, SMMALA and MMALA grow as 
+$\mathcal{O}(f(n_{\theta})n_{\theta})$, $\mathcal{O}(f(n_{\theta})n_\theta^2)$ and $\mathcal{O}(f(n_{\theta})n_{\theta}^3)$, 
+respectively. These incurring costs for MALA, SMMALA and MALA arise from the respective evaluations of log-target gradient, 
+Hessian and Hessian derivatives.
+
 MMALA and RMHMC, as introduced by \cite{gir_cal__rie}, additionally require to compute the Christoffel symbols 
 $\Gamma^{k}_{ij}(\boldsymbol{\theta})$, which involve
 the partial derivatives $\partial G(\boldsymbol{\theta})/\partial\theta_k,~k\in\left\{1,2,\dots,n_{\theta}\right\},$
@@ -359,13 +365,7 @@ solving the ODE system numerically, then the log-target and its derivative evalu
 simulation depending on the size of the parameter and state space and on the complexity of the numerical ODE solver.
 
 % CHECK:  If we agree on above changes, can move first two sentances earlier
-Generally, if a log-target has a complexity of order $\mathcal{O}(f(n_{\theta}))$, where $f$ is a function of $n_{\theta}$, 
-then the complexity orders of MALA, SMMALA and MMALA grow as $\mathcal{O}(f(n_{\theta}))$, $\mathcal{O}(f(n_{\theta})n_\theta^3)$ 
-and $\mathcal{O}(f(n_{\theta})n_theta^2)$, respectively. 
-% CHECK: That you agree with this correction
-These upper bounds of complexity for MALA, SMMALA and MMALA can be made 
-more specific given a log-target, since they depend on the form of the respective log-target gradient, Hessian and Hessian
-derivatives. Computationally expensive models imply $\mathcal{O}(f(n_{\theta}))>>\mathcal{O}(n_{\theta})$. In other words, if the log-target is of high complexity, then
+Computationally expensive models imply $\mathcal{O}(f(n_{\theta}))>>\mathcal{O}(n_{\theta})$. In other words, if the log-target is of high complexity, then
 derivative computations supersede linear algebra calculations, and this is why the computational cost of a manifold MCMC
 algorithm tends to be reported as a function of the order of derivatives appearing in the algorithm. For instance, the
 complexity of SMMALA scales as $\mathcal{O}(f^2(n_{\theta})+2n_\theta^3+2n_\theta^{2.373})$, or more crudely as
