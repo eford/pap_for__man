@@ -5,14 +5,6 @@
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[andJason F.~Rowe et~al.(2015)andJason F.~Rowe, Lissauer, Fabrycky, and
-  Ford]{jon_row_lis__the}
-Daniel Jontof-Hutter andJason F.~Rowe, Jack~J. Lissauer, Daniel~C. Fabrycky,
-  and Eric~B. Ford.
-\newblock The mass of the mars-sized exoplanet kepler-138 b from transit
-  timing.
-\newblock \emph{Nature}, 522:\penalty0 321--323, June 2015.
-
 \bibitem[Betancourt(2013)]{bet__age}
 Michael Betancourt.
 \newblock \emph{A General Metric for Riemannian Manifold Hamiltonian Monte
@@ -230,6 +222,14 @@ Fengji Hou, Jonathan Goodman, David~W. Hogg, Jonathan Weare, and Christian
 \newblock An affine-invariant sampler for exoplanet fitting and discovery in
   radial velocity data.
 \newblock \emph{The Astrophysical Journal}, 745:\penalty0 198, February 2012.
+
+\bibitem[Jontof-Hutter et~al.(2015)Jontof-Hutter, Rowe, Lissauer, Fabrycky, and
+  Ford]{jon_row_lis__the}
+Daniel Jontof-Hutter, Jason~F. Rowe, Jack~J. Lissauer, Daniel~C. Fabrycky, and
+  Eric~B. Ford.
+\newblock The mass of the mars-sized exoplanet kepler-138 b from transit
+  timing.
+\newblock \emph{Nature}, 522:\penalty0 321--323, June 2015.
 
 \bibitem[Jontof-Hutter et~al.(2016)Jontof-Hutter, Ford, Rowe, Lissauer,
   Fabrycky, Laerhoven, Agol, Deck, Holczer, and Mazeh]{jon_for_row__sec}

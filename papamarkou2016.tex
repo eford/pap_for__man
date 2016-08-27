@@ -117,21 +117,19 @@ order to facilitate transitions between modes of multimodal target densities.
 Computing the geometric entities of differential geometric MCMC methods creates a performance bottleneck that restricts the 
 applicability of the involved methods. For example, manifold Monte Carlo methods require to calculate the metric tensor
 $G(\boldsymbol{\theta})$ of choice. Typically, $G(\boldsymbol{\theta})$ is set to be the observed Fisher information matrix,
-which equals the negative Hessian of the log-target density at a specific point $\boldsymbol{\theta}$.
-Consequently, the complexity of manifold MCMC algorithms is dominated by Hessian-related computations, either the 
-computation of gradient and Hessian of order  $\mathcal{O}(n_\theta^2)$ or the inversion of the Hessian, so it becomes at best of order $\mathcal{O}(n_\theta^3)$.
-% <- CHECK:  Shouldn't these be $\mathcal{O}(f(n_\theta)n_\theta^2)$   and $\mathcal{O}(f(n_\theta)n_\theta^2+n_\theta^3)$  
+which equals the negative Hessian of the log-target density at a specific point $\boldsymbol{\theta}$. Consequently, the 
+complexity of manifold MCMC algorithms is dominated by Hessian-related computations, either the computation of gradient and 
+Hessian or the inversion of the Hessian.  
 
-\cite{gir_cal__rie} introduced the simplified manifold Metropolis-adjusted Langevin algorithm (SMMALA) that is of order 
-$\mathcal{O}(n_\theta^3)$, but often faster than MMALA and RMHMC in lower-dimensional parameter spaces. The 
-relatively faster speed of SMMALA over MMALA and RMHMC is explained by lower order terms and constant factors appearing in 
-big-oh notation, which are ordinarily omitted but affect runtime in the case of smaller $n_\theta$. For this reason, the 
-simplified manifold Metropolis adjusted Langevin algorithm (SMMALA) has been employed in conjunction with population MCMC 
-for the Bayesian analysis of mechanistic models based on systems of non-linear differential equations, see 
-\cite{cal_gir__sta} and \cite{sch_pap__ews}. Despite the capacity of SMMALA to exploit local geometric information so as to 
-cope with non-linear correlations and modest increase in the dimensionality of the parameter space, in other cases its 
-computational complexity can render the performance inferior to other algorithms such as the Metropolis-adjusted Langevin 
-algorithm (MALA) or adaptive MCMC, see \cite{cal_eps_sil__bay}.
+\cite{gir_cal__rie} introduced the simplified manifold Metropolis-adjusted Langevin algorithm (SMMALA) that is of the same 
+order but often faster than MMALA and RMHMC in lower-dimensional parameter spaces. The faster speed of SMMALA over MMALA and 
+RMHMC is explained by lower order terms and constant factors appearing in big-oh notation, which are ordinarily omitted but 
+affect runtime in the case of smaller $n_\theta$. For this reason, the simplified manifold Metropolis adjusted Langevin 
+algorithm (SMMALA) has been employed in conjunction with population MCMC for the Bayesian analysis of mechanistic models 
+based on systems of non-linear differential equations, see \cite{cal_gir__sta} and \cite{sch_pap__ews}. Despite the capacity 
+of SMMALA to exploit local geometric information so as to cope with non-linear correlations and modest increase in the 
+dimensionality of the parameter space, in other cases its computational complexity can render the performance inferior to 
+other algorithms such as the Metropolis-adjusted Langevin algorithm (MALA) or adaptive MCMC, see \cite{cal_eps_sil__bay}.
 
 Various attempts have been made to ameliorate the computational implications of geometric Monte Carlo methods. Along these 
 lines, \cite{lan_tha_chr__emu} used Gaussian processes to emulate the Hessian matrix and Christoffel symbols associated with 
@@ -142,10 +140,9 @@ instead of differential calculus in order to construct a Langevin Monte Carlo me
 distributions that are log-concave and possibly not continuously differentiable.
 
 This paper develops a Monte Carlo method that improves on the sampling efficacy of SMMALA, while remaining simple to 
-implement. The proposed method permits adjustments to the metric updates and at the same time significantly reduces the 
-constant in front of the $n_\theta^3$ term in the computational complexity of order $\mathcal{O}(n_\theta^3)$. Moreover, the 
-suggested algorithm performs exact metric evaluations, avoiding emulation or other approximations of the Hessian of the 
-log-target density.
+implement. The proposed method permits adjustments to the metric updates and at the same time has smaller computational cost 
+than SMMALA. Moreover, the suggested algorithm performs exact metric evaluations, avoiding emulation or other approximations 
+of the Hessian of the log-target density.
 
 \section{Background}
 
@@ -320,7 +317,7 @@ optimized versions of the Coppersmith-Winograd algorithm allow to perform matrix
 inversion in $\mathcal{O}(n_\theta^{2.373})$ time. Consequently, optimized implementations of MMALA and SMMALA can run in
 $\mathcal{O}(2n_\theta^3+2n_\theta^{2.373})$ and $\mathcal{O}(n_\theta^3+2n_\theta^{2.373})$ time, respectively.
 % <- CHECK:  Shouldn't these be 
-$\mathcal{O}((1+f(n_\theta)n_\theta^3+2n_\theta^{2.373})$ and $\mathcal{O}(n_\thetaf(n_\theta)+n_\theta^3+2n_\theta^{2.373})$ time, respectively.
+%$\mathcal{O}((1+f(n_\theta)n_\theta^3+2n_\theta^{2.373})$ and %$\mathcal{O}(n_\thetaf(n_\theta)+n_\theta^3+2n_\theta^{2.373})$ time, respectively.
 
 
 A detailed account of the time complexity of SMMALA has been given to highlight the main sources of computational load
