@@ -906,36 +906,77 @@ made via $c_1$ is $1/a$, which completes the proof.
 \end{proof}
 
 \begin{lemma}
-For a large number $n_m$ of iterations ($n_m\rightarrow\infty$), the expected complexity of ALSMMALA, as presented in 
-Algorithm \ref{alsmmala} and equipped with the exponentially decaying schedule defined by \eqref{exp_schedule_a}, is given by
+For a log-target with complexity of order $\mathcal{O}(f(n_{\theta}))>>\mathcal{O}(n_{\theta})$ and for a large number $n_m$ 
+of iterations ($n_m\rightarrow\infty$), the expected complexity of ALSMMALA, as presented in Algorithm \ref{alsmmala} and 
+equipped with the exponentially decaying schedule defined by \eqref{exp_schedule_a}, is given by
 \begin{equation}
 \label{eq:c_alsmmala_exp}
 \mathcal{O}\left(
-\dfrac{1-\exp{(-a)}}{a}n_{\theta}^3+
-\left(1-\dfrac{1-\exp{(-a)}}{a}\right)n_{\theta}^2
+\dfrac{1-\exp{(-a)}}{a}f(n_{\theta})n_{\theta}^2+
+\left(1-\dfrac{1-\exp{(-a)}}{a}\right)f(n_{\theta})n_{\theta}
 \right).
 \end{equation}
 \end{lemma}
 
 \begin{proof}
 \eqref{eq:c_alsmmala_exp} follows from \eqref{eq:c_exp_limit} by recalling that the respective complexities of SMMALA and 
-MALA are $\mathcal{O}(n_{\theta}^3)$ and $\mathcal{O}(n_{\theta}^2)$.
+MALA for a log-target with complexity of order $\mathcal{O}(f(n_{\theta}))>>\mathcal{O}(n_{\theta})$ are 
+$\mathcal{O}(f(n_{\theta})n_{\theta}^2)$ and $\mathcal{O}(f(n_{\theta})n_{\theta})$.
 \end{proof}
 
 \begin{lemma}
-The expected complexity of AMSMMALA, as defined in Algorithm \ref{amsmmala}, is
+For a log-target with complexity of order $\mathcal{O}(f(n_{\theta}))>>\mathcal{O}(n_{\theta})$, the expected complexity of 
+AMSMMALA, as defined in 
+Algorithm \ref{amsmmala}, is
 \begin{equation}
 \label{eq:c_amsmmala_mod}
 \mathcal{O}\left(
-\dfrac{1}{a}n_{\theta}^3+
-\dfrac{a-1}{a}n_{\theta}^2
+\dfrac{1}{a}f(n_{\theta})n_{\theta}^2+
+\dfrac{a-1}{a}f(n_{\theta})
 \right).
 \end{equation}
 \end{lemma}
 
 \begin{proof}
-Setting $c1=n_{\theta}^3$ and $c_2=n_{\theta}^2$ in \eqref{eq:c_mod}, which correspond to the complexity orders of SMMALA 
-and AM, gives \eqref{eq:c_amsmmala_mod}.
+Setting $c1=f(n_{\theta})n_{\theta}^2$ and $c_2=f(n_{\theta})$ in \eqref{eq:c_mod}, which correspond to the complexity 
+orders of SMMALA and AM for a log-target with complexity of order $\mathcal{O}(f(n_{\theta}))>>\mathcal{O}(n_{\theta})$, 
+gives \eqref{eq:c_amsmmala_mod}.
+\end{proof}
+
+\begin{lemma}
+	For a log-target with complexity of order $\mathcal{O}(1)$ and for a large number $n_m$ of iterations 
+	($n_m\rightarrow\infty$), the expected complexity of ALSMMALA, as presented in Algorithm \ref{alsmmala} and equipped with 
+	the exponentially decaying schedule defined by \eqref{exp_schedule_a}, is given by
+	\begin{equation}
+	\label{eq:c_alsmmala_exp_simple}
+	\mathcal{O}\left(
+	\dfrac{1-\exp{(-a)}}{a}n_{\theta}^3+
+	\left(1-\dfrac{1-\exp{(-a)}}{a}\right)n_{\theta}^2
+	\right).
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	\eqref{eq:c_alsmmala_exp_simple} is derived from \eqref{eq:c_exp_limit} by observing that the respective complexities of 
+	SMMALA and MALA for a log-target with complexity of order $\mathcal{O}(1)$ are $\mathcal{O}(n_{\theta}^3)$ and 
+	$\mathcal{O}(n_{\theta}^2)$.
+\end{proof}
+
+\begin{lemma}
+	For a log-target with complexity of order $\mathcal{O}(1)$, the expected complexity of AMSMMALA, as defined in Algorithm 
+	\ref{amsmmala}, is
+	\begin{equation}
+	\label{eq:c_amsmmala_mod_simple}
+	\mathcal{O}\left(
+	\dfrac{1}{a}n_{\theta}^3+
+	\dfrac{a-1}{a}n_{\theta}^2
+	\right).
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	Setting $c1=n_{\theta}^3$ and $c_2=n_{\theta}^2$ in \eqref{eq:c_mod}, which represent the complexity orders of SMMALA and 
+	AM for a log-target with complexity of order $\mathcal{O}(1)$, yields \eqref{eq:c_amsmmala_mod_simple}.
 \end{proof}
 
 The schedule $p(i)$ for choosing between proposal mechanisms plays a decisive role in the complexity of the resulting sampler
@@ -944,11 +985,12 @@ the modulus $a$ of a $\mod{(a)}$ schedule can be used for adjusting the computat
 \eqref{eq:c_exp_limit} and \eqref{eq:c_mod}.
 
 Figure \ref{fig:alsmmala_amsmmala_schedule} displays the complexity of ALSMMALA with an exponential schedule specified by
-\eqref{exp_schedule_a} and AMSMMALA with a $\mod{(a)}$ schedule as a function of the parameter space dimension $n_{\theta}$.
-The curves of Figures \ref{fig:alsmmala_exp_schedule} and \ref{fig:amsmmala_mod_schedule} correspond to varying levels of 
-decaying rate $a$ for ALSMMALA and of modulus $a$ for AMSMMALA. In both cases, the tuning factor $a$ determines the 
-trade-off between runtime and amount of geometric computation. Larger values of $a$ reduce the runtime due to fewer 
-geometric updates, whereas smaller values of $a$ increase the complexity as they induce more geometric updates.
+\eqref{exp_schedule_a} and of AMSMMALA with a $\mod{(a)}$ schedule as a function of the parameter space dimension 
+$n_{\theta}$ for computationally cheap models. The curves of Figures \ref{fig:alsmmala_exp_schedule} and 
+\ref{fig:amsmmala_mod_schedule} correspond to varying levels of decaying rate $a$ for ALSMMALA and of modulus $a$ for 
+AMSMMALA. In both cases, the tuning factor $a$ determines the trade-off between runtime and amount of geometric computation. 
+Larger values of $a$ reduce the runtime due to fewer geometric updates, whereas smaller values of $a$ increase the 
+complexity as they induce more geometric updates.
 
 \begin{figure}[t]
 	\centering
@@ -961,10 +1003,11 @@ geometric updates, whereas smaller values of $a$ increase the complexity as they
 		\includegraphics[width=2.8in]{amsmmala_complexity.pdf}
 	} \\
 	\caption{
-		Time complexity of ALSMMALA with an exponential schedule given by \eqref{exp_schedule_a} and AMSMMALA with a $\mod{(a)}$ 
-		schedule as a function of the number $n_{\theta}$ of parameters. Different curves correspond to varying levels of 
-		decaying rate $a$ for ALSMMALA and of modulus $a$ for AMSMMALA. The cubic complexity of SMMALA and quadratic complexity
-		of MALA with a preconditioning matrix other than the identity matrix are displayed as baseline cases.
+		Time complexity of ALSMMALA with an exponential schedule given by \eqref{exp_schedule_a} and of AMSMMALA with a 
+		$\mod{(a)}$ schedule as a function of the number $n_{\theta}$ of parameters for log-targets with complexity of order
+		$\mathcal{O}(1)$. Different curves correspond to varying levels of decaying rate $a$ for ALSMMALA and of modulus $a$ for 
+		AMSMMALA. The cubic complexity of SMMALA and quadratic complexity of MALA with a preconditioning matrix other than the 
+		identity matrix are displayed as baseline cases.
 	}
 	\label{fig:alsmmala_amsmmala_schedule}
 \end{figure}
