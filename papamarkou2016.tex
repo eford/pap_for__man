@@ -337,8 +337,8 @@ scaling factors and lower-order terms. The complexity order of the typical MALA 
 reduces to $\mathcal{O}(n_{\theta})$ for a simple model.
 
 On the other hand, computationally expensive models imply $\mathcal{O}(f(n_{\theta}))>>\mathcal{O}(n_{\theta})$. For such
-models, the cost of computations implicating the log-target is much higher than the cost of proposal-related calculation. In 
-other words, if the log-target is of high complexity, then derivative computations supersede linear algebra calculations, 
+models, the cost of computations implicating the log-target is much higher than the cost of proposal-related calculations. 
+In other words, if the log-target is of high complexity, then derivative computations supersede linear algebra calculations, 
 and this is why the computational cost of a manifold MCMC algorithm tends to be reported as a function of the order of 
 derivatives appearing in the algorithm. For instance, the complexity of SMMALA, which scales as 
 $\mathcal{O}(f(n_{\theta})n_\theta^2+n_\theta^3+2n_\theta^{2.373})$, can be simply written as 
