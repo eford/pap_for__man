@@ -1543,7 +1543,7 @@ evaluation consists of integrating a set of $6\times n_{\mathrm{pl}}$ first-orde
 planetary systems, the mutual gravitational interactions can be ignored, so using a simpler approximate model can
 dramatically reduce the computational cost. However, many of the most scientifically interesting planetary systems and data 
 sets require using the full and more expensive model, including Doppler observations of near-resonant planetary systems and 
-transit timing measurements for near-resonant or tightly packed systems.
+transit timing measurements for near-resonant or tightly packed systems.  
 
 Even if the DE-MC algorithm is parallelized over a cluster of CPUs or a GPU, computing usable posterior samples for such 
 systems typically requires weeks of computation
@@ -1559,6 +1559,8 @@ number of model evaluations. manifold MCMC methods could make make it practical 
 effective sample sizes. Unfortunately, computing partial derivatives for every proposal, as required for MMALA or SMMALA, 
 would be extremely expensive. The ALSMMALA and AMSMMALA algorithms have the potential to significantly reduce the number of 
 gradient and Hessian evaluations required.  
+
+For example, consider the previous case of characterizing the masses and orbits of extrasolar planets.  \cite{rei_tam__sec} have implemented second-order variational equations into the REBOUND n-body integrator.  They confirm that the ratio of runtimes for the first and second-order variational equations for $N_{par}$ parameters scales as $(1+N_{par}+\frac{1}{2}N_{par}(N_{par}+1))$.  For a system with $N_{pl}$ planets, integrating just the standard model for one orbital period requires $\simeq~0.2 \mathrm{ms} \times N_{pl}(N_{pl}+1)/2$ on a single core of an Intel Xeon E5-1650 (3.2 GHz).  Since each planet requires 7 parameters, calculating the full second-order variational equations scales requires $\simeq~0.2 \mathrm{ms} N_{pl}(N_{pl}+1)(1+7N_{pl}+21N_{pl}(N_{pl}+1))$.  For example, an observational dataset of 5 years and a planetary system containing 4 planets including an innermost planet with an orbital period of 3.65 days would result in a the compute time for each model evaluation would be $\simeq~1$ second.  Evaluating the model and gradient would cost $\simeq~29$ seconds, while evaluating the model, gradient and full hessian would require $\simeq~435$ seconds.  For such problems, ALSMMALA can be expected accelerate computations by over an order of magnitude relative to SMMALA.
 
 This paper represents one step in the effort to develop more efficient samplers and suggests several future elaborations.  
 Other combinations of geometric proposals, such as manifold Hamiltonian Monte Carlo, with computationally cheaper proposals 
